@@ -22,6 +22,7 @@ List all the pages and screens in the app. Include wireframes for at least 3 of 
 
 Describe your app's data model using diagrams or tables
 
+### User
 
 | Column Title| Type        | Description |
 | ----------- | ----------- |-----------  |
@@ -32,6 +33,8 @@ Describe your app's data model using diagrams or tables
 | reviews     | review[]    | Reviews created by the user (relation userId)
 | saved       | listing[]   | Listings saved by the user (relation listingId)
 | createdAt   | DateTime    | DateTime of the user's account creation |
+
+### Listing
 
 | Column Title| Type        | Description |
 | ----------- | ----------- |-----------  |
@@ -47,7 +50,7 @@ Describe your app's data model using diagrams or tables
 | reviews     | review[]    | An array of reviews with the associated listing id
 | createdAt   | DateTime    | DateTime of the listing's creation |
 
-
+### Review
 
 | Column Title| Type        | Description |
 | ----------- | ----------- |-----------  |
