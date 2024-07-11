@@ -10,8 +10,8 @@ Description: The main purpose of our project is to create a peer-to-peer photogr
 
 ## User Roles and Personas
 
-Those seeking to rent photography equipment, services, & spaces
-Owners of photography equipment looking to rent their items. 
+* Those seeking to rent photography equipment, services, & spaces
+* Owners of photography equipment looking to rent their items. 
 
 ## User Stories
 
