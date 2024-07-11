@@ -16,6 +16,7 @@ Owners of photography equipment looking to rent their items.
 ## User Stories
 
 **As a [user role], I want to [what], so that [why]**
+
 As an unregistered or registered user I want to browse everything available for rent viewing item cards with a photo, title, and cost, so that I can gauge my interest in the website’s items
 
 As an unregistered or registered user, I want to click on an item card and view a modal with a photo, title, cost, and description of the item
