@@ -44,7 +44,11 @@ As a registered or unregistered user, I want to filter my searches to only inclu
 
 ## Pages/Screens
 
-List all the pages and screens in the app. Include wireframes for at least 3 of them.
+* Home Page
+* Category Pages x 3 (equipment, spaces, services)
+* Profile Page
+* Product Card Modal
+* Create a Listing Modal
 
 ## Data Model
 
