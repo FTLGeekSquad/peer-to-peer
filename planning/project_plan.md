@@ -49,6 +49,7 @@ Describe your app's data model using diagrams or tables
 | location    | string      | The user specified location of the listing
 | reviews     | review[]    | An array of reviews with the associated listing id
 | createdAt   | DateTime    | DateTime of the listing's creation |
+| availability| dates[]     | An array of pairs containing to and from dates |
 
 ### Review
 
@@ -57,11 +58,40 @@ Describe your app's data model using diagrams or tables
 | reviewId    | int         | primary key |
 | userId      | User        | Associates the review to it's belonging user (relation userId) |
 | message     | str         | The created review message
+| rating      | int         | A 1-5 rating of the listing that will be depicted as stars
 | listingId   | str         | The associated Id of the listing being reviewed
 | createdAt   | DateTime    | DateTime of the review's creation |
 
 ## Endpoints
+### User Endpoints
+| Crud         | HTTP Verb  | Route        | Description|
+| ----------- | ----------- |-----------   |----------------
+| Read        | GET         | users        |List all users
+| Read        | GET         |users/userId  |Fetch user by ID
+| Delete      | DELETE      | users/userId |Delete user by ID
+| Update      | PUT         | users/userId |Update user by ID
+| Create      | POST        | users         |Create new user
 
-List the API endpoints you will need to implement.
+### Review Endpoints 
+| Crud         | HTTP Verb  | Route              | Description|
+| ----------- | ----------- |-----------         |----------------
+| Read        | GET         | reviews            |List all review
+| Read        | GET         | reviews/reviewId   |Fetch review by ID
+| Delete      | DELETE      | reviews/reviewId   |Delete review by ID
+| Update      | PUT         | reviews/reviewId   |Update review by ID
+| Create      | POST        | reviews/reviewId   |Create new review
+
+### Listing Endpoints
+| Crud         | HTTP Verb  | Route                 | Description|
+| ----------- | ----------- |-----------            |----------------
+| Read        | GET         | listings              |List all review
+| Read        | GET         | listings/listingsId   |Fetch review by ID
+| Read        | GET         | listings/equipment    |List all review
+| Read        | GET         | listings/space        |List all review
+| Read        | GET         | listing/service       |List all review
+| Delete      | DELETE      | listings/listingId    |Delete review by ID
+| Update      | PUT         | listings/listingId    |Update review by ID
+
+
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***
