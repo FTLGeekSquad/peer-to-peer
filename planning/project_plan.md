@@ -17,16 +17,27 @@ Owners of photography equipment looking to rent their items.
 
 **As a [user role], I want to [what], so that [why]**
 As an unregistered or registered user I want to browse everything available for rent viewing item cards with a photo, title, and cost, so that I can gauge my interest in the website’s items
+
 As an unregistered or registered user, I want to click on an item card and view a modal with a photo, title, cost, and description of the item
+
 As a new user I want to create an account so that I can either list or rent on the website
+
 As a returning user, I want to use my existing username and password to log into the website and view my current listings and rentals on my profile page
+
 As a returning user seeking to rent, I want to save item cards to my profile so that I can look back at my considerations later
+
 As a returning user seeking to rent, I want to mark item cards saved to my profile as ‘renting’ when I have completed a transaction separate from the website
+
 As a returning user, I want to be able to upload a title, description, photo, contact information,  and cost of a listing so that I can rent my stuff out on the website
+
 As an unregistered user, I want to be prompted to create an account or log in when I click ‘rent now’ on an item before I can see the owner’s contact information
+
 As a returning user seeking to manage my listings, I want to be able to mark a listing on my profile as ‘rented’ when I have completed an offline transaction
+
 As a registered or unregistered user, I want to be able to view a search bar on the home page so that I can search by the name of what I’m seeking
+
 As a registered or unregistered user, I want to have the option to filter my searches to only include certain categories of items (equipment, spaces, services) so that I can cater them to my interests
+
 As a registered or unregistered user, I want to filter my searches to only include items in certain price ranges so that I can cater them to my interests
 
 
