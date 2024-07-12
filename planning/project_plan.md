@@ -69,6 +69,7 @@ Describe your app's data model using diagrams or tables
 | reviews     | review[]    | Reviews created by the user (relation userId)
 | saved       | listing[]   | Listings saved by the user (relation listingId)
 | createdAt   | DateTime    | DateTime of the user's account creation |
+| savedListing | Object[ {boolean, listingId} ] | If a listing is saved, it will display on profile |
 
 ### Listing
 
