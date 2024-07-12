@@ -86,7 +86,7 @@ Describe your app's data model using diagrams or tables
 | location    | string      | The user specified location of the listing
 | reviews     | review[]    | An array of reviews with the associated listing id
 | createdAt   | DateTime    | DateTime of the listing's creation |
-| availability| dates[]     | An array of pairs containing to and from dates |
+| availability| Object[ {dateTime, boolean} ]     | An array of pairs containing to and from dates |
 
 
 ### Review
@@ -97,7 +97,7 @@ Describe your app's data model using diagrams or tables
 | userId      | User        | Associates the review to it's belonging user (relation userId) |
 | message     | str         | The created review message
 | rating      | int         | A 1-5 rating of the listing that will be depicted as stars
-| listingId   | str         | The associated Id of the listing being reviewed
+| listingId   | int         | The associated Id of the listing being reviewed
 | createdAt   | DateTime    | DateTime of the review's creation |
 
 ## Endpoints
