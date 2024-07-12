@@ -134,3 +134,5 @@ Describe your app's data model using diagrams or tables
 
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***
+
+[Project Plan - Trellp Board](https://trello.com/b/O6PJXpW9/geeksquad-capstone)
