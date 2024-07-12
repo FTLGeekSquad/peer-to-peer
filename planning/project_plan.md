@@ -83,6 +83,7 @@ Describe your app's data model using diagrams or tables
 | createdAt   | DateTime    | DateTime of the listing's creation |
 | availability| dates[]     | An array of pairs containing to and from dates |
 
+
 ### Review
 
 | Column Title| Type        | Description |
@@ -112,17 +113,19 @@ Describe your app's data model using diagrams or tables
 | Delete      | DELETE      | reviews/reviewId   |Delete review by ID
 | Update      | PUT         | reviews/reviewId   |Update review by ID
 | Create      | POST        | reviews/reviewId   |Create new review
+| Read        | GET         | reviews/listingId  |Fetch review by listing
 
 ### Listing Endpoints
 | Crud         | HTTP Verb  | Route                 | Description|
 | ----------- | ----------- |-----------            |----------------
-| Read        | GET         | listings              |List all review
-| Read        | GET         | listings/listingsId   |Fetch review by ID
-| Read        | GET         | listings/equipment    |List all review
-| Read        | GET         | listings/space        |List all review
-| Read        | GET         | listing/service       |List all review
+| Read        | GET         | listings              |List all listings
+| Read        | GET         | listings/listingsId   |Fetch listing by ID
+| Read        | GET         | listings/equipment    |List all listings
+| Read        | GET         | listings/space        |List all listings
+| Read        | GET         | listing/service       |List all listings
 | Delete      | DELETE      | listings/listingId    |Delete review by ID
 | Update      | PUT         | listings/listingId    |Update review by ID
+| Read        | GET         | listing/userId        |Fetch listing userId
 
 
 
