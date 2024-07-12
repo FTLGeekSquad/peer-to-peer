@@ -50,7 +50,7 @@ As a registered or unregistered user, I want to filter my searches to only inclu
 * Product Card Modal
 * Create a Listing Modal
 
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FssHku0UqNFGUfcUHvvj3tf%2FWireFrames%3Fnode-id%3D0-1%26t%3DW0MyPpX2WVSybXfY-1" allowfullscreen></iframe>
+[Wireframe](https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FssHku0UqNFGUfcUHvvj3tf%2FWireFrames%3Fnode-id%3D0-1%26t%3DW0MyPpX2WVSybXfY-1)
 
 ## Data Model
 
