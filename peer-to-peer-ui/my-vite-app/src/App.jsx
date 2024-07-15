@@ -1,17 +1,24 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './components/navBar/navBar';
 
+const Equipment = () => <div>Equipment Page</div>;
+const Spaces = () => <div>Spaces Page</div>;
+const Services = () => <div>Services Page</div>;
 
 function App() {
-
-
   return (
-    <>
-     
-      <h1>Peer 2 Peer</h1>
-     <p>Hello from the app!!</p>
-    </>
-  )
+    <Router>
+      <NavBar />
+      <Switch>
+        <Route path="/equipment" component={Equipment} />
+        <Route path="/spaces" component={Spaces} />
+        <Route path="/services" component={Services} />
+      </Switch>
+    </Router>
+  );
 }
 
-export default App
+export default App;
+
+
