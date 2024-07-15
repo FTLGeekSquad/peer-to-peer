@@ -1,0 +1,1 @@
+//this will serve as an individual spaces "card" that will be populated on the equipment grid

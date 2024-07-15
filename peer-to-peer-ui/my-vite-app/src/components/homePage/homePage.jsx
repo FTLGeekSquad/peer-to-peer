@@ -1,0 +1,1 @@
+//the home page should contain a sear

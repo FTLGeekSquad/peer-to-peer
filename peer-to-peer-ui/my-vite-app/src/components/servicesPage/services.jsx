@@ -1,0 +1,1 @@
+//this will serve as an individual services "card" that will be populated on the equipment grid

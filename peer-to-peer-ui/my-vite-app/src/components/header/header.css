@@ -1,0 +1,13 @@
+h1 {
+    background-color: rgba(29, 27, 32, 0.08);
+    color: black;
+    padding: 20px;
+    text-align: center;
+    font-family: "Solway", sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for a subtle 3D effect */
+    border: 10px;
+    margin:0px;
+  }
+
+  
+  
