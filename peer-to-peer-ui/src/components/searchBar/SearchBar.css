@@ -1,0 +1,22 @@
+.search-bar {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
+  
+  .search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px; /* Adjust width as needed */
+    background-color:    #C3CBC6;
+    border-radius: 300px;
+  }
+  
+  .search-input:focus {
+    outline: none; /* Remove the default focus outline if desired */
+  }
+  
+  
+  

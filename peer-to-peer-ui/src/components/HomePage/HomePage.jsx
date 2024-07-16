@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 import equipment from "/src/assets/equipment.png";
