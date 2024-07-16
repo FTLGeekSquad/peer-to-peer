@@ -12,7 +12,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
 	try {
-		const users = await userModel.getUserById(req.params.user);
+		const users = await userModel.getUserById(req.params.userId);
 		if (users) {
 			res.status(200).json(users);
 		} else {
@@ -23,10 +23,22 @@ const getUserById = async (req, res) => {
 	}
 };
 
-// crud here
+// create user
+const createUser = async (req, res) => {
+	const userData = req.body;
+	try {
+	  const newUser = await userModel.createUser(userData);
+	  res.status(201).json(newUser);
+	} catch (error) {
+	  res.status(400).json({ error: error.message });
+	}
+  };
+
+  
 
 module.exports = {
 	getAllUsers,
 	getUserById,
+	createUser
 	// other exports
 };
