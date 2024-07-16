@@ -1,24 +1,26 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const listingModel = require("../models/listingModel");
 
 const getAllListings = async (req, res) => {
 	try {
-		const listings = await prisma.listing.findMany();
-		res.json(listings);
+		const listing = await listingModel.getAllListings();
+		res.status(200).json(listing);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		console.error("Error fetching listings:", error); // Log the error for debugging
+		res.status(400).json({ error: error.message });
 	}
 };
 
+//Function to get card by ID
 const getListingById = async (req, res) => {
-	const { listingId } = req.params;
 	try {
-		const listing = await prisma.listing.findUnique({
-			where: { listingId: parseInt(listingId) },
-		});
-		res.json(listing);
+		const listing = await listingModel.getListingById(req.params.listing);
+		if (listing) {
+			res.status(200).json(listing);
+		} else {
+			res.status(404).json({ error: "listing not found" });
+		}
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(400).json({ error: error.message });
 	}
 };
 
