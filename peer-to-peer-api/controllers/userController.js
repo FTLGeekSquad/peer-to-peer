@@ -48,12 +48,27 @@ const updateUser = async (req, res) => {
     }
   };
 
+  //Function to delete a user
+const deleteUser = async (req, res) => {
+	try {
+		const deletedUser = await userModel.deleteUser(req.params.userId);
+		if (deletedUser) {
+			res.status(200).json(deleteUser);
+		} else {
+			res.status(404).json({ error: "user not found" });
+		}
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+};
+
   
 
 module.exports = {
 	getAllUsers,
 	getUserById,
 	createUser, 
-	updateUser
+	updateUser, 
+	deleteUser
 	// other exports
 };
