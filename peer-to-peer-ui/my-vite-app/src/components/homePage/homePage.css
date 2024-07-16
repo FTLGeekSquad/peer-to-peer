@@ -1,0 +1,70 @@
+.home-page {
+    text-align: center;
+}
+
+.categories {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.category-link {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.category-image {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.category-link {
+    flex: 1;
+    margin: 0 5px;
+    max-width: 33.33%;
+}
+
+.category-image:hover {
+    transform: scale(1.05);
+}
+
+.banner {
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.banner-image {
+    width: 100%;
+    height: 250px;
+}
+.banner {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/Users/sydney.brown/peer-to-peer/peer-to-peer-ui/my-vite-app/src/assets/banner.png'); /* Replace with your banner image path */
+    background-size: cover;
+    background-position: center;
+}
+
+.text {
+    text-align: center;
+    color: white; /* Adjust the text color as needed */
+    width: 100%;
+}
+
+.banner-text {
+    font-size: 50px; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    margin-bottom: 20px;
+
+}
+
+.subtext {
+    font-size: 30px; /* Adjust the font size as needed */
+}
