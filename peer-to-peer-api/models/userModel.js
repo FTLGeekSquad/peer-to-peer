@@ -19,10 +19,24 @@ const createUser = async (userData) => {
 	  }
 	});
   };
+
+  const updateUser = async (userId, userData) => {
+	return prisma.user.update({
+	  where: { userId: parseInt(userId) },
+	  data: userData,
+	});
+  };
+  
+//Function to delete a card
+const deleteUser = async (userId) => {
+    return prisma.user.delete({ where: { userId: parseInt(userId) } });
+  };
   
 
 module.exports = {
 	getAllUsers,
 	getUserById,
-	createUser
+	createUser, 
+	updateUser, 
+	deleteUser
 };
