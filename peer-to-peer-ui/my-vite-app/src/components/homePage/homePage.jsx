@@ -22,17 +22,7 @@ const HomePage = () => {
                     <img src={services} alt='Category 3' className='category-image' />
                 </Link>
             </div>
-            {/* <div className='banner'>
-                <img src={banner} alt='Banner' className='banner-image' />
-                <div className='text'>
-                <div className='banner-text'>
-                    Break Into the Scene without Breaking the Bank
-                </div>
-                <div className='subtext'>
-                    Peer to Peer Photography Rental Services
-                </div>
-                </div>
-            </div> */}
+            
             <div className="banner">
                 <div className="text">
                     <div className="banner-text">

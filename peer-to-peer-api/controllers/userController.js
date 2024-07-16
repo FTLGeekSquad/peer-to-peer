@@ -34,11 +34,26 @@ const createUser = async (req, res) => {
 	}
   };
 
+//Function to update a user
+const updateUser = async (req, res) => {
+    try {
+      const updatedUser = await userModel.updateUser(req.params.userId, req.body);
+      if (updatedUser) {
+        res.status(200).json(updateUser);
+      } else {
+        res.status(404).json({ error: "user not found" });
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+
   
 
 module.exports = {
 	getAllUsers,
 	getUserById,
-	createUser
+	createUser, 
+	updateUser
 	// other exports
 };
