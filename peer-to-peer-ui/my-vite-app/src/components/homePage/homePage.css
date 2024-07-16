@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('/Users/sydney.brown/peer-to-peer/peer-to-peer-ui/my-vite-app/src/assets/banner.png'); /* Replace with your banner image path */
+    background-image: url('src/assets/banner.png'); /* Replace with your banner image path */
     background-size: cover;
     background-position: center;
 }
