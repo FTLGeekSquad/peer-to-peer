@@ -1,7 +1,8 @@
 import React from "react";
 import NavBar from "../NavBar/NavBar";
-import SearchBar from "../searchBar/SearchBar";
-import "./Header.css";
+
+import SearchBar from "../SearchBar/SearchBar";
+import "./Header.css"
 import logo from "/src/assets/logo.png";
 
 const Header = ({ handleSubmit }) => {
