@@ -34,6 +34,8 @@ const getAllListings = async (req, res) => {
 	}
 }
 
+
+
 // crud here
 
 module.exports = {
