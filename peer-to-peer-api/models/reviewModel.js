@@ -2,16 +2,12 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getAllReviews = async () => {
-	return await prisma.review.findMany();
+	return prisma.review.findMany();
 };
 
-const getReviewById = async (id) => {
-	return await prisma.review.findUnique({
-		where: { reviewId: parseInt(id) },
-	});
+const getReviewById = async (card_id) => {
+	return prisma.review.findUnique({ where: { reviewId: parseInt(reviewId) } });
 };
-
-// other model fuctions
 
 module.exports = {
 	getAllReviews,
