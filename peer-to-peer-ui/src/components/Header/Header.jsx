@@ -1,8 +1,8 @@
 import { useState } from "react";
 import React from "react";
-import "../header/header.css";
+import "./Header.css";
 
-const header = () => {
+const Header = () => {
 	return (
 		<header className="Header">
 			<h1>Peer 2 Peer</h1>
