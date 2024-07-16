@@ -2,11 +2,21 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getAllUsers = async () => {
-	return prisma.user.findMany();
+	return prisma.user.findMany({
+		include: {
+			allListings: true,
+		}
+	});
 };
 
 const getUserById = async (userId) => {
-	return prisma.user.findUnique({ where: { userId: parseInt(userId) } });
+	return prisma.user.findUnique({ 
+		where: { userId: parseInt(userId) 
+		} , 
+		include: {
+			allListings: true
+		}
+	});
 	// may need to add inclide: {listings: true} later
 };
 
