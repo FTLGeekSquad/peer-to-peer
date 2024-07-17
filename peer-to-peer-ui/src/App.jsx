@@ -11,6 +11,7 @@ import "./App.css";
 import HomePage from "./components/HomePage/HomePage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
+
 const Equipment = () => <div>Equipment Page</div>;
 const Spaces = () => <div>Spaces Page</div>;
 const Services = () => <div>Services Page</div>;
