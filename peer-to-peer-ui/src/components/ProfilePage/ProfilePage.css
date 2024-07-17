@@ -1,0 +1,120 @@
+.profile-page {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.navigation {
+  display: flex;
+}
+
+.nav-button {
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.nav-button.active {
+  font-weight: bold;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.main-content {
+  display: flex;
+  padding: 20px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  border-right: 1px solid #ccc;
+  padding-right: 20px;
+}
+
+.profile-picture img {
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-details {
+  text-align: center;
+}
+
+.edit-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.listings {
+  flex: 2;
+  padding-left: 20px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.tab {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.tab.active {
+  font-weight: bold;
+}
+
+.listings-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.listing-card {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.listing-card img {
+  height: 100px;
+}
+
+.contact-button {
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  padding: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
