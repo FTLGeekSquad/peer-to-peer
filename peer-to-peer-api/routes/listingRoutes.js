@@ -13,4 +13,5 @@ router.get("/:equipment", listingController.getAllEquipment);
 
 
 
+
 module.exports = router;

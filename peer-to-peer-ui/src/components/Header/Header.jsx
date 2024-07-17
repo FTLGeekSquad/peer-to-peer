@@ -9,17 +9,22 @@ import { Link } from "react-router-dom";
 
 const Header = ({ handleSubmit }) => {
 	return (
-		<header className="header">
-			<img src={logo} className="logo" />
-			<div className="headerBottom">
-				<SearchBar handleSubmit={handleSubmit} />
-				<NavBar />
-			</div>
-			<Link to="/profile">
+	  <header className="header">
+		<Link to="/home">
+		  <img src={logo} alt="Logo" className="logo" />
+		</Link>
+		<div className='headerBottom'>
+		  <SearchBar handleSubmit={handleSubmit} />
+		  <NavBar />
+		</div>
+		<Link to="/profile">
 				<img src={profileImg} style={{ height: "50px" }} />
 			</Link>
-		</header>
+	  </header>
 	);
-};
+  };
+
+
+
 
 export default Header;
