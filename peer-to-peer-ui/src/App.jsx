@@ -4,6 +4,8 @@ import NavBar from './components/NavBar/NavBar';
 import SearchBar from './components/SearchBar/SearchBar';
 import './App.css'
 import HomePage from './components/HomePage/HomePage'
+import EquipmentGrid from './components/EquipmentPage/EquipmentGrid';
+import Header from './components/Header/Header';
 
 
 const Equipment = () => <div>Equipment Page</div>;
@@ -13,13 +15,16 @@ const Home = () => <div>Home Page</div>
 
 function App() {
   return (
-    <Router>
-    <HomePage />
+    <Router> 
+    {/* <To be displayed on every page*/}
+   
     <Routes>
-      <Route path="/equipment" component={Equipment} />
-      <Route path="/spaces" component={Spaces} />
-      <Route path="/services" component={Services} />
-      <Route path="/home" component={Home} />
+      <Route path="/" element={<HomePage />} /> 
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/equipment" element={<EquipmentGrid />} />
+      <Route path="/spaces" element={Spaces} />
+      <Route path="/services" element={Services} />
+
     </Routes>
     </Router>
     

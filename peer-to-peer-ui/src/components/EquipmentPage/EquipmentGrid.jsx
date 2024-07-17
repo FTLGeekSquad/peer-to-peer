@@ -5,7 +5,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //import equipment from "./Equipment";
+import "./EquipmentGrid.css"
 import axios from "axios";
+import Header from "../Header/Header";
 
 function EquipmentGrid () {
     const [equipment, setEquipment] = useState([]); //will fill the grid with the equipment as its updated  
@@ -38,14 +40,19 @@ function EquipmentGrid () {
 
 
 
-const handleCheckboxChange = (category) => {
-    setSelectedCategories(category);
-};
-
+    const handleCheckboxChange = (event) => { // event handler
+        const category = event.target.value; //the category is equal to the category checked
+        setSelectedCategories(prevCategories => //prevCategories is the previous categories selected
+            prevCategories.includes(category) //checks if prevCategories has the checked category
+                ? prevCategories.filter(cat => cat !== category)
+                : [...prevCategories, category] 
+        );
+    };
+    
 
 return(
-    <>
-
+   <>
+<Header/>
     {/* Checkboxes with: 
         - Cameras 
         - Lenses
@@ -53,6 +60,10 @@ return(
         - Tripods
     NEXT: Need to be changed to a side bar!!
     */}
+
+    <div className="idk">
+
+    
     
           <div className="subcategoryCheckbox">
                     <label>
@@ -91,6 +102,22 @@ return(
                         />
                         Tripods
                     </label>
+                </div>
+
+                <div className="equipmentGrid">
+
+                {/* the actual equipment listings */}
+                <div className="test">
+                <img src={`https://picsum.photos/200?random=${5}`} alt={"Image"} /> 
+
+                <h2>Tester Title</h2>
+                <h2>Price Tester</h2>
+
+                
+                </div>
+
+
+                </div>
                 </div>
 
     
