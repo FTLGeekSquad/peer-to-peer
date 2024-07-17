@@ -12,6 +12,7 @@
     width: 300px; /* Adjust width as needed */
     background-color:    #C3CBC6;
     border-radius: 300px;
+    padding-left: 30px;
   }
   
   .search-input:focus {
