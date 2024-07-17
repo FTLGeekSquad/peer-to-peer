@@ -10,19 +10,13 @@ const getAllListings = async (req, res) => {
 	}
 }
 
-const getAllEquipment = async () => {
+const getAllEquipment = async (req, res) => {
 	try {
-		const equipmentListings = await prisma.listing.findMany({
-			where: {
-				category: {
-					equals: 'equipment',
-					mode: 'insensitive', // This makes the search case-insensitive
-				},
-			},
-		});
-		return equipmentListings;
+		const equipmentListings = await listingModel.getAllEquipment();
+		res.status(200).json(equipmentListings);
 	} catch (error) {
-		throw new Error(`Error fetching equipment listings: ${error.message}`);
+		console.error("Error fetching equipment listings:", error);  // Log the error for debugging
+		res.status(400).json({ error: error.message });
 	}
 };
 
