@@ -8,6 +8,8 @@ router.post("/", listingController.createListing);
 router.put("/:listingId", listingController.updateListing);
 router.delete("/:listingId", listingController.deleteListing);
 
+router.get("/equipment", listingController.getAllEquipment);
+
 
 
 

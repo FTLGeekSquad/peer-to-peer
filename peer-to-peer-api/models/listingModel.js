@@ -10,6 +10,23 @@ const getAllListings = async () => {
 	}
 };
 
+const getAllEquipment = async () => {
+	try {
+		const equipmentListings = await prisma.listing.findMany({
+			where: {
+				category: {
+					equals: 'equipment',
+					mode: 'insensitive', // This makes the search case-insensitive
+				},
+			},
+		});
+		return equipmentListings;
+	} catch (error) {
+		throw new Error(`Error fetching equipment listings: ${error.message}`);
+	}
+};
+
+
 const getListingById = async (listingId) => {
 	return prisma.listing.findUnique({ where: { listingId: parseInt(listingId) } });
 	// may need to add inclide: {listings: true} later
@@ -52,5 +69,6 @@ module.exports = {
 	getListingById,
 	createListing, 
 	updateListing, 
-	deleteListing
+	deleteListing, 
+	getAllEquipment
 };
