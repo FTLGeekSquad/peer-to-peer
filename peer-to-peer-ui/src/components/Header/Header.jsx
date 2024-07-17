@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../NavBar/NavBar";
 import { Link } from 'react-router-dom';
-import SearchBar from "../searchBar/SearchBar"
+import SearchBar from "../SearchBar/SearchBar"
 import "./Header.css"
 import logo from "/src/assets/logo.png";
 

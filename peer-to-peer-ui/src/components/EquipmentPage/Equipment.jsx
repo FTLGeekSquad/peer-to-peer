@@ -34,7 +34,8 @@ return(
         <div className="equipmentCard">
         <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> 
         <h2>{title}</h2>
-        <h2>Price Hourly: ${priceHourly} per hour</h2>
+        <h2>${priceHourly} per hour</h2>
+        <h2>{location}</h2>
             
 
 
