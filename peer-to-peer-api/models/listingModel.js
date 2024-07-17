@@ -52,15 +52,24 @@ const deleteListing = async (listingId) => {
     return prisma.listing.delete({ where: { listingId: parseInt(listingId) } });
   };
 
-const getListingsByCategory = async (category) => {
+  const getListingsByCategory = async (category, subCategory) => {
 	try {
+		const filter = {
+			category: {
+				equals: category,
+				mode: 'insensitive', // This makes the search case-insensitive
+			}
+		};
+
+		if (subCategory) {
+			filter.subCategory = {
+				equals: subCategory,
+				mode: 'insensitive',
+			};
+		}
+
 		const listings = await prisma.listing.findMany({
-			where: {
-				category: {
-					equals: category,
-					mode: 'insensitive', // This makes the search case-insensitive
-				},
-			},
+			where: filter,
 		});
 		return listings;
 	} catch (error) {
