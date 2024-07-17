@@ -10,26 +10,17 @@ const getAllListings = async () => {
 	}
 };
 
-const getAllEquipment = async () => {
+const getListingById = async (listingId) => {
 	try {
-		const equipmentListings = await prisma.listing.findMany({
+		const listing = await prisma.listing.findUnique({
 			where: {
-				category: {
-					equals: 'equipment',
-					mode: 'insensitive', // This makes the search case-insensitive
-				},
+				listingId: parseInt(listingId),
 			},
 		});
-		return equipmentListings;
+		return listing;
 	} catch (error) {
-		throw new Error(`Error fetching equipment listings: ${error.message}`);
+		throw new Error(`Error fetching listing by ID: ${error.message}`);
 	}
-};
-
-
-const getListingById = async (listingId) => {
-	return prisma.listing.findUnique({ where: { listingId: parseInt(listingId) } });
-	// may need to add inclide: {listings: true} later
 };
 
 const createListing = async (listingData) => {
@@ -61,6 +52,21 @@ const deleteListing = async (listingId) => {
     return prisma.listing.delete({ where: { listingId: parseInt(listingId) } });
   };
 
+const getListingsByCategory = async (category) => {
+	try {
+		const listings = await prisma.listing.findMany({
+			where: {
+				category: {
+					equals: category,
+					mode: 'insensitive', // This makes the search case-insensitive
+				},
+			},
+		});
+		return listings;
+	} catch (error) {
+		throw new Error(`Error fetching listings by category: ${error.message}`);
+	}
+};
 
 // other model fuctions
 
@@ -70,5 +76,5 @@ module.exports = {
 	createListing, 
 	updateListing, 
 	deleteListing, 
-	getAllEquipment
+	getListingsByCategory
 };

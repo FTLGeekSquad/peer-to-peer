@@ -10,15 +10,7 @@ const getAllListings = async (req, res) => {
 	}
 }
 
-const getAllEquipment = async (req, res) => {
-	try {
-		const equipmentListings = await listingModel.getAllEquipment();
-		res.status(200).json(equipmentListings);
-	} catch (error) {
-		console.error("Error fetching equipment listings:", error);  // Log the error for debugging
-		res.status(400).json({ error: error.message });
-	}
-};
+
 
 const getListingById = async (req, res) => {
 	try {
@@ -70,6 +62,22 @@ const deleteListing = async (req, res) => {
 	}
 };
 
+const getListingsByCategory = async (req, res) => {
+	const category = req.params.category;
+	const validCategories = ['equipment', 'spaces', 'services'];
+
+	if (!validCategories.includes(category.toLowerCase())) {
+		return res.status(400).json({ error: "Invalid category" });
+	}
+
+	try {
+		const listings = await listingModel.getListingsByCategory(category);
+		res.status(200).json(listings);
+	} catch (error) {
+		console.error(`Error fetching listings by category: ${error.message}`);  // Log the error for debugging
+		res.status(400).json({ error: error.message });
+	}
+};
 
 
 module.exports = {
@@ -78,5 +86,5 @@ module.exports = {
 	createListing, 
 	updateListing, 
 	deleteListing, 
-	getAllEquipment
+	getListingsByCategory
 };
