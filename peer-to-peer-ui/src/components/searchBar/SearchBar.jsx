@@ -19,6 +19,7 @@ const SearchBar = ({ handleSubmit }) => {
           placeholder="Search..."
           className="search-input"
         />
+        <button type="submit" className="search-button">Search</button>
       </form>
     </div>
   );
