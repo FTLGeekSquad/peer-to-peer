@@ -11,8 +11,16 @@ const getAllListings = async () => {
 };
 
 const getListingById = async (listingId) => {
-	return prisma.listing.findUnique({ where: { listingId: parseInt(listingId) } });
-	// may need to add inclide: {listings: true} later
+	try {
+		const listing = await prisma.listing.findUnique({
+			where: {
+				listingId: parseInt(listingId),
+			},
+		});
+		return listing;
+	} catch (error) {
+		throw new Error(`Error fetching listing by ID: ${error.message}`);
+	}
 };
 
 const createListing = async (listingData) => {
@@ -44,6 +52,21 @@ const deleteListing = async (listingId) => {
     return prisma.listing.delete({ where: { listingId: parseInt(listingId) } });
   };
 
+const getListingsByCategory = async (category) => {
+	try {
+		const listings = await prisma.listing.findMany({
+			where: {
+				category: {
+					equals: category,
+					mode: 'insensitive', // This makes the search case-insensitive
+				},
+			},
+		});
+		return listings;
+	} catch (error) {
+		throw new Error(`Error fetching listings by category: ${error.message}`);
+	}
+};
 
 // other model fuctions
 
@@ -52,5 +75,6 @@ module.exports = {
 	getListingById,
 	createListing, 
 	updateListing, 
-	deleteListing
+	deleteListing, 
+	getListingsByCategory
 };
