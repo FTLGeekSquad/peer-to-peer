@@ -3,17 +3,35 @@
     flex-direction: column;
     font-weight: 300;
     align-items: flex-start; /* align checkboxes to the left */
-    width: 250px; /* fixed width for the subcategory section */
-    padding: 10px; /* optional padding for better appearance */
+    width: 140px; /* fixed width for the subcategory section */
+    padding: 10px; /* padding for better appearance */
     box-sizing: border-box; /* include padding and border in the element's total width and height */
+    border-right: 2px solid #ddd; /* distinct line on the right */
+    background-color: #FBF7EE; /* light background color for better appearance */
+    border-radius: 8px; /* rounded corners */
 }
+
 .subcategoryCheckbox label {
-    margin-bottom: 5px;
-    font-weight: 300px;
+    margin-bottom: 10px;
+    font-weight: 400; /* lighter font weight for a cleaner look */
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
 }
+
 .subcategoryCheckbox input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 10px; /* increased space between checkbox and label */
+    accent-color: #007bff; /* customize checkbox color */
+    transform: scale(1.2); /* enlarge checkbox for better visibility */
 }
+
+/* Optional: Add some hover effects for labels */
+.subcategoryCheckbox label:hover {
+    color: #007bff; /* change text color on hover */
+    cursor: pointer; /* change cursor to pointer */
+}
+
+
 .equipmentGrid {
     display: flex;
     flex-wrap: wrap;
@@ -44,9 +62,18 @@
 
 .idk {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin-top: 40px;
     /* height: calc(100vh - 60px); adjust according to header height */
+}
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-bar {
+    margin:15px;
 }
 
 

@@ -19,7 +19,8 @@
     flex-direction: column;
     align-items: center; /* Center the SearchBar and NavBar horizontally */
     width: 100%; /* Ensure headerBottom takes the full width */
-    margin-right: 125px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 
