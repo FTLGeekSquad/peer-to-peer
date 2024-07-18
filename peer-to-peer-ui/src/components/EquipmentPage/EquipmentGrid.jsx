@@ -4,6 +4,8 @@ import axios from "axios";
 import Header from "../Header/Header";
 import Equipment from "./Equipment";
 import "./EquipmentGrid.css";
+import SearchBar from "../SearchBar/SearchBar";
+
 
 function EquipmentGrid() {
     const [equipment, setEquipment] = useState([]); // will fill the grid with the equipment as its updated
@@ -51,6 +53,8 @@ function EquipmentGrid() {
             NEXT: Need to be changed to a side bar!!
             */}
             <div className="idk">
+
+                <div className="bottom">
                 <div className="subcategoryCheckbox">
                     <label>
                         <input
@@ -77,7 +81,7 @@ function EquipmentGrid() {
                             checked={selectedCategories.includes("Flash/Flash Equipment")}
                             onChange={handleCheckboxChange}
                         />
-                        Flash/Flash Equipment
+                        Flashes
                     </label>
                     <label>
                         <input
@@ -89,6 +93,8 @@ function EquipmentGrid() {
                         Tripods
                     </label>
                 </div>
+
+
 
                 <div className="equipmentGrid">
                     {/* the actual equipment listings */}
@@ -109,6 +115,7 @@ function EquipmentGrid() {
                             
                         </div>
                     ))}
+                </div>
                 </div>
             </div>
         </>

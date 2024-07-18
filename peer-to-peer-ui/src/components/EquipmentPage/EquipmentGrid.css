@@ -1,45 +1,80 @@
 .subcategoryCheckbox {
     display: flex;
     flex-direction: column;
+    font-weight: 300;
     align-items: flex-start; /* align checkboxes to the left */
-
+    width: 140px; /* fixed width for the subcategory section */
+    padding: 10px; /* padding for better appearance */
+    box-sizing: border-box; /* include padding and border in the element's total width and height */
+    border-right: 2px solid #ddd; /* distinct line on the right */
+    background-color: #FBF7EE; /* light background color for better appearance */
+    border-radius: 8px; /* rounded corners */
 }
 
 .subcategoryCheckbox label {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: 400; /* lighter font weight for a cleaner look */
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
 }
 
 .subcategoryCheckbox input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 10px; /* increased space between checkbox and label */
+    accent-color: #007bff; /* customize checkbox color */
+    transform: scale(1.2); /* enlarge checkbox for better visibility */
+}
+
+/* Optional: Add some hover effects for labels */
+.subcategoryCheckbox label:hover {
+    color: #007bff; /* change text color on hover */
+    cursor: pointer; /* change cursor to pointer */
 }
 
 
-.equipmentGrid{
+.equipmentGrid {
     display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px; /* Adjust the gap between cards as needed */
+    padding: 16px;
     justify-content: center;
-    margin-left: 250px;
-   
 }
 
-.test {
+.equipment-item {
+    background-color: #C3CBC6; /* Card background color */
+    border: 1px solid #b4c1b9; /* Card border */
+    border-radius: 8px; /* Rounded corners */
+    width: auto;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 16px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
- 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.equipment {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
- 
+.equipment-item:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
 }
 
 .idk {
+    display: flex;
+    flex-direction: column;
     margin-top: 40px;
+    /* height: calc(100vh - 60px); adjust according to header height */
+}
+
+.bottom {
     display: flex;
     flex-direction: row;
 }
+
+.search-bar {
+    margin:15px;
+}
+
+
 
