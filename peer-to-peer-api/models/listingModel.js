@@ -52,7 +52,32 @@ const deleteListing = async (listingId) => {
     return prisma.listing.delete({ where: { listingId: parseInt(listingId) } });
   };
 
-  const getListingsByCategory = async (category, subCategory) => {
+//   const getListingsByCategory = async (category, subCategory) => {
+// 	try {
+// 		const filter = {
+// 			category: {
+// 				equals: category,
+// 				mode: 'insensitive', // This makes the search case-insensitive
+// 			}
+// 		};
+
+// 		if (subCategory) {
+// 			filter.subCategory = {
+// 				equals: subCategory,
+// 				mode: 'insensitive',
+// 			};
+// 		}
+
+// 		const listings = await prisma.listing.findMany({
+// 			where: filter,
+// 		});
+// 		return listings;
+// 	} catch (error) {
+// 		throw new Error(`Error fetching listings by category: ${error.message}`);
+// 	}
+// };
+
+const getListingsByCategory = async (category, subCategory) => {
 	try {
 		const filter = {
 			category: {
@@ -62,10 +87,19 @@ const deleteListing = async (listingId) => {
 		};
 
 		if (subCategory) {
-			filter.subCategory = {
-				equals: subCategory,
-				mode: 'insensitive',
-			};
+			if (Array.isArray(subCategory)) {
+				// If subCategory is an array, use 'in' to filter by multiple values
+				filter.subCategory = {
+					in: subCategory,
+					mode: 'insensitive',
+				};
+			} else {
+				// If subCategory is a single item, use 'equals'
+				filter.subCategory = {
+					equals: subCategory,
+					mode: 'insensitive',
+				};
+			}
 		}
 
 		const listings = await prisma.listing.findMany({
@@ -76,6 +110,7 @@ const deleteListing = async (listingId) => {
 		throw new Error(`Error fetching listings by category: ${error.message}`);
 	}
 };
+
 
 // other model fuctions
 

@@ -5,27 +5,32 @@ import Equipment from "./Equipment";
 import "./EquipmentGrid.css";
 
 function EquipmentGrid() {
-    const [equipment, setEquipment] = useState([]);
-    const [selectedCategories, setSelectedCategories] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const dataUrl = "http://localhost:3000/listings";
+    const [equipment, setEquipment] = useState([]); // will fill the grid with the equipment as its updated
+    const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
+    const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
+    const dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
+    console.log("in the equipment grid!"); // made it here lol
 
     useEffect(() => {
         const fetchEquipment = async () => {
+            let dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
             try {
-                const response = await axios.get(dataUrl, {
-                    params: {
-                        categories: selectedCategories.join(','),
-                    },
-                });
+                if (selectedCategories.length > 0) {
+                    const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
+                    dataUrl += `?${categoryQuery}`;
+                }
+        
+                const response = await axios.get(dataUrl);
                 setEquipment(response.data);
+                console.log(response.data);
+
             } catch (error) {
                 console.error("Error fetching equipment:", error);
             }
         };
 
         fetchEquipment();
-    }, [selectedCategories]);
+    }, [selectedCategories]); // fetches whenever selectedCategories updates
 
     const handleCheckboxChange = (event) => {
         const category = event.target.value;
@@ -35,21 +40,21 @@ function EquipmentGrid() {
                 : [...prevCategories, category]
         );
     };
-
-    const handleSearch = (searchTerm) => {
-        setSearchTerm(searchTerm);
-    };
-
-    const filteredEquipment = equipment.filter(equip =>
-        equip.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    
 
     return (
         <>
-            <Header handleSubmit={handleSearch} />
-            <div className="idk">
+            <Header />
+            {/* Checkboxes with: 
+                - Cameras http://localhost:3000/listings/filter/equipment?subCategory=cameras
+                - Lenses lenses: http://localhost:3000/listings/filter/equipment?subCategory=lenses
+                - Flash/Flash Equipment flashes: http://localhost:3000/listings/filter/equipment?subCategory=flashes
+                - Tripods tripods: http://localhost:3000/listings/filter/equipment?subCategory=tripods
+            */}
+            <div className="allComponents">
                 <div className="bottom">
                     <div className="subcategoryCheckbox">
+                        <h3>SubCategories</h3>
                         <label>
                             <input
                                 type="checkbox"
@@ -71,11 +76,11 @@ function EquipmentGrid() {
                         <label>
                             <input
                                 type="checkbox"
-                                value="Flash/Flash Equipment"
-                                checked={selectedCategories.includes("Flash/Flash Equipment")}
+                                value="Flashes"
+                                checked={selectedCategories.includes("Flashes")}
                                 onChange={handleCheckboxChange}
                             />
-                            Flashes
+                            Flash/Flash Equipment
                         </label>
                         <label>
                             <input
@@ -89,7 +94,8 @@ function EquipmentGrid() {
                     </div>
 
                     <div className="equipmentGrid">
-                        {filteredEquipment.map((equipment, index) => (
+                        {/* the actual equipment listings */}
+                        {equipment.map((equipment, index) => (
                             <div key={index} className="equipment-item">
                                 <Equipment
                                     equipmentId={equipment.listingId}
