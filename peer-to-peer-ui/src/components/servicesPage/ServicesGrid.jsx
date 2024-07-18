@@ -1,3 +1,7 @@
+
+//this serves as the page that will hold the services "card" as well as filter the services 
+//Filter: videographer and photographer
+//should contain a search bar
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -27,7 +31,6 @@ function ServicesGrid() {
                 const response = await axios.get(url);
                 setServices(response.data);
                 console.log(response.data);
-
             } catch (error) {
                 console.error("Error fetching services:", error);
             }
@@ -40,10 +43,16 @@ function ServicesGrid() {
         console.log("Selected Categories:", newCategories); // Log the updated categories
         setSelectedCategories(newCategories);
     };
+    const handleSearch = (searchTerm) => {
+        setSearchTerm(searchTerm);
+    };
 
+    const filteredServices = services.filter(service =>
+        service.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     return (
         <>
-            <Header />
+            <Header handleSubmit={handleSearch} />
             {/* Toggle buttons with: 
                 - Photography http://localhost:3000/listings/filter/services?category=photography
                 - Videography http://localhost:3000/listings/filter/services?category=videography
@@ -64,7 +73,7 @@ function ServicesGrid() {
                     </div>
 
                     <div className="servicesGrid">
-                        {services.map((service, index) => (
+                        {filteredServices.map((service, index) => (
                             <div key={index} className="services-item">
                                 <Services
                                     servicesId={service.listingId}

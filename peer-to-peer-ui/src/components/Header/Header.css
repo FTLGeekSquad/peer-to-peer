@@ -31,4 +31,8 @@
     flex: 1; /* Pushes headerBottom to the center */
 }
 
+.bigTitle {
+    text-align: center;
+}
+
 

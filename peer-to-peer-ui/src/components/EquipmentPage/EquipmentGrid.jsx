@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
 import Equipment from "./Equipment";
@@ -7,11 +6,10 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import "./EquipmentGrid.css";
 
 function EquipmentGrid() {
-    const [equipment, setEquipment] = useState([]); // will fill the grid with the equipment as its updated
-    const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
-    const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
-    const dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
-    console.log("in the equipment grid!"); // made it here lol
+    const [equipment, setEquipment] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const dataUrl = "http://localhost:3000/listings/filter/equipment";
 
     useEffect(() => {
         const fetchEquipment = async () => {
@@ -24,23 +22,27 @@ function EquipmentGrid() {
 
                 const response = await axios.get(url);
                 setEquipment(response.data);
-                console.log(response.data);
-
             } catch (error) {
                 console.error("Error fetching equipment:", error);
             }
         };
 
         fetchEquipment();
-    }, [selectedCategories]); // fetches whenever selectedCategories updates
+    }, [selectedCategories]);
 
     const handleToggleChange = (event, newCategories) => {
         setSelectedCategories(newCategories);
     };
+const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+};
 
+const filteredEquipment = equipment.filter(equip =>
+    equip.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
     return (
         <>
-            <Header />
+            <Header handleSubmit={handleSearch} />
             {/* Toggle buttons with: 
                 - Cameras http://localhost:3000/listings/filter/equipment?subCategory=cameras
                 - Lenses lenses: http://localhost:3000/listings/filter/equipment?subCategory=lenses
@@ -66,7 +68,7 @@ function EquipmentGrid() {
 
                     <div className="equipmentGrid">
                         {/* the actual equipment listings */}
-                        {equipment.map((equip, index) => (
+                        {filteredEquipment.map((equip, index) => (
                             <div key={index} className="equipment-item">
                                 <Equipment
                                     equipmentId={equip.listingId}
@@ -88,3 +90,6 @@ function EquipmentGrid() {
 }
 
 export default EquipmentGrid;
+
+
+

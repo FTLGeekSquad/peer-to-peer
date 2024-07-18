@@ -24,7 +24,6 @@ function SpacesGrid() {
                 const response = await axios.get(url);
                 setSpaces(response.data);
                 console.log(response.data);
-
             } catch (error) {
                 console.error("Error fetching spaces:", error);
             }
@@ -36,10 +35,16 @@ function SpacesGrid() {
     const handleToggleChange = (event, newCategories) => {
         setSelectedCategories(newCategories);
     };
+    const handleSearch = (searchTerm) => {
+        setSearchTerm(searchTerm);
+    };
 
+    const filteredSpaces = spaces.filter(space =>
+        space.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     return (
         <>
-            <Header />
+            <Header handleSubmit={handleSearch} />
             {/* Toggle buttons with: 
                 - Indoor http://localhost:3000/listings/filter/spaces?subCategory=indoor
                 - Outdoor http://localhost:3000/listings/filter/spaces?subCategory=outdoor
@@ -60,7 +65,7 @@ function SpacesGrid() {
                     </div>
 
                     <div className="spacesGrid">
-                        {spaces.map((space, index) => (
+                        {filteredSpaces.map((space, index) => (
                             <div key={index} className="spaces-item">
                                 <Spaces
                                     spacesId={space.listingId}
