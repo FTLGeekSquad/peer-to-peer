@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import './Equipment.css';
 
 function Equipment (listing) {
     const { //instead of listing every param
@@ -33,14 +34,12 @@ return(
     <>
         <div className="equipmentCard">
         <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> 
-        <h2>{title}</h2>
-        <h2>${priceHourly} per hour</h2>
-        <h2>{location}</h2>
-            
-
-
-
-
+        <div className="equipmentCardTitle">{title}</div>
+        <div className="paragraph">
+        <p className="price">${priceHourly} per hour</p>
+        <p className="location">{location}</p>
+        </div>
+        
         </div>
 
     
