@@ -9,48 +9,54 @@ function EquipmentGrid() {
     const [equipment, setEquipment] = useState([]); // will fill the grid with the equipment as its updated
     const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
     const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
-    const dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the constant url, REMEMBER TO CHANGE
+    const dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
     console.log("in the equipment grid!"); // made it here lol
 
     useEffect(() => {
         const fetchEquipment = async () => {
+            let dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
             try {
-                const response = await axios.get(dataUrl, // get based on the dataUrl
-                    {
-                        params: {
-                            categories: selectedCategories.join(','), // allows multiple selected categories to be shown
-                        },
-                    });
-                setEquipment(response.data); // sets the equipment based on the received data
+        
+                if (selectedCategories.length > 0) {
+                    const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
+                    dataUrl += `?${categoryQuery}`;
+                }
+        
+                const response = await axios.get(dataUrl);
+                setEquipment(response.data);
                 console.log(response.data);
+
             } catch (error) {
                 console.error("Error fetching equipment:", error);
             }
         };
 
         fetchEquipment();
-    }, [selectedCategories]);
+    }, [selectedCategories]);//fetches whenever selectedCategories Updates
 
-    const handleCheckboxChange = (event) => { // event handler
-        const category = event.target.value; // the category is equal to the category checked
-        setSelectedCategories(prevCategories => // prevCategories is the previous categories selected
-            prevCategories.includes(category) // checks if prevCategories has the checked category
+
+
+
+    const handleCheckboxChange = (event) => {
+        const category = event.target.value;
+        setSelectedCategories(prevCategories =>
+            prevCategories.includes(category)
                 ? prevCategories.filter(cat => cat !== category)
                 : [...prevCategories, category]
         );
     };
+    
 
     return (
         <>
             <Header />
             {/* Checkboxes with: 
-                - Cameras 
-                - Lenses
-                - Flash/Flash Equipment
-                - Tripods
-            NEXT: Need to be changed to a side bar!!
+                - Cameras http://localhost:3000/listings/filter/equipment?subCategory=cameras
+                - Lenses lenses: http://localhost:3000/listings/filter/equipment?subCategory=lenses
+                - Flash/Flash Equipment flashes: http://localhost:3000/listings/filter/equipment?subCategory=flashes
+                - Tripods tripods: http://localhost:3000/listings/filter/equipment?subCategory=tripods
             */}
-            <div className="idk">
+            <div className="allComponents">
                 <div className="subcategoryCheckbox">
                     <h3>SubCategories</h3>
                     <label>
@@ -74,8 +80,8 @@ function EquipmentGrid() {
                     <label>
                         <input
                             type="checkbox"
-                            value="Flash/Flash Equipment"
-                            checked={selectedCategories.includes("Flash/Flash Equipment")}
+                            value="Flashes"
+                            checked={selectedCategories.includes("Flashes")}
                             onChange={handleCheckboxChange}
                         />
                         Flash/Flash Equipment

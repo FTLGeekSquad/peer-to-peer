@@ -4,6 +4,7 @@
     align-items: center;
     padding: 20px; /* Add some padding for spacing */
     position: relative; /* Make the header a positioned element */
+    border:0;
 }
 
 .logo {

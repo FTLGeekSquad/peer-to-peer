@@ -4,9 +4,11 @@ import NavBar from './components/NavBar/NavBar';
 import SearchBar from './components/SearchBar/SearchBar';
 import './App.css'
 import HomePage from './components/HomePage/HomePage'
-import EquipmentGrid from './components/EquipmentPage/EquipmentGrid';
 import Header from './components/Header/Header';
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import ServicesGrid from './components/ServicesPage/ServicesGrid';
+import SpacesGrid from './components/SpacesPage/SpacesGrid';
+import EquipmentGrid from './components/EquipmentPage/EquipmentGrid';
 
 
 
@@ -24,8 +26,8 @@ function App() {
 			<Route path="/" element={<HomePage />} /> 
 			<Route path="/home" element={<HomePage />} />
 			<Route path="/equipment" element={<EquipmentGrid />} />
-			<Route path="/spaces" element={Spaces} />
-			<Route path="/services" element={Services} />
+			<Route path="/spaces" element={<SpacesGrid/>} />
+			<Route path="/services" element={<ServicesGrid/>} />
 			<Route path="/profile" element={<ProfilePage />} />
 		</Routes>
 	</Router>

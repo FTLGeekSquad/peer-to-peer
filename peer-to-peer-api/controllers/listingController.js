@@ -62,6 +62,51 @@ const deleteListing = async (req, res) => {
 	}
 };
 
+// const getListingsByCategory = async (req, res) => {
+// 	const category = req.params.category;
+// 	const subCategory = req.query.subCategory;
+// 	const validCategories = ['equipment', 'spaces', 'services'];
+
+// 	if (!validCategories.includes(category.toLowerCase())) {
+// 		return res.status(400).json({ error: "Invalid category" });
+// 	}
+
+// 	const validSubCategories = {
+// 		equipment: ['Cameras', 'Lenses', 'Tripods', 'Flashes'],
+// 		spaces: ['Indoor', 'Outdoor'],
+// 		services: ['Photography', 'Videography']
+// 	};
+// 	console.log("subCategory", subCategory)
+
+// 	// if (subCategory && !validSubCategories[category].includes(subCategory)) {
+// 	// 	return res.status(400).json({ error: "Invalid subcategory" });
+// 	//  }
+
+// 	if (subCategory) {
+// 		if (Array.isArray(subCategory)) {
+// 		  // If subCategory is an array, check all subcategories
+// 		  const invalidSubCategories = subCategory.filter(sub => !validSubCategories[category].includes(sub));
+// 		  if (invalidSubCategories.length > 0) {
+// 			return res.status(400).json({ error: "Invalid subcategory" });
+// 		  }
+// 		} else {
+// 		  // If subCategory is a single item, check its validity
+// 		  if (!validSubCategories[category].includes(subCategory)) {
+// 			return res.status(400).json({ error: "Invalid subcategory" });
+// 		  }
+// 		}
+// 	  }
+
+// 	try {
+// 		const listings = await listingModel.getListingsByCategory(category, subCategory);
+// 		res.status(200).json(listings);
+// 	} catch (error) {
+// 		console.error(`Error fetching listings by category: ${error.message}`);  // Log the error for debugging
+// 		res.status(400).json({ error: error.message });
+// 	}
+// };
+
+
 const getListingsByCategory = async (req, res) => {
 	const category = req.params.category;
 	const subCategory = req.query.subCategory;
@@ -72,13 +117,25 @@ const getListingsByCategory = async (req, res) => {
 	}
 
 	const validSubCategories = {
-		equipment: ['cameras', 'lenses', 'tripods', 'flashes'],
-		spaces: ['indoor', 'outdoor'],
-		services: ['photography', 'videography']
+		equipment: ['Cameras', 'Lenses', 'Tripods', 'Flashes'],
+		spaces: ['Indoor', 'Outdoor'],
+		services: ['Photography', 'Videography']
 	};
+	console.log("subCategory", subCategory);
 
-	if (subCategory && !validSubCategories[category.toLowerCase()].includes(subCategory.toLowerCase())) {
-		return res.status(400).json({ error: "Invalid subcategory" });
+	if (subCategory) {
+		if (Array.isArray(subCategory)) {
+		  // If subCategory is an array, check all subcategories
+		  const invalidSubCategories = subCategory.filter(sub => !validSubCategories[category].includes(sub));
+		  if (invalidSubCategories.length > 0) {
+			return res.status(400).json({ error: "Invalid subcategory" });
+		  }
+		} else {
+		  // If subCategory is a single item, check its validity
+		  if (!validSubCategories[category].includes(subCategory)) {
+			return res.status(400).json({ error: "Invalid subcategory" });
+		  }
+		}
 	}
 
 	try {
@@ -89,6 +146,7 @@ const getListingsByCategory = async (req, res) => {
 		res.status(400).json({ error: error.message });
 	}
 };
+
 
 
 module.exports = {
