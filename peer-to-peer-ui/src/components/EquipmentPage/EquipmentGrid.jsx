@@ -16,7 +16,6 @@ function EquipmentGrid() {
         const fetchEquipment = async () => {
             let dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
             try {
-        
                 if (selectedCategories.length > 0) {
                     const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
                     dataUrl += `?${categoryQuery}`;
@@ -32,10 +31,7 @@ function EquipmentGrid() {
         };
 
         fetchEquipment();
-    }, [selectedCategories]);//fetches whenever selectedCategories Updates
-
-
-
+    }, [selectedCategories]); // fetches whenever selectedCategories updates
 
     const handleCheckboxChange = (event) => {
         const category = event.target.value;
@@ -57,52 +53,51 @@ function EquipmentGrid() {
                 - Tripods tripods: http://localhost:3000/listings/filter/equipment?subCategory=tripods
             */}
             <div className="allComponents">
-                <div className="subcategoryCheckbox">
-                    <h3>SubCategories</h3>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="Cameras"
-                            checked={selectedCategories.includes("Cameras")}
-                            onChange={handleCheckboxChange}
-                        />
-                        Cameras
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="Lenses"
-                            checked={selectedCategories.includes("Lenses")}
-                            onChange={handleCheckboxChange}
-                        />
-                        Lenses
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="Flashes"
-                            checked={selectedCategories.includes("Flashes")}
-                            onChange={handleCheckboxChange}
-                        />
-                        Flash/Flash Equipment
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="Tripods"
-                            checked={selectedCategories.includes("Tripods")}
-                            onChange={handleCheckboxChange}
-                        />
-                        Tripods
-                    </label>
-                </div>
+                <div className="bottom">
+                    <div className="subcategoryCheckbox">
+                        <h3>SubCategories</h3>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="Cameras"
+                                checked={selectedCategories.includes("Cameras")}
+                                onChange={handleCheckboxChange}
+                            />
+                            Cameras
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="Lenses"
+                                checked={selectedCategories.includes("Lenses")}
+                                onChange={handleCheckboxChange}
+                            />
+                            Lenses
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="Flashes"
+                                checked={selectedCategories.includes("Flashes")}
+                                onChange={handleCheckboxChange}
+                            />
+                            Flash/Flash Equipment
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="Tripods"
+                                checked={selectedCategories.includes("Tripods")}
+                                onChange={handleCheckboxChange}
+                            />
+                            Tripods
+                        </label>
+                    </div>
 
-                <div className="equipmentGrid">
-                    {/* the actual equipment listings */}
-                    {equipment.map((equipment, index) => (
-                        <div key={index} className="equipment-item">
-                            
-                        
+                    <div className="equipmentGrid">
+                        {/* the actual equipment listings */}
+                        {equipment.map((equipment, index) => (
+                            <div key={index} className="equipment-item">
                                 <Equipment
                                     equipmentId={equipment.listingId}
                                     title={equipment.title}
@@ -113,9 +108,9 @@ function EquipmentGrid() {
                                     setEquipment={setEquipment}
                                     priceHourly={equipment.priceHourly}
                                 />
-                            
-                        </div>
-                    ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
