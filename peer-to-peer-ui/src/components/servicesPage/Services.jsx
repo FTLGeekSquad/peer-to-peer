@@ -35,9 +35,11 @@ return(
     <>
         <div className="spacesCard">
         <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> 
-        <h3>{title}</h3>
-        <h3>${priceHourly} per hour</h3>
-        <h3>{location}</h3>
+        <h3 className="servicesCardTitle">{title}</h3>
+        <div className="paragraph">
+        <p className="price">${priceHourly} per hour</p>
+        <p className="location">{location}</p>
+        </div>
             
 
 
