@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import './Spaces.css';
 
 function Spaces (listing) {
     const { //instead of listing every param
@@ -34,11 +35,12 @@ return(
     <>
         <div className="spacesCard">
         <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> 
-        <h3>{title}</h3>
-        <h3>${priceHourly} per hour</h3>
-        <h3>{location}</h3>
+        <h3 className="spacesCardTitle">{title}</h3>
+        <div className="paragraph">
+        <h3 className="price">${priceHourly} per hour</h3>
+        <h3 className="location">{location}</h3>
             
-
+        </div>
 
 
 
