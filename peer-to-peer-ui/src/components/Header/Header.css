@@ -4,6 +4,7 @@
     align-items: center;
     padding: 20px; /* Add some padding for spacing */
     position: relative; /* Make the header a positioned element */
+    background-color: #FBF7EE;
 }
 
 .logo {
@@ -21,9 +22,12 @@
     width: 100%; /* Ensure headerBottom takes the full width */
     margin-right: auto;
     margin-left: auto;
+    background-color: #FBF7EE;
 }
 
 
 .spacer {
     flex: 1; /* Pushes headerBottom to the center */
 }
+
+

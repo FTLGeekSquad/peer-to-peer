@@ -9,7 +9,10 @@ import { Link } from "react-router-dom";
 
 const Header = ({ handleSubmit }) => {
 	return (
+		<div >
+			<h1 className="bigTitle">Peer2Peer</h1>
 	  <header className="header">
+		
 		<Link to="/home">
 		  <img src={logo} alt="Logo" className="logo" />
 		</Link>
@@ -24,6 +27,7 @@ const Header = ({ handleSubmit }) => {
 		{/* <SearchBar handleSubmit={handleSubmit} /> */}
 
 	  </header>
+	  </div>
 	  
 
 	  
