@@ -11,7 +11,7 @@ function EquipmentGrid() {
     const [equipment, setEquipment] = useState([]); // will fill the grid with the equipment as its updated
     const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
     const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
-    const dataUrl = "http://localhost:3000/listings"; // declare the constant url, REMEMBER TO CHANGE
+    const dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the constant url, REMEMBER TO CHANGE
     console.log("in the equipment grid!"); // made it here lol
 
     useEffect(() => {
