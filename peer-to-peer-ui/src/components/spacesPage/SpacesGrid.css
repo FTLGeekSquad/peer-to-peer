@@ -3,7 +3,6 @@
     flex-wrap: wrap;
     gap: 16px; /* Adjust the gap between cards as needed */
     padding: 16px;
-    justify-content: center;
 }
 
 .spaces-item {
