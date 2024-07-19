@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
 import Equipment from "./Equipment";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import "./EquipmentGrid.css";
 
 function EquipmentGrid() {
@@ -12,12 +13,14 @@ function EquipmentGrid() {
 
     useEffect(() => {
         const fetchEquipment = async () => {
+            let url = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
             try {
-                const response = await axios.get(dataUrl, {
-                    params: {
-                        categories: selectedCategories.join(','),
-                    },
-                });
+                if (selectedCategories.length > 0) {
+                    const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
+                    url += `?${categoryQuery}`;
+                }
+
+                const response = await axios.get(url);
                 setEquipment(response.data);
             } catch (error) {
                 console.error("Error fetching equipment:", error);
@@ -27,79 +30,55 @@ function EquipmentGrid() {
         fetchEquipment();
     }, [selectedCategories]);
 
-    const handleCheckboxChange = (event) => {
-        const category = event.target.value;
-        setSelectedCategories(prevCategories =>
-            prevCategories.includes(category)
-                ? prevCategories.filter(cat => cat !== category)
-                : [...prevCategories, category]
-        );
+    const handleToggleChange = (event, newCategories) => {
+        setSelectedCategories(newCategories);
     };
+const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+};
 
-    const handleSearch = (searchTerm) => {
-        setSearchTerm(searchTerm);
-    };
-
-    const filteredEquipment = equipment.filter(equip =>
-        equip.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+const filteredEquipment = equipment.filter(equip =>
+    equip.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
     return (
         <>
             <Header handleSubmit={handleSearch} />
-            <div className="idk">
+            {/* Toggle buttons with: 
+                - Cameras http://localhost:3000/listings/filter/equipment?subCategory=cameras
+                - Lenses lenses: http://localhost:3000/listings/filter/equipment?subCategory=lenses
+                - Flash/Flash Equipment flashes: http://localhost:3000/listings/filter/equipment?subCategory=flashes
+                - Tripods tripods: http://localhost:3000/listings/filter/equipment?subCategory=tripods
+            */}
+            <div className="allComponents">
                 <div className="bottom">
-                    <div className="subcategoryCheckbox">
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Cameras"
-                                checked={selectedCategories.includes("Cameras")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Cameras
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Lenses"
-                                checked={selectedCategories.includes("Lenses")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Lenses
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Flash/Flash Equipment"
-                                checked={selectedCategories.includes("Flash/Flash Equipment")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Flashes
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Tripods"
-                                checked={selectedCategories.includes("Tripods")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Tripods
-                        </label>
+                    <div className="subcategoryToggle">
+                        <ToggleButtonGroup
+                            value={selectedCategories}
+                            onChange={handleToggleChange}
+                            aria-label="subcategory"
+                            color="primary"
+                            sx={{ marginBottom: 2 }}
+                        >
+                            <ToggleButton value="Cameras">Cameras</ToggleButton>
+                            <ToggleButton value="Lenses">Lenses</ToggleButton>
+                            <ToggleButton value="Flashes">Flash/Flash Equipment</ToggleButton>
+                            <ToggleButton value="Tripods">Tripods</ToggleButton>
+                        </ToggleButtonGroup>
                     </div>
 
                     <div className="equipmentGrid">
-                        {filteredEquipment.map((equipment, index) => (
+                        {/* the actual equipment listings */}
+                        {filteredEquipment.map((equip, index) => (
                             <div key={index} className="equipment-item">
                                 <Equipment
-                                    equipmentId={equipment.listingId}
-                                    title={equipment.title}
-                                    category={equipment.category}
-                                    subCategory={equipment.subCategory}
-                                    location={equipment.location}
-                                    equipment={equipment}
+                                    equipmentId={equip.listingId}
+                                    title={equip.title}
+                                    category={equip.category}
+                                    subCategory={equip.subCategory}
+                                    location={equip.location}
+                                    equipment={equip}
                                     setEquipment={setEquipment}
-                                    priceHourly={equipment.priceHourly}
+                                    priceHourly={equip.priceHourly}
                                 />
                             </div>
                         ))}
