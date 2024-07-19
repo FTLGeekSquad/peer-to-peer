@@ -323,6 +323,7 @@ const ListContent = ({ openModal }) => (
 const CreateListingModal = ({ closeModal }) => (
   <div className="modal-overlay">
     <div className="modal-content">
+      <button className="modal-close" onClick={closeModal}>×</button>
       <h2>Create New Listing</h2>
       {/* Add your form elements here */}
       <form>
@@ -339,10 +340,10 @@ const CreateListingModal = ({ closeModal }) => (
           <input type="number" name="price" />
         </label>
         <button type="submit">Submit</button>
-        <button type="button" onClick={closeModal}>Close</button>
       </form>
     </div>
   </div>
 );
+
 
 export default ProfilePage;
