@@ -7,8 +7,8 @@ import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import "./SpacesGrid.css";
 
 function SpacesGrid() {
-    const [selectedSpaces, setSelectedSpaces] = useState([]);
     const [spaces, setSpaces] = useState([]); // will fill the grid with the spaces as its updated
+    const [selectedSpace, setSelectedSpace] = useState(null); // State for modal
     const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
     const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
     const dataUrl = "http://localhost:3000/listings/filter/spaces"; // declare the url, 
@@ -16,7 +16,7 @@ function SpacesGrid() {
 
     useEffect(() => {
         const fetchSpaces = async () => {
-            let url = "http://localhost:3000/listings/filter/spaces"; // declare the url, 
+            let url = dataUrl; // declare the url
             try {
                 if (selectedCategories.length > 0) {
                     const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
@@ -37,16 +37,21 @@ function SpacesGrid() {
     const handleToggleChange = (event, newCategories) => {
         setSelectedCategories(newCategories);
     };
+
     const handleSearch = (searchTerm) => {
         setSearchTerm(searchTerm);
+    };
+
+    const handleItemClick = (space) => {
+        setSelectedSpace(space); // Set the selected space to show in the modal
     };
 
     const filteredSpaces = spaces.filter(space =>
         space.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     return (
         <>
-        
             <Header handleSubmit={handleSearch} />
             {/* Toggle buttons with: 
                 - Indoor http://localhost:3000/listings/filter/spaces?subCategory=indoor
@@ -69,7 +74,7 @@ function SpacesGrid() {
 
                     <div className="spacesGrid">
                         {filteredSpaces.map((space, index) => (
-                            <div key={index} className="spaces-item">
+                            <div key={index} className="spaces-item" onClick={() => handleItemClick(space)}>
                                 <Spaces
                                     spacesId={space.listingId}
                                     title={space.title}
@@ -86,19 +91,17 @@ function SpacesGrid() {
                 </div>
             </div>
 
-  {/* Show modal if equipment is selected */}
-  {selectedSpaces && (
+            {/* Show modal if Space is selected */}
+            {selectedSpace && (
                 <Modal
-                    show={selectedSpaces !== null}
-                    onClose={() => setSelectedSpaces(null)}
+                    show={selectedSpace !== null}
+                    onClose={() => setSelectedSpace(null)}
                 >
-                    <h2>{selectedSpaces.title}</h2>
-                    <p><strong>Location:</strong> {selectedEquipment.location}</p>
-                    <p>{selectedEquipment.description}</p>
+                    <h2>{selectedSpace.title}</h2>
+                    <p><strong>Location:</strong> {selectedSpace.location}</p>
+                    <p>{selectedSpace.description}</p>
                 </Modal>
             )}
-
-
         </>
     );
 }
