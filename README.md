@@ -12,7 +12,7 @@ Mentors Names: **Insert Professional Mentor Names**
 
 Project Code Repository Links
 
-* [Frontend Repo Link]()
+* [Frontend Repo Link](https://github.com/FTLGeekSquad/peer-to-peer/tree/main/peer-to-peer-ui)
 * [Backend Repo Link]()
 
 ## Project Overview
