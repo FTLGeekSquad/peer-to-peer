@@ -4,16 +4,18 @@ import Header from "../Header/Header";
 import Equipment from "./Equipment";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import "./EquipmentGrid.css";
+import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 
 function EquipmentGrid() {
     const [equipment, setEquipment] = useState([]);
+    const [selectedEquipment, setSelectedEquipment] = useState(null); // State for modal
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const dataUrl = "http://localhost:3000/listings/filter/equipment";
 
     useEffect(() => {
         const fetchEquipment = async () => {
-            let url = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
+            let url = dataUrl; // declare the url, 
             try {
                 if (selectedCategories.length > 0) {
                     const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
@@ -33,13 +35,19 @@ function EquipmentGrid() {
     const handleToggleChange = (event, newCategories) => {
         setSelectedCategories(newCategories);
     };
-const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm);
-};
 
-const filteredEquipment = equipment.filter(equip =>
-    equip.title.toLowerCase().includes(searchTerm.toLowerCase())
-);
+    const handleSearch = (searchTerm) => {
+        setSearchTerm(searchTerm);
+    };
+
+    const handleItemClick = (equip) => {
+        setSelectedEquipment(equip); // Set the selected equipment to show in the modal
+    };
+
+    const filteredEquipment = equipment.filter(equip =>
+        equip.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <>
             <Header handleSubmit={handleSearch} />
@@ -69,7 +77,7 @@ const filteredEquipment = equipment.filter(equip =>
                     <div className="equipmentGrid">
                         {/* the actual equipment listings */}
                         {filteredEquipment.map((equip, index) => (
-                            <div key={index} className="equipment-item">
+                            <div key={index} className="equipment-item" onClick={() => handleItemClick(equip)}>
                                 <Equipment
                                     equipmentId={equip.listingId}
                                     title={equip.title}
@@ -85,11 +93,20 @@ const filteredEquipment = equipment.filter(equip =>
                     </div>
                 </div>
             </div>
+
+            {/* Show modal if equipment is selected */}
+            {selectedEquipment && (
+                <Modal
+                    show={selectedEquipment !== null}
+                    onClose={() => setSelectedEquipment(null)}
+                >
+                    <h2>{selectedEquipment.title}</h2>
+                    <p><strong>Location:</strong> {selectedEquipment.location}</p>
+                    <p>{selectedEquipment.description}</p>
+                </Modal>
+            )}
         </>
     );
 }
 
 export default EquipmentGrid;
-
-
-

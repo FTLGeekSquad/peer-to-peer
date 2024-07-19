@@ -3,9 +3,11 @@ import axios from "axios";
 import Header from "../Header/Header";
 import Spaces from "./Spaces";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import "./SpacesGrid.css";
 
 function SpacesGrid() {
+    const [selectedSpaces, setSelectedSpaces] = useState([]);
     const [spaces, setSpaces] = useState([]); // will fill the grid with the spaces as its updated
     const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
     const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
@@ -44,6 +46,7 @@ function SpacesGrid() {
     );
     return (
         <>
+        
             <Header handleSubmit={handleSearch} />
             {/* Toggle buttons with: 
                 - Indoor http://localhost:3000/listings/filter/spaces?subCategory=indoor
@@ -82,6 +85,20 @@ function SpacesGrid() {
                     </div>
                 </div>
             </div>
+
+  {/* Show modal if equipment is selected */}
+  {selectedSpaces && (
+                <Modal
+                    show={selectedSpaces !== null}
+                    onClose={() => setSelectedSpaces(null)}
+                >
+                    <h2>{selectedSpaces.title}</h2>
+                    <p><strong>Location:</strong> {selectedEquipment.location}</p>
+                    <p>{selectedEquipment.description}</p>
+                </Modal>
+            )}
+
+
         </>
     );
 }
