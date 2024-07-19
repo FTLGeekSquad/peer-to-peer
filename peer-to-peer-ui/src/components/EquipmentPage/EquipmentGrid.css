@@ -1,43 +1,27 @@
-.subcategoryCheckbox {
+.allComponents {
     display: flex;
     flex-direction: column;
-    font-weight: 300;
-    align-items: flex-start; /* align checkboxes to the left */
-    width: 140px; /* fixed width for the subcategory section */
-    padding: 10px; /* padding for better appearance */
-    box-sizing: border-box; /* include padding and border in the element's total width and height */
-    border-right: 2px solid #ddd; /* distinct line on the right */
-    background-color: #FBF7EE; /* light background color for better appearance */
-    border-radius: 8px; /* rounded corners */
+    align-items: center; /* Center content horizontally */
+    margin-top: 40px; /* Space from the top */
+    padding: 20px; /* Padding for better spacing */
 }
 
-.subcategoryCheckbox label {
-    margin-bottom: 10px;
-    font-weight: 400; /* lighter font weight for a cleaner look */
+.bottom {
     display: flex;
-    align-items: center;
-    font-size: 1rem;
+    flex-direction: column; /* Stack toggle buttons and grid vertically */
+    align-items: center; /* Center align children */
+    width: 100%; /* Full width of container */
 }
 
-.subcategoryCheckbox input[type="checkbox"] {
-    margin-right: 10px; /* increased space between checkbox and label */
-    accent-color: #007bff; /* customize checkbox color */
-    transform: scale(1.2); /* enlarge checkbox for better visibility */
+.subcategoryToggle {
+    margin-bottom: 20px; /* Space between toggle buttons and equipment grid */
 }
-
-/* Optional: Add some hover effects for labels */
-.subcategoryCheckbox label:hover {
-    color: #007bff; /* change text color on hover */
-    cursor: pointer; /* change cursor to pointer */
-}
-
 
 .equipmentGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px; /* Adjust the gap between cards as needed */
-    padding: 16px;
-    justify-content: center;
+    gap: 16px; /* Gap between cards */
+    justify-content: center; /* Center align items */
 }
 
 .equipment-item {
@@ -58,20 +42,4 @@
 .equipment-item:hover {
     transform: translateY(-5px); /* Lift the card on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-}
-
-.allComponents {
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-    /* height: calc(100vh - 60px); adjust according to header height */
-}
-
-.bottom {
-    display: flex;
-    flex-direction: row;
-}
-
-.search-bar {
-    margin:15px;
 }

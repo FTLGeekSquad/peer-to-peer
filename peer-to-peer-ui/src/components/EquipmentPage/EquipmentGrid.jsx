@@ -1,52 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
 import Equipment from "./Equipment";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import "./EquipmentGrid.css";
 
 function EquipmentGrid() {
-    const [equipment, setEquipment] = useState([]); // will fill the grid with the equipment as its updated
-    const [selectedCategories, setSelectedCategories] = useState([]); // sub category filter, initially nothing 
-    const [searchTerm, setSearchTerm] = useState(""); // search bar implementation.. initially empty
-    const dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
-    console.log("in the equipment grid!"); // made it here lol
+    const [equipment, setEquipment] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const dataUrl = "http://localhost:3000/listings/filter/equipment";
 
     useEffect(() => {
         const fetchEquipment = async () => {
-            let dataUrl = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
+            let url = "http://localhost:3000/listings/filter/equipment"; // declare the url, 
             try {
                 if (selectedCategories.length > 0) {
                     const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
-                    dataUrl += `?${categoryQuery}`;
+                    url += `?${categoryQuery}`;
                 }
-        
-                const response = await axios.get(dataUrl);
-                setEquipment(response.data);
-                console.log(response.data);
 
+                const response = await axios.get(url);
+                setEquipment(response.data);
             } catch (error) {
                 console.error("Error fetching equipment:", error);
             }
         };
 
         fetchEquipment();
-    }, [selectedCategories]); // fetches whenever selectedCategories updates
+    }, [selectedCategories]);
 
-    const handleCheckboxChange = (event) => {
-        const category = event.target.value;
-        setSelectedCategories(prevCategories =>
-            prevCategories.includes(category)
-                ? prevCategories.filter(cat => cat !== category)
-                : [...prevCategories, category]
-        );
+    const handleToggleChange = (event, newCategories) => {
+        setSelectedCategories(newCategories);
     };
-    
+const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+};
 
+const filteredEquipment = equipment.filter(equip =>
+    equip.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
     return (
         <>
-            <Header />
-            {/* Checkboxes with: 
+            <Header handleSubmit={handleSearch} />
+            {/* Toggle buttons with: 
                 - Cameras http://localhost:3000/listings/filter/equipment?subCategory=cameras
                 - Lenses lenses: http://localhost:3000/listings/filter/equipment?subCategory=lenses
                 - Flash/Flash Equipment flashes: http://localhost:3000/listings/filter/equipment?subCategory=flashes
@@ -54,59 +51,34 @@ function EquipmentGrid() {
             */}
             <div className="allComponents">
                 <div className="bottom">
-                    <div className="subcategoryCheckbox">
-                        <h3>SubCategories</h3>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Cameras"
-                                checked={selectedCategories.includes("Cameras")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Cameras
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Lenses"
-                                checked={selectedCategories.includes("Lenses")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Lenses
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Flashes"
-                                checked={selectedCategories.includes("Flashes")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Flash/Flash Equipment
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="Tripods"
-                                checked={selectedCategories.includes("Tripods")}
-                                onChange={handleCheckboxChange}
-                            />
-                            Tripods
-                        </label>
+                    <div className="subcategoryToggle">
+                        <ToggleButtonGroup
+                            value={selectedCategories}
+                            onChange={handleToggleChange}
+                            aria-label="subcategory"
+                            color="primary"
+                            sx={{ marginBottom: 2 }}
+                        >
+                            <ToggleButton value="Cameras">Cameras</ToggleButton>
+                            <ToggleButton value="Lenses">Lenses</ToggleButton>
+                            <ToggleButton value="Flashes">Flash/Flash Equipment</ToggleButton>
+                            <ToggleButton value="Tripods">Tripods</ToggleButton>
+                        </ToggleButtonGroup>
                     </div>
 
                     <div className="equipmentGrid">
                         {/* the actual equipment listings */}
-                        {equipment.map((equipment, index) => (
+                        {filteredEquipment.map((equip, index) => (
                             <div key={index} className="equipment-item">
                                 <Equipment
-                                    equipmentId={equipment.listingId}
-                                    title={equipment.title}
-                                    category={equipment.category}
-                                    subCategory={equipment.subCategory}
-                                    location={equipment.location}
-                                    equipment={equipment}
+                                    equipmentId={equip.listingId}
+                                    title={equip.title}
+                                    category={equip.category}
+                                    subCategory={equip.subCategory}
+                                    location={equip.location}
+                                    equipment={equip}
                                     setEquipment={setEquipment}
-                                    priceHourly={equipment.priceHourly}
+                                    priceHourly={equip.priceHourly}
                                 />
                             </div>
                         ))}
@@ -118,3 +90,6 @@ function EquipmentGrid() {
 }
 
 export default EquipmentGrid;
+
+
+
