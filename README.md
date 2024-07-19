@@ -6,9 +6,9 @@ SITE Course Year: **20__**
 
 Cohort: **Add Company Sponsor Name**
 
-Team Member Names:**Insert Team Member Names**
+Team Member Names:**Sydney Brown, Roxana Cruz, Jazlyn Jones**
 
-Mentors Names: **Insert Professional Mentor Names**
+Mentors Names: ** Srijita Mori, Sean Pathmanaban, Ashish Patel**
 
 Project Code Repository Links
 
