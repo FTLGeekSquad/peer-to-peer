@@ -1,10 +1,10 @@
+
 import React, { useState } from 'react';
 import './ProfilePage.css';
 import logo from '../../assets/logo.png';
 import profileImg from '../../assets/profile.png';
 import placeHolderListing from '../../assets/placeholderListing.png';
 import { Link } from "react-router-dom";
-
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('rent');
@@ -156,4 +156,3 @@ const ListContent = () => (
 );
 
 export default ProfilePage;
-
