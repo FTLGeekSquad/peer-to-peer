@@ -64,7 +64,7 @@ const RentContent = () => (
     <section className="listings">
       <div className="tabs">
         <button className="tab active">Saved</button>
-        <button className="tab">Contacted</button>
+        {/* <button className="tab">Contacted</button> */}
       </div>
       <div className="listings-grid">
         <div className="listing-card">
@@ -121,8 +121,8 @@ const ListContent = () => (
 
   <section className="listings">
     <div className="tabs">
-      <button className="tab active">Saved</button>
-      <button className="tab">Contacted</button>
+      {/* <button className="tab active">Saved</button> */}
+      <button className="tab">All</button>
     </div>
     <div className="listings-grid">
       <div className="listing-card">
