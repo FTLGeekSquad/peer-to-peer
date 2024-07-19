@@ -30,6 +30,10 @@
 
 .nav-button.active {
   font-weight: bold;
+  background-color: #C3CBC6; /* Change to your desired active color */
+  border-radius: 5px;
+  padding: 7px;
+  height: auto;
 }
 
 .profile {
@@ -93,6 +97,7 @@
 
 .tab.active {
   font-weight: bold;
+  background-color: #C3CBC6; /* Change to your desired active color */
 }
 
 .listings-grid {
@@ -117,4 +122,9 @@
   padding: 5px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.pLogo {
+  width: 80px;
+  height: auto;
 }

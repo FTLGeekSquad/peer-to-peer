@@ -1,9 +1,10 @@
-
 import React, { useState } from 'react';
 import './ProfilePage.css';
 import logo from '../../assets/logo.png';
 import profileImg from '../../assets/profile.png';
 import placeHolderListing from '../../assets/placeholderListing.png';
+import { Link } from "react-router-dom";
+
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('rent');
@@ -11,9 +12,9 @@ const ProfilePage = () => {
   return (
     <div className="profile-page">
       <header className="header">
-        <div className="logo">
-          <img src={logo} alt="Peer2Peer Logo" />
-        </div>
+      <Link to="/home">
+                    <img src={logo} alt="Logo" className="pLogo" />
+                </Link>
         <nav className="navigation">
           <button
             className={`nav-button ${activeTab === 'rent' ? 'active' : ''}`}
@@ -100,10 +101,8 @@ const RentContent = () => (
 );
 
 const ListContent = () => (
-	
-	<>
-
-<section className="profile-info">
+  <>
+    <section className="profile-info">
       <div className="profile-picture">
         <img src={profileImg} alt="Profile" />
       </div>
@@ -118,44 +117,42 @@ const ListContent = () => (
         <button className="edit-button">Edit Account Details</button>
       </div>
     </section>
-
-  <section className="listings">
-    <div className="tabs">
-      {/* <button className="tab active">Saved</button> */}
-      <button className="tab">All</button>
-    </div>
-    <div className="listings-grid">
-      <div className="listing-card">
-        <img src={placeHolderListing} alt="Listing" />
-        <div className="listing-details">
-          <p>Title</p>
-          <p>Location</p>
-          <p>Price</p>
-          <button className="contact-button">Mark as Contacted</button>
+    <section className="listings">
+      <div className="tabs">
+        {/* <button className="tab active">Saved</button> */}
+        <button className="tab active">All</button>
+      </div>
+      <div className="listings-grid">
+        <div className="listing-card">
+          <img src={placeHolderListing} alt="Listing" />
+          <div className="listing-details">
+            <p>Title</p>
+            <p>Location</p>
+            <p>Price</p>
+            <button className="contact-button">Mark as Contacted</button>
+          </div>
+        </div>
+        <div className="listing-card">
+          <img src={placeHolderListing} alt="Listing" />
+          <div className="listing-details">
+            <p>Title</p>
+            <p>Location</p>
+            <p>Price</p>
+            <button className="contact-button">Mark as Contacted</button>
+          </div>
+        </div>
+        <div className="listing-card">
+          <img src={placeHolderListing} alt="Listing" />
+          <div className="listing-details">
+            <p>Title</p>
+            <p>Location</p>
+            <p>Price</p>
+            <button className="contact-button">Mark as Contacted</button>
+          </div>
         </div>
       </div>
-      <div className="listing-card">
-        <img src={placeHolderListing} alt="Listing" />
-        <div className="listing-details">
-          <p>Title</p>
-          <p>Location</p>
-          <p>Price</p>
-          <button className="contact-button">Mark as Contacted</button>
-        </div>
-      </div>
-      <div className="listing-card">
-        <img src={placeHolderListing} alt="Listing" />
-        <div className="listing-details">
-          <p>Title</p>
-          <p>Location</p>
-          <p>Price</p>
-          <button className="contact-button">Mark as Contacted</button>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
   </>
 );
 
 export default ProfilePage;
-
