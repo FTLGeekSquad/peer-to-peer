@@ -1,3 +1,32 @@
+/* .navbar {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc; 
+}
+
+.nav-links {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.nav-links li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #000; 
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+} */
+
 .navbar {
   text-align: center;
   padding: 10px 0;
@@ -26,3 +55,15 @@
 .nav-links li a:hover {
   text-decoration: underline;
 }
+
+.active-link {
+  background-color: #C3CBC6; /* Change to your desired background color */
+  border-radius: 5px; /* Optional: to add rounded corners */
+  padding: 5px 10px; /* Optional: to add padding around the active link */
+}
+
+
+
+
+
+
