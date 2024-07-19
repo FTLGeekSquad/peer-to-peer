@@ -1,4 +1,3 @@
-
 //this serves as the page that will hold the services "card" as well as filter the services 
 //Filter: videographer and photographer
 //should contain a search bar
@@ -7,10 +6,12 @@ import axios from "axios";
 import Header from "../Header/Header";
 import Services from "./Services";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import "./ServicesGrid.css";
 
 function ServicesGrid() {
     const [services, setServices] = useState([]); // Will fill the grid with the services as its updated
+    const [selectedService, setSelectedService] = useState(null); // State for modal
     const [selectedCategories, setSelectedCategories] = useState([]); // Category filter, initially nothing 
     const [searchTerm, setSearchTerm] = useState(""); // Search bar implementation, initially empty
     const dataUrl = "http://localhost:3000/listings/filter/services"; // Declare the URL
@@ -18,7 +19,7 @@ function ServicesGrid() {
 
     useEffect(() => {
         const fetchServices = async () => {
-            let url = "http://localhost:3000/listings/filter/services"; // Base URL
+            let url = dataUrl; // Base URL
             try {
                 if (selectedCategories.length > 0) {
                     // Construct query string for selected categories
@@ -43,13 +44,19 @@ function ServicesGrid() {
         console.log("Selected Categories:", newCategories); // Log the updated categories
         setSelectedCategories(newCategories);
     };
+
     const handleSearch = (searchTerm) => {
         setSearchTerm(searchTerm);
+    };
+
+    const handleItemClick = (service) => {
+        setSelectedService(service); // Set the selected service to show in the modal
     };
 
     const filteredServices = services.filter(service =>
         service.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     return (
         <>
             <Header handleSubmit={handleSearch} />
@@ -74,7 +81,7 @@ function ServicesGrid() {
 
                     <div className="servicesGrid">
                         {filteredServices.map((service, index) => (
-                            <div key={index} className="services-item">
+                            <div key={index} className="services-item" onClick={() => handleItemClick(service)}>
                                 <Services
                                     servicesId={service.listingId}
                                     title={service.title}
@@ -90,6 +97,18 @@ function ServicesGrid() {
                     </div>
                 </div>
             </div>
+
+            {/* Show modal if service is selected */}
+            {selectedService && (
+                <Modal
+                    show={selectedService !== null}
+                    onClose={() => setSelectedService(null)}
+                >
+                    <h2>{selectedService.title}</h2>
+                    <p><strong>Location:</strong> {selectedService.location}</p>
+                    <p>{selectedService.description}</p>
+                </Modal>
+            )}
         </>
     );
 }
