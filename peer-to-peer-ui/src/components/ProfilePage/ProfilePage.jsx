@@ -5,6 +5,7 @@ import profileImg from '../../assets/profile.png';
 import placeHolderListing from '../../assets/placeholderListing.png';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import FileUpload from '../FileUpload/FileUpload';
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('rent');
@@ -159,7 +160,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     services: ['Photography', 'Videography']
   };
 
-  
+  const handleFileUploaded = (url) => {
+    // console.log(url)
+    setPhoto(url);
+  };
 
   return (
     <>
@@ -239,14 +243,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
                     required
                     className='styled-input'
                   />
-                  <input
-                    type='text'
-                    value={photo}
-                    onChange={(e) => setPhoto(e.target.value)}
-                    placeholder='Photo URL'
-                    required
-                    className='styled-input'
-                  />
+                
+                  <FileUpload onFileUploaded={handleFileUploaded} />
                   <input
                     type='text'
                     value={location}

@@ -87,6 +87,7 @@ function EquipmentGrid() {
                                     equipment={equip}
                                     setEquipment={setEquipment}
                                     priceHourly={equip.priceHourly}
+                                    photo={equip.photo}
                                 />
                             </div>
                         ))}
