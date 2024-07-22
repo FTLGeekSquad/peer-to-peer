@@ -34,7 +34,10 @@ function Spaces (listing) {
 return(
     <>
         <div className="spacesCard">
-        <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> 
+        {/* <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} />  */}
+
+        <img src={photo} alt={title} />
+
         <h3 className="spacesCardTitle">{title}</h3>
         <div className="paragraph">
         <p className="price">${priceHourly} per hour</p>

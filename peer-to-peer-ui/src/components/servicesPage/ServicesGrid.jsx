@@ -91,6 +91,8 @@ function ServicesGrid() {
                                     services={service}
                                     setServices={setServices}
                                     priceHourly={service.priceHourly}
+                                    photo={service.photo}
+
                                 />
                             </div>
                         ))}

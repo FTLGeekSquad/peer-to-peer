@@ -33,7 +33,6 @@ function Equipment (listing) {
 return(
     <>
         <div className="equipmentCard">
-        {/* <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} />  */}
         <img src={photo} alt={title} />
 
         <div className="equipmentCardTitle">{title}</div>

@@ -84,6 +84,8 @@ function SpacesGrid() {
                                     spaces={space}
                                     setSpaces={setSpaces}
                                     priceHourly={space.priceHourly}
+                                    photo={space.photo}
+
                                 />
                             </div>
                         ))}
