@@ -152,6 +152,15 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     }
   };
 
+  // Define subcategory options based on the selected category
+  const subcategoryOptions = {
+    equipment: ['Cameras', 'Lenses', 'Flashes', 'Tripods'],
+    spaces: ['Indoor', 'Outdoor'],
+    services: ['Photography', 'Videography']
+  };
+
+  
+
   return (
     <>
       <section className="profile-info">
@@ -198,7 +207,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
                   />
                   <select
                     value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                      setSubCategory(''); // Reset subCategory when category changes
+                    }}
                     required
                     className='styled-input'
                   >
@@ -207,14 +219,18 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
                     <option value='services'>Services</option>
                     <option value='spaces'>Spaces</option>
                   </select>
-                  <input
-                    type='text'
+                  <select
                     value={subCategory}
                     onChange={(e) => setSubCategory(e.target.value)}
-                    placeholder='SubCategory'
                     required
                     className='styled-input'
-                  />
+                    disabled={!category} // Disable subCategory if no category is selected
+                  >
+                    <option value='' disabled>Select a subcategory</option>
+                    {category && subcategoryOptions[category]?.map(sub => (
+                      <option key={sub} value={sub}>{sub}</option>
+                    ))}
+                  </select>
                   <input
                     type='number'
                     value={priceHourly}
@@ -286,4 +302,3 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 };
 
 export default ProfilePage;
-
