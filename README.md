@@ -6,14 +6,14 @@ SITE Course Year: **20__**
 
 Cohort: **Add Company Sponsor Name**
 
-Team Member Names:**Insert Team Member Names**
+Team Member Names:**Sydney Brown, Roxana Cruz, Jazlyn Jones**
 
-Mentors Names: **Insert Professional Mentor Names**
+Mentors Names: ** Srijita Mori, Sean Pathmanaban, Ashish Patel**
 
 Project Code Repository Links
 
-* [Frontend Repo Link]()
-* [Backend Repo Link]()
+* [Frontend Repo Link](https://github.com/FTLGeekSquad/peer-to-peer/tree/main/peer-to-peer-ui)
+* [Backend Repo Link](https://github.com/FTLGeekSquad/peer-to-peer/tree/main/peer-to-peer-api)
 
 ## Project Overview
 
