@@ -13,7 +13,6 @@ const HomePage = () => {
 			<div>
 				<Header />
 			</div>
-			<FileUpload />
 			<div className="categories">
 				<Link to="/equipment" className="category-link">
 					<img src={equipment} alt="Category 1" className="category-image" />
