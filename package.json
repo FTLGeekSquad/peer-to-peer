@@ -2,6 +2,11 @@
   "dependencies": {
     "@mui/lab": "^5.0.0-alpha.172",
     "axios": "^1.7.2",
-    "google-auth-library": "^9.11.0"
+    "dotenv": "^16.4.5",
+    "google-auth-library": "^9.11.0",
+    "googleapis": "^140.0.1",
+    "jwt-decode": "^4.0.0",
+    "query-string": "^9.1.0",
+    "react-router-dom": "^6.25.1"
   }
 }

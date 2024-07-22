@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes,Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import SearchBar from './components/SearchBar/SearchBar';
 import './App.css'
@@ -9,13 +9,13 @@ import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ServicesGrid from './components/ServicesPage/ServicesGrid';
 import SpacesGrid from './components/SpacesPage/SpacesGrid';
 import EquipmentGrid from './components/EquipmentPage/EquipmentGrid';
+import Login from './components/GoogleOAuthStuff/Login';
+import Dashboard from './components/GoogleOAuthStuff/Dashboard';
+import PrivateRoute from './components/GoogleOAuthStuff/PrivateRoute';
+import Callback from './components/GoogleOAuthStuff/Callback';
 
 
 
-const Equipment = () => <div>Equipment Page</div>;
-const Spaces = () => <div>Spaces Page</div>;
-const Services = () => <div>Services Page</div>;
-const Home = () => <div>Home Page</div>;
 
 function App() {
 	return (
@@ -29,6 +29,18 @@ function App() {
 			<Route path="/spaces" element={<SpacesGrid/>} />
 			<Route path="/services" element={<ServicesGrid/>} />
 			<Route path="/profile" element={<ProfilePage />} />
+
+			<Route path="/login" element={<Login />} />
+        	<Route path="/callback" element={<Callback />} />
+			<Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+		<Route path="/" element={<Navigate to="/login" />} />
 		</Routes>
 	</Router>
 	);
