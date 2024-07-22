@@ -5,6 +5,7 @@ import Header from "../Header/Header"
 import equipment from "/src/assets/equipment.png";
 import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
+import FileUpload from "../FileUpload/FileUpload";
 
 const HomePage = () => {
 	return (
@@ -12,6 +13,7 @@ const HomePage = () => {
 			<div>
 				<Header />
 			</div>
+			<FileUpload />
 			<div className="categories">
 				<Link to="/equipment" className="category-link">
 					<img src={equipment} alt="Category 1" className="category-image" />

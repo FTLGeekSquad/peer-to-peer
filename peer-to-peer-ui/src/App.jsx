@@ -18,6 +18,8 @@ const Services = () => <div>Services Page</div>;
 const Home = () => <div>Home Page</div>;
 
 function App() {
+	
+
 	return (
 	<Router> 
     {/* <To be displayed on every page*/}
