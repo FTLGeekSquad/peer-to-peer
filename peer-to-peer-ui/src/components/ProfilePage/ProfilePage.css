@@ -171,4 +171,119 @@
 }
 
 
+/* new stuff */
+.createListing {
+  position: relative;
+}
+
+
+
+
+
+
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.listing-modal-content {
+  background-color: #C3CBC6;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: slide-down 0.3s ease-out;
+  height: 50%;
+}
+
+.listing-modal-header {
+  background-color: #FBF7EE;
+  border-radius: 10px;
+}
+
+.modalTitle {
+  display: flex;
+  margin-top: 0px;
+  flex-direction: row;
+  justify-content: center;
+  padding: 12px;
+}
+
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.styled-input {
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #FBF7EE;
+}
+
+.styled-input:focus {
+  outline: none;
+  border-color: #4caf50; /* Green border on focus */
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.create-listing-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: transparent; /* Clear background */
+  color: black; /* Black text */
+  text-align: center;
+  border: 1px solid black; /* Black outline */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.create-listing-button:hover {
+  background-color: #C3CBC6; /* Fill color on hover */
+}
+
 

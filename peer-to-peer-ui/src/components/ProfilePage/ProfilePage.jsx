@@ -184,81 +184,89 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
       </section>
 
       <div className='createListing'>
-        <button onClick={handleOpenModal}>Create Listing</button>
+        {/* <button onClick={handleOpenModal} className = 'create-listing-button'>Create Listing</button> */}
+        <div className="create-listing-button-container">
+          <button className="create-listing-button" onClick={handleOpenModal}>
+          Create Listing
+          </button>
+      </div>
         {showCreateListing && (
           <div className="modal" onClick={handleCloseModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-header">
+            <div className="listing-modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="listing-modal-header">
                 <button className="modal-close" onClick={handleCloseModal}>&times;</button>
+                <h2 className='modalTitle'>Create a Listing</h2>
               </div>
               <div className="modal-body">
-                <form onSubmit={handleCreateListing}>
-                  <input
-                    type='text'
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder='Enter a Title'
-                    required
-                    className='styled-input'
-                  />
-                  <input
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder='Description'
-                    required
-                    className='styled-input'
-                  />
-                  <select
-                    value={category}
-                    onChange={(e) => {
-                      setCategory(e.target.value);
-                      setSubCategory(''); // Reset subCategory when category changes
-                    }}
-                    required
-                    className='styled-input'
-                  >
-                    <option value='' disabled>Select a category</option>
-                    <option value='equipment'>Equipment</option>
-                    <option value='services'>Services</option>
-                    <option value='spaces'>Spaces</option>
-                  </select>
-                  <select
-                    value={subCategory}
-                    onChange={(e) => setSubCategory(e.target.value)}
-                    required
-                    className='styled-input'
-                    disabled={!category} // Disable subCategory if no category is selected
-                  >
-                    <option value='' disabled>Select a subcategory</option>
-                    {category && subcategoryOptions[category]?.map(sub => (
-                      <option key={sub} value={sub}>{sub}</option>
-                    ))}
-                  </select>
-                  <input
-                    type='number'
-                    value={priceHourly}
-                    onChange={(e) => setPriceHourly(parseFloat(e.target.value))}
-                    placeholder='Price Hourly'
-                    required
-                    className='styled-input'
-                  />
-                
-                  <FileUpload onFileUploaded={handleFileUploaded} />
-                  <input
-                    type='text'
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder='Location'
-                    required
-                    className='styled-input'
-                  />
-                  <button type='submit' className='create-listing-button'>Create Listing</button>
-                </form>
-              </div>
+  <form onSubmit={handleCreateListing} className='centered-form'>
+    <input
+      type='text'
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      placeholder='Enter a Title'
+      required
+      className='styled-input'
+    />
+    <input
+      type='text'
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
+      placeholder='Description'
+      required
+      className='styled-input'
+    />
+    <select
+      value={category}
+      onChange={(e) => {
+        setCategory(e.target.value);
+        setSubCategory(''); // Reset subCategory when category changes
+      }}
+      required
+      className='styled-input'
+    >
+      <option value='' disabled>Select a category</option>
+      <option value='equipment'>Equipment</option>
+      <option value='services'>Services</option>
+      <option value='spaces'>Spaces</option>
+    </select>
+    <select
+      value={subCategory}
+      onChange={(e) => setSubCategory(e.target.value)}
+      required
+      className='styled-input'
+      disabled={!category} // Disable subCategory if no category is selected
+    >
+      <option value='' disabled>Select a subcategory</option>
+      {category && subcategoryOptions[category]?.map(sub => (
+        <option key={sub} value={sub}>{sub}</option>
+      ))}
+    </select>
+    <input
+      type='number'
+      value={priceHourly}
+      onChange={(e) => setPriceHourly(parseFloat(e.target.value))}
+      placeholder='Price Hourly'
+      required
+      className='styled-input'
+    />
+    <input
+      type='text'
+      value={location}
+      onChange={(e) => setLocation(e.target.value)}
+      placeholder='Location'
+      required
+      className='styled-input'
+    />
+        <FileUpload onFileUploaded={handleFileUploaded} className='fileUpload' />
+
+    {/* <button type='submit' className='create-listing-button'>Create Listing</button> */}
+  </form>
+</div>
+
             </div>
           </div>
         )}
+
       </div>
 
       <section className="listings">
