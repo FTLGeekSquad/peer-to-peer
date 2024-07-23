@@ -5,6 +5,7 @@ import Header from "../Header/Header"
 import equipment from "/src/assets/equipment.png";
 import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
+import FileUpload from "../FileUpload/FileUpload";
 
 const HomePage = () => {
 	return (
@@ -23,7 +24,7 @@ const HomePage = () => {
 					<img src={services} alt="Category 3" className="category-image" />
 				</Link>
 			</div>
-			
+
 			<div className="banner">
 				<div className="text">
 					<div className="banner-text">
@@ -39,3 +40,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
