@@ -1,8 +1,10 @@
 import React from "react";
 import "./ListingModal.css";
 
-const ListingModal = ({ listing, isOpen, onClose }) => {
-	if (!isOpen) return null;
+const ListingModal = ({ listing, onClose, show }) => {
+	if (!show) {
+		return null;
+	}
 
 	return (
 		<div className="modal-overlay">

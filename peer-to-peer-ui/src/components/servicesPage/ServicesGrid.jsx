@@ -1,4 +1,4 @@
-//this serves as the page that will hold the services "card" as well as filter the services 
+//this serves as the page that will hold the services "card" as well as filter the services
 //Filter: videographer and photographer
 //should contain a search bar
 import React, { useEffect, useState } from "react";
@@ -6,113 +6,108 @@ import axios from "axios";
 import Header from "../Header/Header";
 import Services from "./Services";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
+import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
 import "./ServicesGrid.css";
+import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 
 function ServicesGrid() {
-    const [services, setServices] = useState([]); // Will fill the grid with the services as its updated
-    const [selectedService, setSelectedService] = useState(null); // State for modal
-    const [selectedCategories, setSelectedCategories] = useState([]); // Category filter, initially nothing 
-    const [searchTerm, setSearchTerm] = useState(""); // Search bar implementation, initially empty
-    const dataUrl = "http://localhost:3000/listings/filter/services"; // Declare the URL
-    console.log("in the services grid!"); // Debugging log
+	const [services, setServices] = useState([]);
+	const [selectedService, setSelectedService] = useState(null); // State for modal
+	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const { saveListing } = useSavedListings(); // Use the context
 
-    useEffect(() => {
-        const fetchServices = async () => {
-            let url = dataUrl; // Base URL
-            try {
-                if (selectedCategories.length > 0) {
-                    // Construct query string for selected categories
-                    const categoryQuery = selectedCategories.map(category => `subCategory=${category}`).join('&');
-                    url += `?${categoryQuery}`;
-                }
+	const dataUrl = "http://localhost:3000/listings/filter/services";
 
-                console.log("Fetching data from URL:", url); // Log the URL being fetched
+	useEffect(() => {
+		const fetchServices = async () => {
+			let url = dataUrl;
+			try {
+				if (selectedCategories.length > 0) {
+					const categoryQuery = selectedCategories
+						.map((category) => `subCategory=${category}`)
+						.join("&");
+					url += `?${categoryQuery}`;
+				}
+				const response = await axios.get(url);
+				setServices(response.data);
+			} catch (error) {
+				console.error("Error fetching services:", error);
+			}
+		};
 
-                const response = await axios.get(url);
-                setServices(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error("Error fetching services:", error);
-            }
-        };
+		fetchServices();
+	}, [selectedCategories]);
 
-        fetchServices();
-    }, [selectedCategories]); // Fetches whenever selectedCategories updates
+	const handleToggleChange = (event, newCategories) => {
+		setSelectedCategories(newCategories);
+	};
 
-    const handleToggleChange = (event, newCategories) => {
-        console.log("Selected Categories:", newCategories); // Log the updated categories
-        setSelectedCategories(newCategories);
-    };
+	const handleSearch = (searchTerm) => {
+		setSearchTerm(searchTerm);
+	};
 
-    const handleSearch = (searchTerm) => {
-        setSearchTerm(searchTerm);
-    };
+	const handleItemClick = (service) => {
+		setSelectedService(service); // Set the selected service to show in the modal
+	};
 
-    const handleItemClick = (service) => {
-        setSelectedService(service); // Set the selected service to show in the modal
-    };
+	const filteredServices = services.filter((service) =>
+		service.title.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
-    const filteredServices = services.filter(service =>
-        service.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    return (
-        <>
-            <Header handleSubmit={handleSearch} />
-            {/* Toggle buttons with: 
+	return (
+		<>
+			<Header handleSubmit={handleSearch} />
+			{/* Toggle buttons with: 
                 - Photography http://localhost:3000/listings/filter/services?category=photography
                 - Videography http://localhost:3000/listings/filter/services?category=videography
             */}
-            <div className="allComponents">
-                <div className="bottom">
-                    <div className="subcategoryToggle">
-                        <ToggleButtonGroup
-                            value={selectedCategories}
-                            onChange={handleToggleChange}
-                            aria-label="category"
-                            color="primary"
-                            sx={{ marginBottom: 2 }}
-                        >
-                            <ToggleButton value="Photography">Photography</ToggleButton>
-                            <ToggleButton value="Videography">Videography</ToggleButton>
-                        </ToggleButtonGroup>
-                    </div>
+			<div className="allComponents">
+				<div className="bottom">
+					<div className="subcategoryToggle">
+						<ToggleButtonGroup
+							value={selectedCategories}
+							onChange={handleToggleChange}
+							aria-label="subcategory"
+							color="primary"
+							sx={{ marginBottom: 2 }}
+						>
+							<ToggleButton value="Photography">Photography</ToggleButton>
+							<ToggleButton value="Videography">Videography</ToggleButton>
+						</ToggleButtonGroup>
+					</div>
 
-                    <div className="servicesGrid">
-                        {filteredServices.map((service, index) => (
-                            <div key={index} className="services-item" onClick={() => handleItemClick(service)}>
-                                <Services
-                                    servicesId={service.listingId}
-                                    title={service.title}
-                                    category={service.category}
-                                    subCatgeory={service.subCategory}
-                                    location={service.location}
-                                    services={service}
-                                    setServices={setServices}
-                                    priceHourly={service.priceHourly}
-                                    photo={service.photo}
+					<div className="servicesGrid">
+						{filteredServices.map((service, index) => (
+							<div
+								key={index}
+								className="services-item"
+								onClick={() => handleItemClick(service)}
+							>
+								<Services
+									listing={service}
+									onSave={saveListing} // Pass the saveListing function
+								/>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
 
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Show modal if service is selected */}
-            {selectedService && (
-                <Modal
-                    show={selectedService !== null}
-                    onClose={() => setSelectedService(null)}
-                >
-                    <h2>{selectedService.title}</h2>
-                    <p><strong>Location:</strong> {selectedService.location}</p>
-                    <p>{selectedService.description}</p>
-                </Modal>
-            )}
-        </>
-    );
+			{selectedService && (
+				<Modal
+					show={selectedService !== null}
+					onClose={() => setSelectedService(null)}
+				>
+					<h2>{selectedService.title}</h2>
+					<p>
+						<strong>Location:</strong> {selectedService.location}
+					</p>
+					<p>{selectedService.description}</p>
+				</Modal>
+			)}
+		</>
+	);
 }
 
 export default ServicesGrid;
