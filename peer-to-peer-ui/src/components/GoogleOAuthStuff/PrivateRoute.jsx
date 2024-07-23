@@ -18,7 +18,7 @@ const PrivateRoute = ({ children }) => {
       }
 
       // Check exp field for expiry
-      const expirationTime = decodedToken.exp; // This is the exp field
+      const expirationTime = decodedToken.exp; // his is the exp field
       const now = Math.floor(Date.now() / 1000); // Current time in seconds
 
       if (expirationTime < now) {
