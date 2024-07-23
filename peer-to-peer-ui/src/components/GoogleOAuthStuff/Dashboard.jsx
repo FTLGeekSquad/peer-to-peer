@@ -18,9 +18,9 @@ const Dashboard = () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
-    });
+    })
     setUserInfo(resp.data.user.name);
-  };
+  }
 
   return (
     <div>

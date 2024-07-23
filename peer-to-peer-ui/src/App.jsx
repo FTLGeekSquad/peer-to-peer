@@ -30,7 +30,7 @@ function App() {
 			<Route path="/services" element={<ServicesGrid/>} />
 			<Route path="/profile" element={<ProfilePage />} />
 
-			
+		
         	<Route path="/callback" element={<Callback />} />
 			<Route
           path="/dashboard"

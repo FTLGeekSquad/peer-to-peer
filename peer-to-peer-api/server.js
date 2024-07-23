@@ -63,6 +63,12 @@ app.get("/auth/google/callback", async (req, res) => {
 
     const googleUser = await oauth2.userinfo.get();
     console.log(googleUser.data);
+//check if the are already in the database
+//if not already in the database store their info
+// if info has changed update the database
+
+
+
 
     res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
   } catch (error) {
