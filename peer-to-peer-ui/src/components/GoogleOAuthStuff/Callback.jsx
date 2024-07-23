@@ -1,13 +1,9 @@
-
-
 import React, { useEffect } from "react";
-import queryString from "query-string";
 
 const Callback = () => {
-
   useEffect(() => {
-    const urlParams = queryString.parse(window.location.search);
-    const token = urlParams.token;
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
     console.log("Token from URL:", token); // Debugging log
 
     if (token) {
