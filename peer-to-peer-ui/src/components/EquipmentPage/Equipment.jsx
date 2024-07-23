@@ -35,11 +35,24 @@ import React from "react";
 import "./Equipment.css";
 
 function Equipment({ listing, onSave }) {
-	const { listingId, title, priceHourly, location } = listing;
+	// const { listingId, title, priceHourly, location } = listing;
+
+	const { //instead of listing every param
+		listingId,
+		title,
+	   description,
+		category,
+		subCategory,
+		priceHourly,
+		photo,
+		location
+		//availability
+	 } = listing;
 
 	return (
 		<div className="equipmentCard">
-			<img src={`https://picsum.photos/200?random=${listingId}`} alt={title} />
+			{/* <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> */}
+			<img src={photo} alt={title} />
 			<div className="equipmentCardTitle">{title}</div>
 			<div className="paragraph">
 				<p className="price">${priceHourly} per hour</p>

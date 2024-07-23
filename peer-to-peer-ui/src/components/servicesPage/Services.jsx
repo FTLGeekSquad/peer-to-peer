@@ -50,11 +50,24 @@ import React, { useContext } from "react";
 import "./Services.css";
 
 function Services({ listing, onSave }) {
-	const { listingId, title, priceHourly, location } = listing;
+	// const { listingId, title, priceHourly, location } = listing;
+
+	const { //instead of listing every param
+		listingId,
+		title,
+	   description,
+		category,
+		subCategory,
+		priceHourly,
+		photo,
+		location
+		//availability
+	 } = listing;
 
 	return (
 		<div className="servicesCard">
-			<img src={`https://picsum.photos/200?random=${listingId}`} alt={title} />
+			{/* <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> */}
+			<img src={photo} alt={title} />
 			<h3 className="servicesCardTitle">{title}</h3>
 			<div className="paragraph">
 				<p className="price">${priceHourly} per hour</p>
