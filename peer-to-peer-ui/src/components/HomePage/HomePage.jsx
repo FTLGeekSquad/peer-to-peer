@@ -23,7 +23,7 @@ const HomePage = () => {
 					<img src={services} alt="Category 3" className="category-image" />
 				</Link>
 			</div>
-			
+
 			<div className="banner">
 				<div className="text">
 					<div className="banner-text">
@@ -39,3 +39,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
