@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@mui/lab": "^5.0.0-alpha.172",
-    "@mui/material": "^5.16.4",
-    "aws-sdk": "^2.1662.0",
-    "axios": "^1.7.2"
-  }
-}
-
