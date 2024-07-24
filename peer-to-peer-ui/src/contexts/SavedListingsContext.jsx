@@ -17,6 +17,8 @@ export const SavedListingsProvider = ({ children }) => {
 	}, [savedListings]);
 
 	const saveListing = (listing) => {
+		console.log('test')
+
 		setSavedListings([...savedListings, listing]);
 	};
 

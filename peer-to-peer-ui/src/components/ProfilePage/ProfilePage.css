@@ -102,18 +102,43 @@
 
 .listings-grid {
   display: flex;
+  flex-direction: row;
   gap: 20px;
 }
 
+.listing-item {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
 .listing-card {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+  background-color: #C3CBC6; /* Card background color */
+    border: 1px solid #ddd; /* Card border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 9px;
+    width: 200px; /* Set the width of the card */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .listing-card img {
   height: 100px;
+}
+
+.listing-card p {
+  font-family: 'Solway', sans-serif;
+  padding: 0px;
+  margin: 4px;
+  margin-left: 0;
+  font-weight: 300;
+  
 }
 
 .contact-button {

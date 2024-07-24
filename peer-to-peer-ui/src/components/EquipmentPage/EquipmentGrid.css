@@ -23,14 +23,14 @@
     gap: 16px; /* Gap between cards */
     justify-content: center; /* Center align items */
 }
-
+/*
 .equipment-item {
-    background-color: #C3CBC6; /* Card background color */
-    border: 1px solid #b4c1b9; /* Card border */
-    border-radius: 8px; /* Rounded corners */
+    /* background-color: #C3CBC6; Card background color 
+    /* border: 1px solid #b4c1b9; Card border 
+    border-radius: 8px; /* Rounded corners 
     width: auto;
     height: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth 
     padding: 16px;
     box-sizing: border-box;
     display: flex;
@@ -38,6 +38,7 @@
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+*/
 
 .equipment-item:hover {
     transform: translateY(-5px); /* Lift the card on hover */

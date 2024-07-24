@@ -1,161 +1,3 @@
-// import React, { useState } from 'react';
-// import './ProfilePage.css';
-// import logo from '../../assets/logo.png';
-// import profileImg from '../../assets/profile.png';
-// import placeHolderListing from '../../assets/placeholderListing.png';
-// import { Link } from "react-router-dom";
-
-// const ProfilePage = () => {
-//   const [activeTab, setActiveTab] = useState('rent');
-
-//   return (
-//     <div className="profile-page">
-//       <header className="header">
-//       <Link to="/home">
-//                     <img src={logo} alt="Logo" className="pLogo" />
-//                 </Link>
-//         <nav className="navigation">
-//           <button
-//             className={`nav-button ${activeTab === 'rent' ? 'active' : ''}`}
-//             onClick={() => setActiveTab('rent')}
-//           >
-//             Rent
-//           </button>
-//           <button
-//             className={`nav-button ${activeTab === 'list' ? 'active' : ''}`}
-//             onClick={() => setActiveTab('list')}
-//           >
-//             List
-//           </button>
-//         </nav>
-//         <div className="profile">
-//           <img src={profileImg} alt="Profile Icon" />
-//           <span>Scarlet</span>
-//         </div>
-//       </header>
-//       <main className="main-content">
-//         {activeTab === 'rent' ? (
-//           <RentContent />
-//         ) : (
-//           <ListContent />
-//         )}
-//       </main>
-//     </div>
-//   );
-// };
-
-// const RentContent = () => (
-//   <>
-//     <section className="profile-info">
-//       <div className="profile-picture">
-//         <img src={profileImg} alt="Profile" />
-//       </div>
-//       <div className="profile-details">
-//         <h2>First Last</h2>
-//         <p>Member since ...</p>
-//         <div className="contact-info">
-//           <p>Email</p>
-//           <p>Phone Number</p>
-//           <p>Location</p>
-//         </div>
-//         <button className="edit-button">Edit Account Details</button>
-//       </div>
-//     </section>
-//     <section className="listings">
-//       <div className="tabs">
-//         <button className="tab active">Saved</button>
-//         {/* <button className="tab">Contacted</button> */}
-//       </div>
-//       <div className="listings-grid">
-//         <div className="listing-card">
-//           <img src={placeHolderListing} alt="Listing" />
-//           <div className="listing-details">
-//             <p>Title</p>
-//             <p>Location</p>
-//             <p>Price</p>
-//             <button className="contact-button">Mark as Contacted</button>
-//           </div>
-//         </div>
-//         <div className="listing-card">
-//           <img src={placeHolderListing} alt="Listing" />
-//           <div className="listing-details">
-//             <p>Title</p>
-//             <p>Location</p>
-//             <p>Price</p>
-//             <button className="contact-button">Mark as Contacted</button>
-//           </div>
-//         </div>
-//         <div className="listing-card">
-//           <img src={placeHolderListing} alt="Listing" />
-//           <div className="listing-details">
-//             <p>Title</p>
-//             <p>Location</p>
-//             <p>Price</p>
-//             <button className="contact-button">Mark as Contacted</button>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   </>
-// );
-
-// const ListContent = () => (
-//   <>
-//     <section className="profile-info">
-//       <div className="profile-picture">
-//         <img src={profileImg} alt="Profile" />
-//       </div>
-//       <div className="profile-details">
-//         <h2>First Last</h2>
-//         <p>Member since ...</p>
-//         <div className="contact-info">
-//           <p>Email</p>
-//           <p>Phone Number</p>
-//           <p>Location</p>
-//         </div>
-//         <button className="edit-button">Edit Account Details</button>
-//       </div>
-//     </section>
-//     <section className="listings">
-//       <div className="tabs">
-//         {/* <button className="tab active">Saved</button> */}
-//         <button className="tab active">All</button>
-//       </div>
-//       <div className="listings-grid">
-//         <div className="listing-card">
-//           <img src={placeHolderListing} alt="Listing" />
-//           <div className="listing-details">
-//             <p>Title</p>
-//             <p>Location</p>
-//             <p>Price</p>
-//             <button className="contact-button">Mark as Contacted</button>
-//           </div>
-//         </div>
-//         <div className="listing-card">
-//           <img src={placeHolderListing} alt="Listing" />
-//           <div className="listing-details">
-//             <p>Title</p>
-//             <p>Location</p>
-//             <p>Price</p>
-//             <button className="contact-button">Mark as Contacted</button>
-//           </div>
-//         </div>
-//         <div className="listing-card">
-//           <img src={placeHolderListing} alt="Listing" />
-//           <div className="listing-details">
-//             <p>Title</p>
-//             <p>Location</p>
-//             <p>Price</p>
-//             <button className="contact-button">Mark as Contacted</button>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   </>
-// );
-
-// export default ProfilePage;
-
 // ProfilePage.jsx
 import React, { useState } from "react";
 import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
@@ -171,6 +13,7 @@ const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
   const [showCreateListing, setShowCreateListing] = useState(false);
 	const { savedListings, removeListing } = useSavedListings(); // Use the context
+
 
 	return (
 		<div className="profile-page">
@@ -215,6 +58,7 @@ const ProfilePage = () => {
 };
 
 const RentContent = ({ savedListings, removeListing }) => (
+  
 	<>
 		<section className="profile-info">
 			<div className="profile-picture">
@@ -236,8 +80,10 @@ const RentContent = ({ savedListings, removeListing }) => (
 				<button className="tab active">Saved</button>
 			</div>
 			<div className="listings-grid">
+      
 				{savedListings.map((listing) => (
 					<div key={listing.listingId} className="listing-card">
+            
 						<img src={listing.photo || placeHolderListing} alt="Listing" />
 						<div className="listing-details">
 							<p>{listing.title}</p>
@@ -272,7 +118,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const [priceHourly, setPriceHourly] = useState('');
   const [photo, setPhoto] = useState('');
   const [location, setLocation] = useState('');
-  const [userId] = useState(2); // Assuming the userId is 2 for this example
+  const [userId] = useState(1); // Assuming the userId is 2 for this example
   const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
 
   const handleOpenModal = () => {
@@ -294,10 +140,14 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const handleCreateListing = async (e) => {
     e.preventDefault();
 
-    if (!isPhotoUploaded) {
-      alert('Please upload a photo before submitting.');
-      return;
-    }
+
+    // Delay for 500ms to ensure photo URL is set
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    // if (!isPhotoUploaded) {
+    //   console.error('Photo not uploaded.');
+    //   return;
+    // }
 
     const listingData = {
       title,
@@ -318,6 +168,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     } catch (error) {
       console.error('Error creating listing:', error.response ? error.response.data : error.message);
     }
+
+    
   };
 
   // Define subcategory options based on the selected category
@@ -331,6 +183,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     setPhoto(url);
     setIsPhotoUploaded(true);
   };
+
+
 
   return (
     <>
@@ -439,13 +293,18 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
           <button className="tab active">All</button>
         </div>
         <div className="listings-grid">
+          <div className="listing-item">
+          
           <div className="listing-card">
             <img src={placeHolderListing} alt="Listing" />
+          
             <div className="listing-details">
-              <p>Title</p>
-              <p>Location</p>
-              <p>Price</p>
-              <button className="contact-button">Mark as Contacted</button>
+              <p className="listingCardTitle">Title</p>
+              <div className="paragraph">
+              <p className="location">Location</p>
+              <p className="price">Price</p>
+              </div>
+              {/* <button className="contact-button">Mark as Contacted</button> */}
             </div>
           </div>
           <div className="listing-card">
@@ -466,6 +325,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
               <button className="contact-button">Mark as Contacted</button>
             </div>
           </div>
+        </div>
         </div>
       </section>
     </>
