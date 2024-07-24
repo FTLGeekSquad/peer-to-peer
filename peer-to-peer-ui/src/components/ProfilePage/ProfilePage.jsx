@@ -140,10 +140,14 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const handleCreateListing = async (e) => {
     e.preventDefault();
 
-    if (!isPhotoUploaded) {
-      alert('Please upload a photo before submitting.');
-      return;
-    }
+
+    // Delay for 500ms to ensure photo URL is set
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    // if (!isPhotoUploaded) {
+    //   console.error('Photo not uploaded.');
+    //   return;
+    // }
 
     const listingData = {
       title,
@@ -164,6 +168,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     } catch (error) {
       console.error('Error creating listing:', error.response ? error.response.data : error.message);
     }
+
+    
   };
 
   // Define subcategory options based on the selected category
@@ -177,6 +183,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     setPhoto(url);
     setIsPhotoUploaded(true);
   };
+
+
 
   return (
     <>

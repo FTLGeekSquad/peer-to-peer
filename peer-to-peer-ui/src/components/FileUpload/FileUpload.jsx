@@ -76,7 +76,7 @@ function FileUpload({ onFileUploaded }) {
     try {
       const data = await s3.upload(params).promise();
       onFileUploaded(data.Location); // Pass the URL to the parent component
-      console.log(data.Location) // not working
+      console.log(data.Location) 
 
       alert("File uploaded successfully.");
     } catch (err) {
