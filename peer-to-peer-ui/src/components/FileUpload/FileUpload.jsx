@@ -91,7 +91,7 @@ function FileUpload({ onFileUploaded }) {
     <div className="file-upload">
       <div className="file-input-container">
         <input type="file" onChange={handleFileChange} className="file-input" />
-        <button onClick={uploadFile} className="upload-button">Upload File</button>
+        <button onClick={uploadFile} className="upload-button">Create Listing</button>
       </div>
     </div>
   );
@@ -99,6 +99,15 @@ function FileUpload({ onFileUploaded }) {
 
 export default FileUpload;
 
+
+/*
+  use state in the parent component that's boolean
+  start it as false
+  pass it down to file upload
+  set the use state as true on line 79
+  then back to parent 
+  only when the useState is true, 
+*/
 
 
 
