@@ -121,6 +121,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const [location, setLocation] = useState('');
   const [userId] = useState(1); // Assuming the userId is 1 for this example
   const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
+  const [isUploading, setIsUploading] = useState(false); // New state for tracking upload status
+  const [uploadSuccess, setUploadSuccess] = useState(''); // State for success message
 
   const handleOpenModal = () => {
     setShowCreateListing(true);
@@ -136,15 +138,16 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     setPhoto('');
     setLocation('');
     setIsPhotoUploaded(false);
+    setUploadSuccess(''); // Reset the success message
   };
 
   const handleCreateListing = async (e) => {
     e.preventDefault();
 
-    // if (!isPhotoUploaded) {
-    //   alert("Please upload a photo before creating a listing.");
-    //   return;
-    // }
+    if (isUploading) {
+      setUploadSuccess("The photo is still uploading.");
+      return;
+    }
 
     const listingData = {
       title,
@@ -164,10 +167,11 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
       handleCloseModal();
     } catch (error) {
       console.error('Error creating listing:', error.response ? error.response.data : error.message);
+    } finally {
+      setIsPhotoUploaded(false); // Reset the state after creating the listing
     }
   };
 
-  // Define subcategory options based on the selected category
   const subcategoryOptions = {
     equipment: ['Cameras', 'Lenses', 'Flashes', 'Tripods'],
     spaces: ['Indoor', 'Outdoor'],
@@ -177,13 +181,21 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const handleFileUploaded = (url) => {
     setPhoto(url);
     setIsPhotoUploaded(true);
+    setUploadSuccess("File uploaded successfully."); // Set the success message
+  };
+
+  const handleUploading = (status) => {
+    setIsUploading(status);
+    if (status) {
+      setUploadSuccess(''); // Clear the message when uploading starts
+    }
   };
 
   return (
     <>
       <section className="profile-info">
         <div className="profile-picture">
-          <img src={profileImg} alt="Profile" />
+          <img src="/path/to/profileImg.jpg" alt="Profile" />
         </div>
         <div className="profile-details">
           <h2>First Last</h2>
@@ -211,6 +223,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
                 <h2 className='modalTitle'>Create a Listing</h2>
               </div>
               <div className="modal-body">
+                {uploadSuccess && <p className="upload-success-message">{uploadSuccess}</p>}
                 <form onSubmit={handleCreateListing} className='centered-form'>
                   <input
                     type='text'
@@ -270,8 +283,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
                     required
                     className='styled-input'
                   />
-                  <FileUpload onFileUploaded={handleFileUploaded} className='fileUpload' />
-                  <button type='submit' className='create-listing-button'>Create Listing</button>
+                  <FileUpload onFileUploaded={handleFileUploaded} setIsPhotoUploaded={setIsPhotoUploaded} handleUploading={handleUploading} className='fileUpload' />
+                  <button type='submit' className='create-listing-button' disabled={isUploading}>Create Listing</button>
                 </form>
               </div>
 
