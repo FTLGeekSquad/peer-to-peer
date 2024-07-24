@@ -60,8 +60,8 @@ app.get("/auth/google/callback", async (req, res) => {
 
     const oauth2 = google.oauth2('v2').userinfo;
 
-
     const googleUser = await oauth2.userinfo.get();
+
     console.log(googleUser.data);
 //check if the are already in the database
 //if not already in the database store their info
