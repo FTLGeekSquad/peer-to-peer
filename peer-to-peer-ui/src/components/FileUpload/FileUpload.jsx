@@ -50,7 +50,7 @@ export default FileUpload;
 
 import AWS from 'aws-sdk';
 import { useState } from 'react';
-import './FileUpload.css';
+import './FileUpload.css'; 
 
 function FileUpload({ onFileUploaded }) {
   const [file, setFile] = useState(null);
