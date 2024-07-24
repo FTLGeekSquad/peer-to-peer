@@ -110,6 +110,7 @@ The FileUpload component's onFileUploaded callback updates both the photo state 
 The form's submit button is enabled only when all required fields are filled, including the photo URL.
 */
 
+
 const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -118,7 +119,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const [priceHourly, setPriceHourly] = useState('');
   const [photo, setPhoto] = useState('');
   const [location, setLocation] = useState('');
-  const [userId] = useState(1); // Assuming the userId is 2 for this example
+  const [userId] = useState(1); // Assuming the userId is 1 for this example
   const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
 
   const handleOpenModal = () => {
@@ -140,12 +141,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const handleCreateListing = async (e) => {
     e.preventDefault();
 
-
-    // Delay for 500ms to ensure photo URL is set
-    await new Promise((resolve) => setTimeout(resolve, 200));
-
     // if (!isPhotoUploaded) {
-    //   console.error('Photo not uploaded.');
+    //   alert("Please upload a photo before creating a listing.");
     //   return;
     // }
 
@@ -157,7 +154,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
       subCategory,
       priceHourly,
       photo,
-      location, 
+      location,
       availability: {} // Add a default value or modify as needed
     };
 
@@ -168,8 +165,6 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     } catch (error) {
       console.error('Error creating listing:', error.response ? error.response.data : error.message);
     }
-
-    
   };
 
   // Define subcategory options based on the selected category
@@ -183,8 +178,6 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     setPhoto(url);
     setIsPhotoUploaded(true);
   };
-
-
 
   return (
     <>

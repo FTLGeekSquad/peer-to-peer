@@ -50,8 +50,7 @@ export default FileUpload;
 
 import AWS from 'aws-sdk';
 import { useState } from 'react';
-import './FileUpload.css'
-
+import './FileUpload.css';
 
 function FileUpload({ onFileUploaded }) {
   const [file, setFile] = useState(null);
@@ -76,8 +75,6 @@ function FileUpload({ onFileUploaded }) {
     try {
       const data = await s3.upload(params).promise();
       onFileUploaded(data.Location); // Pass the URL to the parent component
-      console.log(data.Location) 
-
       alert("File uploaded successfully.");
     } catch (err) {
       console.error(err);
@@ -94,13 +91,14 @@ function FileUpload({ onFileUploaded }) {
     <div className="file-upload">
       <div className="file-input-container">
         <input type="file" onChange={handleFileChange} className="file-input" />
-        <button onClick={uploadFile} className="upload-button">Create Listing</button>
+        <button onClick={uploadFile} className="upload-button">Upload File</button>
       </div>
     </div>
   );
 }
 
 export default FileUpload;
+
 
 
 
