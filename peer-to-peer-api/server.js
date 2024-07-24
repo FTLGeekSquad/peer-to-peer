@@ -56,21 +56,34 @@ app.get("/auth/google/callback", async (req, res) => {
   try {
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
-    console.log(tokens);
+    console.log(tokens)
+    // tokens.access_token
 
-    const oauth2 = google.oauth2('v2').userinfo;
+    const oauth2 = google.oauth2({
+      auth: oauth2Client,
+      version: "v2",
+    });
 
     const googleUser = await oauth2.userinfo.get();
-
     console.log(googleUser.data);
-//check if the are already in the database
-//if not already in the database store their info
-// if info has changed update the database
-
-
-
+    // check against the DB
 
     res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
+//     const { tokens } = await oauth2Client.getToken(code);
+//     oauth2Client.setCredentials(tokens);
+//     console.log(tokens);
+
+//     const oauth2 = google.oauth2('v2').userinfo;
+
+//     const googleUser = await oauth2.userinfo.get();
+
+//     console.log(googleUser.data);
+// //check if the are already in the database
+// //if not already in the database store their info
+// // if info has changed update the database
+
+
+//     res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
   } catch (error) {
     console.error(error);
     res.status(500).send("Authentication failed!");
