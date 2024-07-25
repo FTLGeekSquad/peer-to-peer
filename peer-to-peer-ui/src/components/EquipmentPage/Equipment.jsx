@@ -37,17 +37,18 @@ import "./Equipment.css";
 function Equipment({ listing, onSave }) {
 	// const { listingId, title, priceHourly, location } = listing;
 
-	const { //instead of listing every param
+	const {
+		//instead of listing every param
 		listingId,
 		title,
-	   description,
+		description,
 		category,
 		subCategory,
 		priceHourly,
 		photo,
-		location
+		location,
 		//availability
-	 } = listing;
+	} = listing;
 
 	return (
 		<div className="equipmentCard">
