@@ -27,8 +27,15 @@ function App() {
 			<Route path="/equipment" element={<EquipmentGrid />} />
 			<Route path="/spaces" element={<SpacesGrid/>} />
 			<Route path="/services" element={<ServicesGrid/>} />
-			<Route path="/profile" element={<ProfilePage />} />
-
+			{/* <Route path="/profile" element={<ProfilePage />} /> */}
+			<Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
 		
         	<Route path="/callback" element={<Callback />} />
 			<Route
@@ -39,6 +46,7 @@ function App() {
             </PrivateRoute>
           }
         />
+		
 		<Route path="/login" element={<Login />} />
 		</Routes>
 	</Router>

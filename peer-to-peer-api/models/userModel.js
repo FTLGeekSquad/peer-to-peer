@@ -9,6 +9,14 @@ const getAllUsers = async () => {
 	});
 };
 
+// maybe do get user by email instead
+const getUserByEmail = async (email) => {
+	return prisma.user.findUnique({
+	  where: { email },
+	});
+  };
+
+
 const getUserById = async (userId) => {
 	return prisma.user.findUnique({ 
 		where: { userId: parseInt(userId) 
@@ -17,17 +25,16 @@ const getUserById = async (userId) => {
 			allListings: true
 		}
 	});
-	// may need to add inclide: {listings: true} later
+	// may need to add include: {listings: true} later
 };
 
 
+const createUser = async (name, email) => {
 
-const createUser = async (userData) => {
 	return prisma.user.create({
 	  data: {
-		name: userData.name,
-		location: userData.location,
-		savedListings: userData.savedListings
+		name,
+		email,
 	  }
 	});
   };
@@ -111,8 +118,13 @@ module.exports = {
 	getUserById,
 	createUser, 
 	updateUser, 
+
 	deleteUser, 
 	getSavedListings,
 	saveListing,
-	removeListing
+	removeListing,
+
+	deleteUser,
+	getUserByEmail
+
 };

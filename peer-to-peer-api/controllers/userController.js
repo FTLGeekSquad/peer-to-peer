@@ -23,6 +23,21 @@ const getUserById = async (req, res) => {
 	}
 };
 
+//get user by email
+const getUserByEmail = async (req, res) => {
+	const { email } = req.params;
+	try {
+	  const user = await userModel.getUserByEmail(email);
+	  if (user) {
+		res.status(200).json(user);
+	  } else {
+		res.status(404).json({ message: 'User not found' });
+	  }
+	} catch (error) {
+	  res.status(500).json({ message: 'Error retrieving user', error });
+	}
+  };
+
 // create user
 const createUser = async (req, res) => {
 	const userData = req.body;
@@ -62,6 +77,7 @@ const deleteUser = async (req, res) => {
 	}
 };
 
+
 // Get saved listings for a user
 const getSavedListings = async (req, res) => {
     const { userId } = req.params;
@@ -99,14 +115,19 @@ const removeListing = async (req, res) => {
 
   
 
+
 module.exports = {
 	getAllUsers,
 	getUserById,
 	createUser, 
 	updateUser, 
+
 	deleteUser, 
 	getSavedListings,
     saveListing,
-    removeListing
+    removeListing,
 	// other exports
+
+	deleteUser,
+	getUserByEmail
 };
