@@ -50,10 +50,11 @@ export default FileUpload;
 
 import AWS from 'aws-sdk';
 import { useState } from 'react';
-import './FileUpload.css';
+import './FileUpload.css'; 
 
-function FileUpload({ onFileUploaded }) {
+function FileUpload({ onFileUploaded, setIsPhotoUploaded, handleUploading }) {
   const [file, setFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false); // Local uploading state
 
   const uploadFile = async () => {
     const S3_BUCKET = "peer2peerphotos";
@@ -72,13 +73,20 @@ function FileUpload({ onFileUploaded }) {
       Body: file,
     };
 
+    handleUploading(true); // Update parent component
+    setIsUploading(true); // Update local state
+
     try {
       const data = await s3.upload(params).promise();
       onFileUploaded(data.Location); // Pass the URL to the parent component
-      alert("File uploaded successfully.");
+      setIsPhotoUploaded(true); // Set the photo uploaded state to true
+      // alert("File uploaded successfully.");
     } catch (err) {
       console.error(err);
       alert("Error uploading file.");
+    } finally {
+      handleUploading(false); // Update parent component
+      setIsUploading(false); // Update local state
     }
   };
 
@@ -91,7 +99,9 @@ function FileUpload({ onFileUploaded }) {
     <div className="file-upload">
       <div className="file-input-container">
         <input type="file" onChange={handleFileChange} className="file-input" />
-        <button onClick={uploadFile} className="upload-button">Upload File</button>
+        <button onClick={uploadFile} className="upload-button" disabled={isUploading}>
+          {isUploading ? <div className="loading-spinner"></div> : 'Upload File'}
+        </button>
       </div>
     </div>
   );
@@ -99,6 +109,17 @@ function FileUpload({ onFileUploaded }) {
 
 export default FileUpload;
 
+
+
+
+/*
+  use state in the parent component that's boolean
+  start it as false
+  pass it down to file upload
+  set the use state as true on line 79
+  then back to parent 
+  only when the useState is true, 
+*/
 
 
 
