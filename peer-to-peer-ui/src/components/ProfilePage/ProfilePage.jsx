@@ -1,5 +1,5 @@
 // ProfilePage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
 import "./ProfilePage.css";
 import logo from "../../assets/logo.png";
@@ -57,51 +57,134 @@ const ProfilePage = () => {
 	);
 };
 
-const RentContent = ({ savedListings, removeListing }) => (
-  
-	<>
-		<section className="profile-info">
-			<div className="profile-picture">
-				<img src={profileImg} alt="Profile" />
-			</div>
-			<div className="profile-details">
-				<h2>First Last</h2>
-				<p>Member since ...</p>
-				<div className="contact-info">
-					<p>Email</p>
-					<p>Phone Number</p>
-					<p>Location</p>
-				</div>
-				<button className="edit-button">Edit Account Details</button>
-			</div>
-		</section>
-		<section className="listings">
-			<div className="tabs">
-				<button className="tab active">Saved</button>
-			</div>
-			<div className="listings-grid">
-      
-				{savedListings.map((listing) => (
-					<div key={listing.listingId} className="listing-card">
-            
-						<img src={listing.photo || placeHolderListing} alt="Listing" />
-						<div className="listing-details">
-							<p>{listing.title}</p>
-							<p>{listing.location}</p>
-							<p>${listing.priceHourly} per hour</p>
-							<button
-								className="contact-button"
-								onClick={() => removeListing(listing.listingId)}
-							>
-								Remove
-							</button>
-						</div>
-					</div>
-				))}
-			</div>
-		</section>
+const RentContent = ({ savedListings, removeListing }) => {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    location: '', 
+    createdAt: ''
+  });
+  const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    // Fetch user data when component mounts
+    const fetchUserData = async () => {
+      console.log("Fetching user data...");
+      try {
+        const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
+        console.log("Response data:", response.data); // Log the response data
+        setUser({
+          name: response.data.name || '',
+          email: response.data.email || '',
+          phoneNumber: response.data.phoneNumber || '',
+          location: response.data.location || '', 
+          createdAt: response.data.createdAt || ''
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.put('http://localhost:3000/users/1', user); // Adjust the URL based on your API endpoint
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value
+    }));
+  };
+
+   // Function to format the date
+   const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  };
+
+  return (
+    <>
+      <section className="profile-info">
+        <div className="profile-picture">
+          <img src={profileImg} alt="Profile" />
+        </div>
+        <div className="profile-details">
+          <h2>{user.name}</h2>
+          <p>Member since {user.createdAt ? formatDate(user.createdAt) : 'Loading...'}</p>
+          <div className="contact-info">
+            <p>Email: {user.email}</p>
+            <p>Phone Number: {user.phoneNumber}</p>
+            <p>Location: {user.location}</p>
+          </div>
+          <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Account Details</button>
+        </div>
+      </section>
+
+      {isEditing && (
+        <div className="modal">
+          <form onSubmit={handleEdit}>
+            <label>
+              Phone Number:
+              <input
+                type="text"
+                name="phoneNumber"
+                value={user.phoneNumber || ''} // Default to empty string if undefined
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Location:
+              <input
+                type="text"
+                name="location"
+                value={user.location || ''} // Default to empty string if undefined
+                onChange={handleChange}
+              />
+            </label>
+            <button type="submit">Save</button>
+            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+          </form>
+        </div>
+      )}
+
+      <section className="listings">
+        <div className="tabs">
+          <button className="tab active">Saved</button>
+        </div>
+        <div className="listings-grid">
+          {savedListings.map((listing) => (
+            <div key={listing.listingId} className="listing-card">
+              <img src={listing.photo || placeHolderListing} alt="Listing" />
+              <div className="listing-details">
+                <p>{listing.title}</p>
+                <p>{listing.location}</p>
+                <p>${listing.priceHourly} per hour</p>
+                <button
+                  className="contact-button"
+                  onClick={() => removeListing(listing.listingId)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 	</>
 );
+}
 
 /*
 The isPhotoUploaded state is added to track whether the photo has been successfully uploaded.
@@ -121,8 +204,36 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const [location, setLocation] = useState('');
   const [userId] = useState(1); // Assuming the userId is 1 for this example
   const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
-  const [isUploading, setIsUploading] = useState(false); // New state for tracking upload status
-  const [uploadSuccess, setUploadSuccess] = useState(''); // State for success message
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState('');
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    location: '', 
+    createdAt: ''
+  });
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      console.log("Fetching user data...");
+      try {
+        const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
+        console.log("Response data:", response.data); // Log the response data
+        setUser({
+          name: response.data.name || '',
+          email: response.data.email || '',
+          phoneNumber: response.data.phoneNumber || '',
+          location: response.data.location || '',
+          createdAt: response.data.createdAt || ''
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleOpenModal = () => {
     setShowCreateListing(true);
@@ -138,7 +249,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     setPhoto('');
     setLocation('');
     setIsPhotoUploaded(false);
-    setUploadSuccess(''); // Reset the success message
+    setUploadSuccess('');
   };
 
   const handleCreateListing = async (e) => {
@@ -168,7 +279,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     } catch (error) {
       console.error('Error creating listing:', error.response ? error.response.data : error.message);
     } finally {
-      setIsPhotoUploaded(false); // Reset the state after creating the listing
+      setIsPhotoUploaded(false);
     }
   };
 
@@ -181,31 +292,37 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   const handleFileUploaded = (url) => {
     setPhoto(url);
     setIsPhotoUploaded(true);
-    setUploadSuccess("File uploaded successfully."); // Set the success message
+    setUploadSuccess("File uploaded successfully.");
   };
 
   const handleUploading = (status) => {
     setIsUploading(status);
     if (status) {
-      setUploadSuccess(''); // Clear the message when uploading starts
+      setUploadSuccess('');
     }
+  };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
   };
 
   return (
     <>
       <section className="profile-info">
         <div className="profile-picture">
-          <img src="/path/to/profileImg.jpg" alt="Profile" />
+          <img src={profileImg} alt="Profile" />
         </div>
         <div className="profile-details">
-          <h2>First Last</h2>
-          <p>Member since ...</p>
+          <h2>{user.name}</h2>
+          <p>Member since {user.createdAt ? formatDate(user.createdAt) : 'Loading...'}</p>
           <div className="contact-info">
-            <p>Email</p>
-            <p>Phone Number</p>
-            <p>Location</p>
+            <p>Email: {user.email}</p>
+            <p>Phone Number: {user.phoneNumber}</p>
+            <p>Location: {user.location}</p>
           </div>
-          <button className="edit-button">Edit Account Details</button>
+          <button className="edit-button" onClick={handleOpenModal}>Edit Account Details</button>
         </div>
       </section>
 
