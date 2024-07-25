@@ -14,7 +14,7 @@ const Dashboard = () => {
   };
 
   const getResource = async () => {
-    const resp = await axios.get("http://localhost:3000/protected_route", {
+    const resp = await axios.get("http://localhost:3000/auth/protected_route", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
