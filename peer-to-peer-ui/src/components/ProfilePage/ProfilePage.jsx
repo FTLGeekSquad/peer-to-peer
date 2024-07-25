@@ -315,6 +315,31 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     return date.toLocaleDateString(undefined, options);
   };
 
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        // const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+        // eventually needs to correlate w/ who's logged in
+        const response = await axios.get(`http://localhost:3000/listings/user/all-listings/1`);
+
+        setListings(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, [userId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching listings: {error.message}</p>;
+
   return (
     <>
       <section className="profile-info">
@@ -419,45 +444,29 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
       </div>
 
       <section className="listings">
-        <div className="tabs">
-          <button className="tab active">All</button>
-        </div>
-        <div className="listings-grid">
-          <div className="listing-item">
-          
-          <div className="listing-card">
-            <img src={placeHolderListing} alt="Listing" />
-          
-            <div className="listing-details">
-              <p className="listingCardTitle">Title</p>
-              <div className="paragraph">
-              <p className="location">Location</p>
-              <p className="price">Price</p>
+      <div className="tabs">
+        <button className="tab active">All</button>
+      </div>
+      <div className="listings-grid">
+        {listings.length > 0 ? (
+          listings.map((listing) => (
+            <div key={listing.listingId} className="listing-card">
+              <img src={listing.photo || placeHolderListing} alt="Listing" />
+              <div className="listing-details">
+                <p className="listingCardTitle">{listing.title}</p>
+                <div className="paragraph">
+                  <p className="location">{listing.location}</p>
+                  <p className="price">${listing.priceHourly} per hour</p>
+                </div>
+                {/* Add other listing details here if needed */}
               </div>
-              {/* <button className="contact-button">Mark as Contacted</button> */}
             </div>
-          </div>
-          <div className="listing-card">
-            <img src={placeHolderListing} alt="Listing" />
-            <div className="listing-details">
-              <p>Title</p>
-              <p>Location</p>
-              <p>Price</p>
-              <button className="contact-button">Mark as Contacted</button>
-            </div>
-          </div>
-          <div className="listing-card">
-            <img src={placeHolderListing} alt="Listing" />
-            <div className="listing-details">
-              <p>Title</p>
-              <p>Location</p>
-              <p>Price</p>
-              <button className="contact-button">Mark as Contacted</button>
-            </div>
-          </div>
-        </div>
-        </div>
-      </section>
+          ))
+        ) : (
+          <p>No listings available.</p>
+        )}
+      </div>
+    </section>
     </>
   );
 };
