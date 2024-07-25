@@ -4,7 +4,8 @@ const redirectUrl = "http://localhost:3000/auth/google/callback";
 require("dotenv").config(); // Load environment variables
 const { google } = require('googleapis');
 const { OAuth2Client } = require("google-auth-library");
-const userModel = require('../models/userModel')
+const userModel = require('../models/userModel');
+const { use } = require("../routes/authRoutes");
 
 const oauth2Client = new OAuth2Client(clientId, clientSecret, redirectUrl);
 
@@ -43,14 +44,18 @@ const callback = async (req,res) => {
     // console.log(googleUser.data);
     // check against the DB
     console.log(googleUser.data.name, googleUser.data.email)
-    const user = await userModel.createUser(googleUser.data.name, googleUser.data.email)
-    // console.log(user)
+
+    //create a user only if the user is not already added
+const user  = await userModel.getUserByEmail(googleUser.data.email);
+
+if (!user) {
+  await userModel.createUser(googleUser.data.name, googleUser.data.email)
+}
 
     res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
 //post to the database 
 
 // //check if the are already in the database
-
 // //if not already in the database store their info
 // // if info has changed update the database
 
@@ -61,6 +66,9 @@ const callback = async (req,res) => {
     res.status(500).send("Authentication failed!");
   }
 }
+
+
+
 
 module.exports = {
 getProtected,

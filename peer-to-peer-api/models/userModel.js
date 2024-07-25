@@ -10,6 +10,13 @@ const getAllUsers = async () => {
 };
 
 // maybe do get user by email instead
+const getUserByEmail = async (email) => {
+	return prisma.user.findUnique({
+	  where: { email },
+	});
+  };
+
+
 const getUserById = async (userId) => {
 	return prisma.user.findUnique({ 
 		where: { userId: parseInt(userId) 
@@ -48,5 +55,6 @@ module.exports = {
 	getUserById,
 	createUser, 
 	updateUser, 
-	deleteUser
+	deleteUser,
+	getUserByEmail
 };

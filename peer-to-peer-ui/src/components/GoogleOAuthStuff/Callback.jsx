@@ -63,10 +63,10 @@ const Callback = () => {
     if (token) {
       localStorage.setItem("token", token);
       console.log("Token stored in localStorage"); // Debugging log
-      window.location.href = "/dashboard"; // Directly change the window location
+      window.location.href = "/home"; // Directly change the window location
     } else {
       console.log("No token found, redirecting to login"); // Debugging log
-      window.location.href = "/login"; // Directly change the window location
+      window.location.href = "/home"; // Directly change the window location
     }
   }, []);
 
