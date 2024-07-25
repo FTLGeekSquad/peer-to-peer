@@ -30,7 +30,7 @@
 
 .nav-button.active {
   font-weight: bold;
-  background-color: #C3CBC6; /* Change to your desired active color */
+  background-color: #C3CBC6; 
   border-radius: 5px;
   padding: 7px;
   height: auto;
@@ -97,7 +97,7 @@
 
 .tab.active {
   font-weight: bold;
-  background-color: #C3CBC6; /* Change to your desired active color */
+  background-color: #C3CBC6;
 }
 
 .listings-grid {
@@ -114,12 +114,12 @@
 
 
 .listing-card {
-  background-color: #C3CBC6; /* Card background color */
-    border: 1px solid #ddd; /* Card border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  background-color: #C3CBC6; 
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     padding: 9px;
-    width: 200px; /* Set the width of the card */
+    width: 200px; 
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -154,8 +154,7 @@
   height: auto;
 }
 
-/* Add styles for the modal overlay and content */
-/* Modal overlay styles */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -168,7 +167,7 @@
   align-items: center;
 }
 
-/* Modal content styles */
+
 .modal-content {
   background: white;
   padding: 20px;
@@ -178,7 +177,7 @@
   position: relative;
 }
 
-/* Close button styles */
+
 .modal-close {
   position: absolute;
   top: 10px;
@@ -196,16 +195,10 @@
 }
 
 
-/* new stuff */
+
 .createListing {
   position: relative;
 }
-
-
-
-
-
-
 
 
 .modal {
@@ -214,7 +207,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,7 +270,7 @@
 
 .styled-input:focus {
   outline: none;
-  border-color: #4caf50; /* Green border on focus */
+  border-color: #4caf50; 
 }
 
 @keyframes slide-down {
@@ -296,10 +289,10 @@
   bottom: 20px;
   right: 20px;
   padding: 10px 20px;
-  background-color: transparent; /* Clear background */
-  color: black; /* Black text */
+  background-color: transparent; 
+  color: black; 
   text-align: center;
-  border: 1px solid black; /* Black outline */
+  border: 1px solid black; 
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -308,7 +301,19 @@
 }
 
 .create-listing-button:hover {
-  background-color: #C3CBC6; /* Fill color on hover */
+  background-color: #C3CBC6; 
 }
 
+.bookmark-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ff6f61; /* Adjust color as needed */
+  transition: color 0.3s;
+}
+
+.bookmark-button:hover {
+  color: #ff9472; /* Adjust hover color as needed */
+}
 
