@@ -114,6 +114,8 @@ const RentContent = ({ savedListings, removeListing }) => {
     return date.toLocaleDateString(undefined, options);
   };
 
+  // const {savedListings, removeListing} = useSavedListings();
+
   return (
     <>
       <section className="profile-info">
@@ -164,22 +166,26 @@ const RentContent = ({ savedListings, removeListing }) => {
           <button className="tab active">Saved</button>
         </div>
         <div className="listings-grid">
-          {savedListings.map((listing) => (
-            <div key={listing.listingId} className="listing-card">
-              <img src={listing.photo || placeHolderListing} alt="Listing" />
-              <div className="listing-details">
-                <p>{listing.title}</p>
-                <p>{listing.location}</p>
-                <p>${listing.priceHourly} per hour</p>
-                <button
-                  className="contact-button"
-                  onClick={() => removeListing(listing.listingId)}
-                >
-                  Remove
-                </button>
+          {Array.isArray(savedListings) && savedListings.length > 0 ? (
+            savedListings.map((listing) => (
+              <div key={listing.listingId} className="listing-card">
+                <img src={listing.photo || placeHolderListing} alt="Listing" />
+                <div className="listing-details">
+                  <p>{listing.title}</p>
+                  <p>{listing.location}</p>
+                  <p>${listing.priceHourly} per hour</p>
+                  <button
+                    className="contact-button"
+                    onClick={() => removeListing(listing.listingId)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No saved listings.</p>
+          )}
         </div>
       </section>
 	</>
@@ -218,6 +224,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     const fetchUserData = async () => {
       console.log("Fetching user data...");
       try {
+        // will eventually have to change to only the logged in users' id
         const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
         console.log("Response data:", response.data); // Log the response data
         setUser({
