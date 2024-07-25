@@ -141,6 +141,14 @@
   
 }
 
+/* ListContent.css */
+.upload-success-message {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
 .contact-button {
   background-color: #e0e0e0;
   border: 1px solid #ccc;
