@@ -317,11 +317,11 @@
   border: none;
   cursor: pointer;
   font-size: 1.5rem;
-  color: #ff6f61; /* Adjust color as needed */
+  color: #FBF7EE;; /* Adjust color as needed */
   transition: color 0.3s;
 }
 
 .bookmark-button:hover {
-  color: #ff9472; /* Adjust hover color as needed */
+  color: #DBB3B3; /* Adjust hover color as needed */
 }
 

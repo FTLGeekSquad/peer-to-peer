@@ -101,6 +101,7 @@ function EquipmentGrid() {
 					show={selectedEquipment !== null}
 					onClose={() => setSelectedEquipment(null)}
 				>
+					<img className="modal-img" src={selectedEquipment.photo} />
 					<h2>{selectedEquipment.title}</h2>
 					<p>
 						<strong>Location:</strong> {selectedEquipment.location}

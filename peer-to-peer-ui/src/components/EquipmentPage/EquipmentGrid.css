@@ -1,27 +1,27 @@
 .allComponents {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    margin-top: 40px; /* Space from the top */
-    padding: 20px; /* Padding for better spacing */
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Center content horizontally */
+	margin-top: 40px; /* Space from the top */
+	padding: 20px; /* Padding for better spacing */
 }
 
 .bottom {
-    display: flex;
-    flex-direction: column; /* Stack toggle buttons and grid vertically */
-    align-items: center; /* Center align children */
-    width: 100%; /* Full width of container */
+	display: flex;
+	flex-direction: column; /* Stack toggle buttons and grid vertically */
+	align-items: center; /* Center align children */
+	width: 100%; /* Full width of container */
 }
 
 .subcategoryToggle {
-    margin-bottom: 20px; /* Space between toggle buttons and equipment grid */
+	margin-bottom: 20px; /* Space between toggle buttons and equipment grid */
 }
 
 .equipmentGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px; /* Gap between cards */
-    justify-content: center; /* Center align items */
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px; /* Gap between cards */
+	justify-content: center; /* Center align items */
 }
 /*
 .equipment-item {
@@ -41,6 +41,10 @@
 */
 
 .equipment-item:hover {
-    transform: translateY(-5px); /* Lift the card on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+	transform: translateY(-5px); /* Lift the card on hover */
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+.modal-img {
+	width: 200px;
 }
