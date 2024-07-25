@@ -20,35 +20,34 @@ model User {
   phoneNumber   String?
   createdAt     DateTime  @default(now()) @db.Timestamptz()
   allListings   Listing[] // Relation to listings created by the user
-  location      String
-  reviews       Review[]  // Relation to reviews created by the user
-  savedListings Json
+  location      String?
+  reviews       Review[] // Relation to reviews created by the user
+  savedListings Json?
 }
 
-
 model Listing {
-  listingId     Int       @id @default(autoincrement())
-  title         String
-  userId        Int
-  user          User      @relation(fields: [userId], references: [userId])
-  description   String
-  category      String
-  subCategory   String
-  priceHourly   Float
-  photo         String
-  location      String
-  reviews       Review[]  // Relation to reviews associated with this listing
-  createdAt     DateTime  @default(now()) @db.Timestamptz()
-  availability  Json
+  listingId    Int      @id @default(autoincrement())
+  title        String
+  userId       Int
+  user         User     @relation(fields: [userId], references: [userId])
+  description  String
+  category     String
+  subCategory  String
+  priceHourly  Float
+  photo        String
+  location     String
+  reviews      Review[] // Relation to reviews associated with this listing
+  createdAt    DateTime @default(now()) @db.Timestamptz()
+  availability Json
 }
 
 model Review {
-  reviewId   Int      @id @default(autoincrement())
-  userId     Int
-  user       User     @relation(fields: [userId], references: [userId])
-  message    String
-  rating     Int
-  listingId  Int
-  listing    Listing  @relation(fields: [listingId], references: [listingId])
-  createdAt  DateTime @default(now()) @db.Timestamptz()
+  reviewId  Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [userId])
+  message   String
+  rating    Int
+  listingId Int
+  listing   Listing  @relation(fields: [listingId], references: [listingId])
+  createdAt DateTime @default(now()) @db.Timestamptz()
 }

@@ -11,6 +11,7 @@ import FileUpload from "../FileUpload/FileUpload";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
+
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
 	const [showCreateListing, setShowCreateListing] = useState(false);
@@ -66,6 +67,12 @@ const RentContent = ({ savedListings, removeListing }) => {
     location: '', 
     createdAt: ''
   });
+
+  const handleLogout = () => {
+    console.log("Logging out");
+    localStorage.removeItem("token");
+  };
+
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -130,6 +137,7 @@ const RentContent = ({ savedListings, removeListing }) => {
             <p>Location: {user.location}</p>
           </div>
           <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Account Details</button>
+          <button onClick={handleLogout}>Log out</button>
         </div>
       </section>
 
