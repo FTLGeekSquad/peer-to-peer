@@ -105,6 +105,7 @@ const removeListing = async (userId, listingId) => {
 	return updatedUser.savedListings;
 };
 
+
 module.exports = {
 	getAllUsers,
 	getUserById,

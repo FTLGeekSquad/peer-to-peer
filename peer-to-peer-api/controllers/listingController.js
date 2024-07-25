@@ -1,4 +1,6 @@
 const listingModel = require("../models/listingModel");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 const getAllListings = async (req, res) => {
 	try {
@@ -62,50 +64,6 @@ const deleteListing = async (req, res) => {
 	}
 };
 
-// const getListingsByCategory = async (req, res) => {
-// 	const category = req.params.category;
-// 	const subCategory = req.query.subCategory;
-// 	const validCategories = ['equipment', 'spaces', 'services'];
-
-// 	if (!validCategories.includes(category.toLowerCase())) {
-// 		return res.status(400).json({ error: "Invalid category" });
-// 	}
-
-// 	const validSubCategories = {
-// 		equipment: ['Cameras', 'Lenses', 'Tripods', 'Flashes'],
-// 		spaces: ['Indoor', 'Outdoor'],
-// 		services: ['Photography', 'Videography']
-// 	};
-// 	console.log("subCategory", subCategory)
-
-// 	// if (subCategory && !validSubCategories[category].includes(subCategory)) {
-// 	// 	return res.status(400).json({ error: "Invalid subcategory" });
-// 	//  }
-
-// 	if (subCategory) {
-// 		if (Array.isArray(subCategory)) {
-// 		  // If subCategory is an array, check all subcategories
-// 		  const invalidSubCategories = subCategory.filter(sub => !validSubCategories[category].includes(sub));
-// 		  if (invalidSubCategories.length > 0) {
-// 			return res.status(400).json({ error: "Invalid subcategory" });
-// 		  }
-// 		} else {
-// 		  // If subCategory is a single item, check its validity
-// 		  if (!validSubCategories[category].includes(subCategory)) {
-// 			return res.status(400).json({ error: "Invalid subcategory" });
-// 		  }
-// 		}
-// 	  }
-
-// 	try {
-// 		const listings = await listingModel.getListingsByCategory(category, subCategory);
-// 		res.status(200).json(listings);
-// 	} catch (error) {
-// 		console.error(`Error fetching listings by category: ${error.message}`);  // Log the error for debugging
-// 		res.status(400).json({ error: error.message });
-// 	}
-// };
-
 
 const getListingsByCategory = async (req, res) => {
 	const category = req.params.category;
@@ -147,6 +105,28 @@ const getListingsByCategory = async (req, res) => {
 	}
 };
 
+// Fetch listings by userId
+const getListingsByUserId = async (req, res) => {
+    const { userId } = req.params;
+    console.log(`Fetching listings for userId: ${userId}`); // Log userId for debugging
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { userId: parseInt(userId) },
+            include: { allListings: true }
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json(user.allListings);
+    } catch (error) {
+        console.error('Error fetching listings by userId:', error); // Log detailed error
+        res.status(500).json({ message: 'Error fetching listings by userId', error });
+    }
+};
+
 
 
 module.exports = {
@@ -155,5 +135,6 @@ module.exports = {
 	createListing, 
 	updateListing, 
 	deleteListing, 
-	getListingsByCategory
+	getListingsByCategory, 
+	getListingsByUserId
 };

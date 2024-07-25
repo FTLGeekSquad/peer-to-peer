@@ -52,31 +52,6 @@ const deleteListing = async (listingId) => {
     return prisma.listing.delete({ where: { listingId: parseInt(listingId) } });
   };
 
-//   const getListingsByCategory = async (category, subCategory) => {
-// 	try {
-// 		const filter = {
-// 			category: {
-// 				equals: category,
-// 				mode: 'insensitive', // This makes the search case-insensitive
-// 			}
-// 		};
-
-// 		if (subCategory) {
-// 			filter.subCategory = {
-// 				equals: subCategory,
-// 				mode: 'insensitive',
-// 			};
-// 		}
-
-// 		const listings = await prisma.listing.findMany({
-// 			where: filter,
-// 		});
-// 		return listings;
-// 	} catch (error) {
-// 		throw new Error(`Error fetching listings by category: ${error.message}`);
-// 	}
-// };
-
 const getListingsByCategory = async (category, subCategory) => {
 	try {
 		const filter = {
@@ -111,6 +86,14 @@ const getListingsByCategory = async (category, subCategory) => {
 	}
 };
 
+// Fetch all listings by userId
+const getListingsByUserId = async (userId) => {
+	return prisma.listing.findMany({
+	  where: { userId: parseInt(userId) }
+	});
+  };
+  
+
 
 // other model fuctions
 
@@ -120,5 +103,6 @@ module.exports = {
 	createListing, 
 	updateListing, 
 	deleteListing, 
-	getListingsByCategory
+	getListingsByCategory, 
+	getListingsByUserId
 };
