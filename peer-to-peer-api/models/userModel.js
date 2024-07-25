@@ -20,6 +20,8 @@ const getUserById = async (userId) => {
 	// may need to add inclide: {listings: true} later
 };
 
+
+
 const createUser = async (userData) => {
 	return prisma.user.create({
 	  data: {
@@ -43,10 +45,73 @@ const deleteUser = async (userId) => {
   };
   
 
+  // Get saved listings for a specific user
+const getSavedListings = async (userId) => {
+	const user = await prisma.user.findUnique({
+		where: { userId: parseInt(userId) },
+		select: { savedListings: true }
+	});
+	if (!user) throw new Error("User not found");
+	return user.savedListings;
+};
+
+// Add a listing to the user's saved listings
+const saveListing = async (userId, listing) => {
+    // Retrieve the current user's savedListings
+    const user = await prisma.user.findUnique({
+        where: { userId: parseInt(userId) },
+        select: { savedListings: true }
+    });
+
+    if (!user) {
+        throw new Error("User not found");
+    }
+
+    // Ensure savedListings is treated as an array
+    const currentListings = Array.isArray(user.savedListings) ? user.savedListings : [];
+
+    // Add the new listing to the current listings
+    const updatedListings = [...currentListings, listing];
+
+    // Update the user's savedListings in the database
+    const updatedUser = await prisma.user.update({
+        where: { userId: parseInt(userId) },
+        data: {
+            savedListings: updatedListings
+        }
+    });
+
+    return updatedUser.savedListings;
+};
+
+// Remove a listing from the user's saved listings
+const removeListing = async (userId, listingId) => {
+	const user = await prisma.user.findUnique({
+		where: { userId: parseInt(userId) },
+		select: { savedListings: true }
+	});
+	if (!user) throw new Error("User not found");
+
+	const updatedListings = user.savedListings.filter(
+		(listing) => listing.listingId !== parseInt(listingId)
+	);
+
+	const updatedUser = await prisma.user.update({
+		where: { userId: parseInt(userId) },
+		data: {
+			savedListings: updatedListings,
+		},
+	});
+	return updatedUser.savedListings;
+};
+
 module.exports = {
 	getAllUsers,
 	getUserById,
 	createUser, 
 	updateUser, 
-	deleteUser
+	deleteUser, 
+	getSavedListings,
+	saveListing,
+	removeListing
 };
