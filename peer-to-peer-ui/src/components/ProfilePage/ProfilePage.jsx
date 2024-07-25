@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import FileUpload from '../FileUpload/FileUpload';
 
+
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
   const [showCreateListing, setShowCreateListing] = useState(false);
@@ -57,51 +58,60 @@ const ProfilePage = () => {
 	);
 };
 
-const RentContent = ({ savedListings, removeListing }) => (
-  
-	<>
-		<section className="profile-info">
-			<div className="profile-picture">
-				<img src={profileImg} alt="Profile" />
-			</div>
-			<div className="profile-details">
-				<h2>First Last</h2>
-				<p>Member since ...</p>
-				<div className="contact-info">
-					<p>Email</p>
-					<p>Phone Number</p>
-					<p>Location</p>
-				</div>
-				<button className="edit-button">Edit Account Details</button>
-			</div>
-		</section>
-		<section className="listings">
-			<div className="tabs">
-				<button className="tab active">Saved</button>
-			</div>
-			<div className="listings-grid">
-      
-				{savedListings.map((listing) => (
-					<div key={listing.listingId} className="listing-card">
-            
-						<img src={listing.photo || placeHolderListing} alt="Listing" />
-						<div className="listing-details">
-							<p>{listing.title}</p>
-							<p>{listing.location}</p>
-							<p>${listing.priceHourly} per hour</p>
-							<button
-								className="contact-button"
-								onClick={() => removeListing(listing.listingId)}
-							>
-								Remove
-							</button>
-						</div>
-					</div>
-				))}
-			</div>
-		</section>
+
+
+
+const RentContent = ({ savedListings, removeListing }) => {
+
+  const handleLogout = () => {
+    console.log("Logging out");
+    localStorage.removeItem("token");
+  };
+
+  return (
+    <>
+      <section className="profile-info">
+        <div className="profile-picture">
+          <img src={profileImg} alt="Profile" />
+        </div>
+        <div className="profile-details">
+          <h2>First Last</h2>
+          <p>Member since ...</p>
+          <div className="contact-info">
+            <p>Email</p>
+            <p>Phone Number</p>
+            <p>Location</p>
+          </div>
+          <button className="edit-button">Edit Account Details</button>
+          <button onClick={handleLogout}>Log out</button>
+        </div>
+      </section>
+      <section className="listings">
+        <div className="tabs">
+          <button className="tab active">Saved</button>
+        </div>
+        <div className="listings-grid">
+          {savedListings.map((listing) => (
+            <div key={listing.listingId} className="listing-card">
+              <img src={listing.photo || placeHolderListing} alt="Listing" />
+              <div className="listing-details">
+                <p>{listing.title}</p>
+                <p>{listing.location}</p>
+                <p>${listing.priceHourly} per hour</p>
+                <button
+                  className="contact-button"
+                  onClick={() => removeListing(listing.listingId)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 	</>
 );
+}
 
 /*
 The isPhotoUploaded state is added to track whether the photo has been successfully uploaded.
