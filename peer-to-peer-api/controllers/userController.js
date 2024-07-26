@@ -25,9 +25,11 @@ const getUserById = async (req, res) => {
 
 //get user by email
 const getUserByEmail = async (req, res) => {
-	const { email } = req.params;
+	// console.log("params is", req)
+	const { userEmail } = req.params;
+	console.log("email in controller is:", userEmail)
 	try {
-	  const user = await userModel.getUserByEmail(email);
+	  const user = await userModel.getUserByEmail(userEmail);
 	  if (user) {
 		res.status(200).json(user);
 	  } else {
@@ -79,11 +81,51 @@ const deleteUser = async (req, res) => {
 
 
 
+// Get saved listings for a user
+const getSavedListings = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const savedListings = await userModel.getSavedListings(userId);
+        res.json(savedListings);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching saved listings', error });
+    }
+};
+
+// Add a listing to saved listings
+const saveListing = async (req, res) => {
+    const { userId } = req.params;
+    const { listing } = req.body;
+
+    try {
+        const updatedListings = await userModel.saveListing(userId, listing);
+        res.json(updatedListings);
+    } catch (error) {
+        res.status(500).json({ message: 'Error saving listing', error: error.message });
+    }
+};
+
+// Remove a listing from saved listings
+const removeListing = async (req, res) => {
+    const { userId, listingId } = req.params;
+    try {
+        const updatedListings = await userModel.removeListing(userId, listingId);
+        res.json(updatedListings);
+    } catch (error) {
+        res.status(500).json({ message: 'Error removing listing', error });
+    }
+};
+
+
+
 module.exports = {
 	getAllUsers,
 	getUserById,
 	createUser, 
 	updateUser, 
-	deleteUser,
+	deleteUser, 
+	getSavedListings,
+    saveListing,
+    removeListing,
 	getUserByEmail
 };

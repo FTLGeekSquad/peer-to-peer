@@ -16,6 +16,21 @@ const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
 	const [showCreateListing, setShowCreateListing] = useState(false);
 	const { savedListings, removeListing } = useSavedListings(); // Use the context
+  // const [token, setToken] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+
+  const token = localStorage.getItem("token")
+
+  // get the user from the token and get the user info from the DB using the backend
+  useEffect(() => {
+    if(token){
+      // setToken(localStorage.getItem("token"))
+      setUserInfo(jwtDecode(token))
+    }
+  }, [])
+
+  console.log("userInfo in useEffect:" , userInfo?.email)
+
 
 	return (
 		<div className="profile-page">
@@ -45,21 +60,23 @@ const ProfilePage = () => {
 			<main className="main-content">
 				{activeTab === "rent" ? (
 					<RentContent
+          userInfo={userInfo}
 						savedListings={savedListings}
 						removeListing={removeListing}
 					/>
 				) : (
 					<ListContent
-						showCreateListing={showCreateListing}
-						setShowCreateListing={setShowCreateListing}
-					/>
+            userInfo={userInfo}
+            showCreateListing={showCreateListing}
+            setShowCreateListing={setShowCreateListing}
+          />
 				)}
 			</main>
 		</div>
 	);
 };
 
-const RentContent = ({ savedListings, removeListing }) => {
+const RentContent = ({ savedListings, removeListing, userInfo }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -76,26 +93,27 @@ const RentContent = ({ savedListings, removeListing }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Fetch user data when component mounts
-    const fetchUserData = async () => {
-      console.log("Fetching user data...");
-      try {
-        const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
-        console.log("Response data:", response.data); // Log the response data
-        setUser({
-          name: response.data.name || '',
-          email: response.data.email || '',
-          phoneNumber: response.data.phoneNumber || '',
-          location: response.data.location || '', 
-          createdAt: response.data.createdAt || ''
-        });
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
+		if (userInfo) {
+			const fetchUserData = async () => {
+				console.log("Fetching user data...");
+				try {
+					const response = await axios.get(`http://localhost:3000/users/email/${userInfo.email}`);
+					console.log("Response data:", response.data);
+					setUser({
+						name: response.data.name || "",
+						email: response.data.email || "",
+						phoneNumber: response.data.phoneNumber || "",
+						location: response.data.location || "",
+						createdAt: response.data.createdAt || "",
+					});
+				} catch (error) {
+					console.error("Error fetching user data:", error);
+				}
+			};
 
-    fetchUserData();
-  }, []);
+			fetchUserData();
+		}
+	}, [userInfo]);
 
   const handleEdit = async (event) => {
     event.preventDefault();
@@ -121,6 +139,8 @@ const RentContent = ({ savedListings, removeListing }) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, options);
   };
+
+  // const {savedListings, removeListing} = useSavedListings();
 
   return (
     <>
@@ -173,22 +193,26 @@ const RentContent = ({ savedListings, removeListing }) => {
           <button className="tab active">Saved</button>
         </div>
         <div className="listings-grid">
-          {savedListings.map((listing) => (
-            <div key={listing.listingId} className="listing-card">
-              <img src={listing.photo || placeHolderListing} alt="Listing" />
-              <div className="listing-details">
-                <p>{listing.title}</p>
-                <p>{listing.location}</p>
-                <p>${listing.priceHourly} per hour</p>
-                <button
-                  className="contact-button"
-                  onClick={() => removeListing(listing.listingId)}
-                >
-                  Remove
-                </button>
+          {Array.isArray(savedListings) && savedListings.length > 0 ? (
+            savedListings.map((listing) => (
+              <div key={listing.listingId} className="listing-card">
+                <img src={listing.photo || placeHolderListing} alt="Listing" />
+                <div className="listing-details">
+                  <p>{listing.title}</p>
+                  <p>{listing.location}</p>
+                  <p>${listing.priceHourly} per hour</p>
+                  <button
+                    className="contact-button"
+                    onClick={() => removeListing(listing.listingId)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No saved listings.</p>
+          )}
         </div>
       </section>
 	</>
@@ -203,7 +227,7 @@ The form's submit button is enabled only when all required fields are filled, in
 */
 
 
-const ListContent = ({ showCreateListing, setShowCreateListing }) => {
+const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -224,10 +248,11 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   });
   
   useEffect(() => {
+    if(userInfo) {
     const fetchUserData = async () => {
       console.log("Fetching user data...");
       try {
-        const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
+        const response = await axios.get(`http://localhost:3000/users/email/${userInfo.email}`); // Adjust the URL based on your API endpoint
         console.log("Response data:", response.data); // Log the response data
         setUser({
           name: response.data.name || '',
@@ -242,7 +267,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     };
 
     fetchUserData();
-  }, []);
+  }
+  }, [userInfo]);
 
 	const handleOpenModal = () => {
 		setShowCreateListing(true);
@@ -316,6 +342,31 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, options);
   };
+
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        // const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+        // eventually needs to correlate w/ who's logged in
+        const response = await axios.get(`http://localhost:3000/listings/user/all-listings/1`);
+
+        setListings(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, [userId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching listings: {error.message}</p>;
 
   return (
     <>
@@ -420,46 +471,32 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 
       </div>
 
-			<section className="listings">
-				<div className="tabs">
-					<button className="tab active">All</button>
-				</div>
-				<div className="listings-grid">
-					<div className="listing-item">
-						<div className="listing-card">
-							<img src={placeHolderListing} alt="Listing" />
-							<div className="listing-details">
-								<p className="listingCardTitle">Title</p>
-								<div className="paragraph">
-									<p className="location">Location</p>
-									<p className="price">Price</p>
-								</div>
-								{/* <button className="contact-button">Mark as Contacted</button> */}
-							</div>
-						</div>
-						<div className="listing-card">
-							<img src={placeHolderListing} alt="Listing" />
-							<div className="listing-details">
-								<p>Title</p>
-								<p>Location</p>
-								<p>Price</p>
-								<button className="contact-button">Mark as Contacted</button>
-							</div>
-						</div>
-						<div className="listing-card">
-							<img src={placeHolderListing} alt="Listing" />
-							<div className="listing-details">
-								<p>Title</p>
-								<p>Location</p>
-								<p>Price</p>
-								<button className="contact-button">Mark as Contacted</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</>
-	);
+      <section className="listings">
+      <div className="tabs">
+        <button className="tab active">All</button>
+      </div>
+      <div className="listings-grid">
+        {listings.length > 0 ? (
+          listings.map((listing) => (
+            <div key={listing.listingId} className="listing-card">
+              <img src={listing.photo || placeHolderListing} alt="Listing" />
+              <div className="listing-details">
+                <p className="listingCardTitle">{listing.title}</p>
+                <div className="paragraph">
+                  <p className="location">{listing.location}</p>
+                  <p className="price">${listing.priceHourly} per hour</p>
+                </div>
+                {/* Add other listing details here if needed */}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No listings available.</p>
+        )}
+      </div>
+    </section>
+    </>
+  );
 };
 
 export default ProfilePage;
