@@ -5,58 +5,68 @@ const getAllUsers = async () => {
 	return prisma.user.findMany({
 		include: {
 			allListings: true,
-		}
+		},
 	});
 };
 
 // maybe do get user by email instead
 const getUserByEmail = async (email) => {
-	console.log("In model, user email passed down is:", email)
+	console.log("In model, user email passed down is:", email);
 	return prisma.user.findUnique({
-	  where: { email },
+		where: { email },
 	});
-  };
-
+};
 
 const getUserById = async (userId) => {
-	return prisma.user.findUnique({ 
-		where: { userId: parseInt(userId) 
-		} , 
+	return prisma.user.findUnique({
+		where: { userId: parseInt(userId) },
 		include: {
-			allListings: true
-		}
+			allListings: true,
+		},
 	});
 	// may need to add include: {listings: true} later
 };
 
 const createUser = async (name, email) => {
-
 	return prisma.user.create({
-	  data: {
-		name,
-		email,
-	  }
+		data: {
+			name,
+			email,
+		},
 	});
-  };
+};
 
-  const updateUser = async (userId, userData) => {
+const updateUser = async (userId, userData) => {
 	return prisma.user.update({
-	  where: { userId: parseInt(userId) },
-	  data: userData,
+		where: { userId: parseInt(userId) },
+		data: userData,
 	});
-  };
-  
+};
+
+const editUserByEmail = async (userEmail, userData) => {
+	try {
+		const updatedUser = await prisma.user.update({
+			where: { email: userEmail },
+			data: userData,
+		});
+		return updatedUser;
+	} catch (error) {
+		throw new Error(
+			`Failed to update user with email ${userEmail}: ${error.message}`
+		);
+	}
+};
+
 //Function to delete a card
 const deleteUser = async (userId) => {
-    return prisma.user.delete({ where: { userId: parseInt(userId) } });
-  };
-  
+	return prisma.user.delete({ where: { userId: parseInt(userId) } });
+};
 
-  // Get saved listings for a specific user
+// Get saved listings for a specific user
 const getSavedListings = async (userId) => {
 	const user = await prisma.user.findUnique({
 		where: { userId: parseInt(userId) },
-		select: { savedListings: true }
+		select: { savedListings: true },
 	});
 	if (!user) throw new Error("User not found");
 	return user.savedListings;
@@ -64,38 +74,40 @@ const getSavedListings = async (userId) => {
 
 // Add a listing to the user's saved listings
 const saveListing = async (userId, listing) => {
-    // Retrieve the current user's savedListings
-    const user = await prisma.user.findUnique({
-        where: { userId: parseInt(userId) },
-        select: { savedListings: true }
-    });
+	// Retrieve the current user's savedListings
+	const user = await prisma.user.findUnique({
+		where: { userId: parseInt(userId) },
+		select: { savedListings: true },
+	});
 
-    if (!user) {
-        throw new Error("User not found");
-    }
+	if (!user) {
+		throw new Error("User not found");
+	}
 
-    // Ensure savedListings is treated as an array
-    const currentListings = Array.isArray(user.savedListings) ? user.savedListings : [];
+	// Ensure savedListings is treated as an array
+	const currentListings = Array.isArray(user.savedListings)
+		? user.savedListings
+		: [];
 
-    // Add the new listing to the current listings
-    const updatedListings = [...currentListings, listing];
+	// Add the new listing to the current listings
+	const updatedListings = [...currentListings, listing];
 
-    // Update the user's savedListings in the database
-    const updatedUser = await prisma.user.update({
-        where: { userId: parseInt(userId) },
-        data: {
-            savedListings: updatedListings
-        }
-    });
+	// Update the user's savedListings in the database
+	const updatedUser = await prisma.user.update({
+		where: { userId: parseInt(userId) },
+		data: {
+			savedListings: updatedListings,
+		},
+	});
 
-    return updatedUser.savedListings;
+	return updatedUser.savedListings;
 };
 
 // Remove a listing from the user's saved listings
 const removeListing = async (userId, listingId) => {
 	const user = await prisma.user.findUnique({
 		where: { userId: parseInt(userId) },
-		select: { savedListings: true }
+		select: { savedListings: true },
 	});
 	if (!user) throw new Error("User not found");
 
@@ -112,15 +124,15 @@ const removeListing = async (userId, listingId) => {
 	return updatedUser.savedListings;
 };
 
-
 module.exports = {
 	getAllUsers,
 	getUserById,
-	createUser, 
-	updateUser, 
-	deleteUser, 
+	createUser,
+	updateUser,
+	deleteUser,
 	getSavedListings,
 	saveListing,
 	removeListing,
-	getUserByEmail
+	getUserByEmail,
+	editUserByEmail,
 };

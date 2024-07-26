@@ -12,16 +12,15 @@
 }
 
 .modal-content {
-  background: #fffbf3; /* Soft, light background color */
-  border-radius: 20px; /* More rounded corners */
-  width: 90%;
-  max-width: 500px;
-  padding: 25px; /* Slightly increased padding */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Larger, softer shadow */
-  animation: slideDown 0.4s ease-out; /* Slightly longer animation */
-  border: 2px solid #dbb3b3; /* Light, playful border color */
+	background: #fffbf3; /* Soft, light background color */
+	border-radius: 20px; /* More rounded corners */
+	width: 90%;
+	max-width: 500px;
+	padding: 25px; /* Slightly increased padding */
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Larger, softer shadow */
+	animation: slideDown 0.4s ease-out; /* Slightly longer animation */
+	border: 2px solid #dbb3b3; /* Light, playful border color */
 }
-
 
 .modal-header {
 	display: flex;
@@ -51,12 +50,12 @@
 }
 
 .styled-input:focus {
-	border-color: #6c63ff;
+	border-color: #D6AEAE;
 	outline: none;
 }
 
 .create-listing-button {
-	background: linear-gradient(45deg, #ff6f61, #ff9472);
+	background: linear-gradient(45deg, #c3cbc5, #d6aeae);
 	color: #fff;
 	border: none;
 	padding: 10px 20px;
@@ -66,7 +65,7 @@
 }
 
 .create-listing-button:hover {
-	background: linear-gradient(45deg, #ff9472, #ff6f61);
+	background: linear-gradient(45deg, #D6AEAE, #d6aeae);
 }
 
 .centered-form {

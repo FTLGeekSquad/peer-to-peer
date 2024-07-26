@@ -81,12 +81,9 @@ function EquipmentGrid() {
 
 					<div className="equipmentGrid">
 						{filteredEquipment.map((equip, index) => (
-							<div
-								key={index}
-								className="equipment-item"
-								onClick={() => handleItemClick(equip)}
-							>
+							<div key={index} className="equipment-item">
 								<Equipment
+									onClick={handleItemClick}
 									listing={equip}
 									onSave={saveListing} // Pass the saveListing function
 								/>

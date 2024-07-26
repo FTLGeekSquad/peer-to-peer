@@ -79,12 +79,9 @@ function ServicesGrid() {
 
 					<div className="servicesGrid">
 						{filteredServices.map((service, index) => (
-							<div
-								key={index}
-								className="services-item"
-								onClick={() => handleItemClick(service)}
-							>
+							<div key={index} className="services-item">
 								<Services
+									onClick={handleItemClick}
 									listing={service}
 									onSave={saveListing} // Pass the saveListing function
 								/>

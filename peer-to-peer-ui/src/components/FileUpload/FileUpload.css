@@ -1,54 +1,52 @@
 .file-upload {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    border: 5px;
-  }
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+	border: 5px;
+}
 
-  .file-upload .loading-spinner {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top-color: #000;
-    animation: spin 1s ease-in-out infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
-  .file-input {
-    padding: 10px;
-    border: none;
-  }
+.file-upload .loading-spinner {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border: 3px solid rgba(0, 0, 0, 0.1);
+	border-radius: 50%;
+	border-top-color: #000;
+	animation: spin 1s ease-in-out infinite;
+}
 
-  .file-input-container {
-    border: 1px;
-  }
-  
-  .upload-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-left: 1px solid #ccc;
-  }
-  
-  .upload-button:hover {
-    background-color: #0056b3;
-  }
-  
-  
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.-container {
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.file-input {
+	padding: 10px;
+	border: none;
+}
+
+.file-input-container {
+	border: 1px;
+}
+
+.upload-button {
+	padding: 10px 20px;
+	background-color: #d6aeae;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-left: 1px solid #ccc;
+}
+
+.upload-button:hover {
+	background-color: #65635f;
+}

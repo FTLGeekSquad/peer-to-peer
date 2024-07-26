@@ -10,17 +10,17 @@ const Dashboard = () => {
   const handleLogout = () => {
     console.log("Logging out");
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/home");
   };
 
   const getResource = async () => {
-    const resp = await axios.get("http://localhost:3000/auth/protected_route", {
+    const resp = await axios.get("http://localhost:3000/protected_route", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
-    console.log("resp", resp)
-    setUserInfo(resp.data);
+    setUserInfo(resp.data.user.name);
+    setUserInfo(resp.data.user.location);
 
   }
 
@@ -28,7 +28,7 @@ const Dashboard = () => {
     <div>
       <h2>Dashboard</h2>
       <button onClick={getResource}>Get Resource</button> 
-      <div>User name: {JSON.stringify(userInfo)}</div>    
+      <div>User name: {userInfo}</div>    
       <button onClick={handleLogout}>Log out</button>
     </div>
   );

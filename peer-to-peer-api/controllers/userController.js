@@ -1,4 +1,6 @@
 const userModel = require('../models/userModel')
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 const getAllUsers = async (req, res) => {
 	try {
@@ -65,6 +67,18 @@ const updateUser = async (req, res) => {
     }
   };
 
+  const editUserByEmail = async (userEmail, userData) => {
+	try {
+	  const updatedUser = await prisma.user.update({
+		where: { email: userEmail },
+		data: userData,
+	  });
+	  return updatedUser;
+	} catch (error) {
+	  throw new Error(`Failed to update user with email ${userEmail}: ${error.message}`);
+	}
+  };
+
   //Function to delete a user
 const deleteUser = async (req, res) => {
 	try {
@@ -127,5 +141,6 @@ module.exports = {
 	getSavedListings,
     saveListing,
     removeListing,
-	getUserByEmail
+	getUserByEmail, 
+	editUserByEmail
 };

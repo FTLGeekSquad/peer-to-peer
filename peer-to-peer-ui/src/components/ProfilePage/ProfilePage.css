@@ -1,327 +1,380 @@
 .profile-page {
-  font-family: Arial, sans-serif;
-  color: #333;
+	font-family: Arial, sans-serif;
+	color: #333;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #FBF7EE;
-  padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fbf7ee;
+	padding: 10px 20px;
+	border-bottom: 1px solid #ccc;
 }
 
 .logo img {
-  height: 50px;
+	height: 50px;
 }
 
 .navigation {
-  display: flex;
+	display: flex;
 }
 
 .nav-button {
-  background-color: transparent;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
+	background-color: transparent;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-size: 16px;
 }
 
 .nav-button.active {
-  font-weight: bold;
-  background-color: #C3CBC6; 
-  border-radius: 5px;
-  padding: 7px;
-  height: auto;
+	font-weight: bold;
+	background-color: #c3cbc6;
+	border-radius: 5px;
+	padding: 7px;
+	height: auto;
 }
 
 .profile {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .profile img {
-  height: 40px;
-  margin-right: 10px;
+	height: 40px;
+	margin-right: 10px;
 }
 
 .main-content {
-  display: flex;
-  padding: 20px;
+	display: flex;
+	padding: 20px;
 }
 
 .profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  border-right: 1px solid #ccc;
-  padding-right: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 1;
+	border-right: 1px solid #ccc;
+	padding-right: 20px;
 }
 
 .profile-picture img {
-  height: 100px;
-  border-radius: 50%;
+	height: 100px;
+	border-radius: 50%;
 }
 
 .profile-details {
-  text-align: center;
+	text-align: center;
 }
 
 .edit-button {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  margin-top: 10px;
-  cursor: pointer;
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	margin-top: 10px;
+	cursor: pointer;
 }
 
 .listings {
-  flex: 2;
-  padding-left: 20px;
+	flex: 2;
+	padding-left: 20px;
 }
 
 .tabs {
-  display: flex;
-  margin-bottom: 10px;
+	display: flex;
+	margin-bottom: 10px;
 }
 
 .tab {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-right: 5px;
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	cursor: pointer;
+	margin-right: 5px;
 }
 
 .tab.active {
-  font-weight: bold;
-  background-color: #C3CBC6;
+	font-weight: bold;
+	background-color: #c3cbc6;
 }
-
 .listings-grid {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+	padding: 20px;
 }
-
-.listing-item {
-  display: flex;
-  flex-direction: row;
-}
-
-
 
 .listing-card {
-  background-color: #C3CBC6; 
-    border: 1px solid #ddd;
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 9px;
-    width: 200px; 
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	width: 200px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listing-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .listing-card img {
-  height: 100px;
+	height: 150px;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.listing-details {
+	text-align: center;
+	margin: 10px 0;
+}
+
+.listing-title {
+	font-family: "Solway", sans-serif;
+	font-weight: bold;
+	margin: 5px 0;
+}
+
+.listing-location,
+.listing-price {
+	font-family: "Solway", sans-serif;
+	margin: 5px 0;
+}
+
+.contact-button {
+	background-color: #e0e0e0;
+	border: 1px solid #ccc;
+	padding: 5px;
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+	background-color: #ccc;
+}
+
+/* .listings-grid {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+}
+
+.listing-item {
+	display: flex;
+	flex-direction: row;
+}
+
+.listing-card {
+	background-color: #c3cbc6;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 9px;
+	width: 200px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	align-items: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listing-card img {
+	height: 100px;
 }
 
 .listing-card p {
-  font-family: 'Solway', sans-serif;
-  padding: 0px;
-  margin: 4px;
-  margin-left: 0;
-  font-weight: 300;
-  
-}
+	font-family: "Solway", sans-serif;
+	padding: 0px;
+	margin: 4px;
+	margin-left: 0;
+	font-weight: 300;
+} */
 
 /* ListContent.css */
 .upload-success-message {
-  color: green;
-  font-weight: bold;
-  margin-bottom: 10px;
+	color: green;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
-
 .contact-button {
-  background-color: #e0e0e0;
-  border: 1px solid #ccc;
-  padding: 5px;
-  cursor: pointer;
-  margin-top: 10px;
+	background-color: #e0e0e0;
+	border: 1px solid #ccc;
+	padding: 5px;
+	cursor: pointer;
+	margin-top: 10px;
 }
 
 .pLogo {
-  width: 80px;
-  height: auto;
+	width: 80px;
+	height: auto;
 }
-
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-
 
 .modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  max-width: 100%;
-  position: relative;
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	width: 400px;
+	max-width: 100%;
+	position: relative;
 }
 
-
 .modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: none;
+	border: none;
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+	cursor: pointer;
 }
 
 .modal-close:hover {
-  color: #007bff;
+	color: #e3b9b9;
 }
-
-
 
 .createListing {
-  position: relative;
+	position: relative;
 }
 
-
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
 }
 
 .listing-modal-content {
-  background-color: #C3CBC6;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: slide-down 0.3s ease-out;
-  height: 50%;
+	background-color: #c3cbc6;
+	padding: 20px;
+	border-radius: 10px;
+	width: 80%;
+	max-width: 600px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	animation: slide-down 0.3s ease-out;
+	height: 50%;
 }
 
 .listing-modal-header {
-  background-color: #FBF7EE;
-  border-radius: 10px;
+	background-color: #fbf7ee;
+	border-radius: 10px;
 }
 
 .modalTitle {
-  display: flex;
-  margin-top: 0px;
-  flex-direction: row;
-  justify-content: center;
-  padding: 12px;
+	display: flex;
+	margin-top: 0px;
+	flex-direction: row;
+	justify-content: center;
+	padding: 12px;
 }
 
-
 .modal-close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #333;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #333;
 }
 
 .modal-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .centered-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .styled-input {
-  width: 80%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #FBF7EE;
+	width: 80%;
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #fbf7ee;
 }
 
 .styled-input:focus {
-  outline: none;
-  border-color: #DBB3B3; 
+	outline: none;
+	border-color: #dbb3b3;
 }
 
 @keyframes slide-down {
-  from {
-    transform: translateY(-50%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+	from {
+		transform: translateY(-50%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 
 .create-listing-button {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: transparent; 
-  color: black; 
-  text-align: center;
-  border: 1px solid black; 
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	padding: 10px 20px;
+	background-color: #c3cbc5;
+	color: black;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 .create-listing-button:hover {
-  background-color: #C3CBC6; 
+	background-color: #c3cbc6;
 }
 
 .bookmark-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: #C1C9C4;; /* Adjust color as needed */
-  transition: color 0.3s;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1.5rem;
+	color: #c1c9c4; /* Adjust color as needed */
+	transition: color 0.3s;
 }
 
 .bookmark-button:hover {
-  color: #DBB3B3; /* Adjust hover color as needed */
+	color: #dbb3b3; /* Adjust hover color as needed */
 }
-

@@ -17,6 +17,10 @@ router.post('/:userId/saved-listings', userController.saveListing);
 // Remove a listing from saved listings
 router.delete('/:userId/saved-listings/:listingId', userController.removeListing);
 
+// put route to edit by email
+router.put("/email/:userEmail", userController.editUserByEmail);
+
+
 
 // other routes
 

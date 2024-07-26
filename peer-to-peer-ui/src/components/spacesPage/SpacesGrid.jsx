@@ -76,12 +76,9 @@ function SpacesGrid() {
 
 					<div className="spacesGrid">
 						{filteredSpaces.map((space, index) => (
-							<div
-								key={index}
-								className="spaces-item"
-								onClick={() => handleItemClick(space)}
-							>
+							<div key={index} className="spaces-item">
 								<Spaces
+									onClick={handleItemClick}
 									listing={space}
 									onSave={saveListing} // Pass the saveListing function
 								/>

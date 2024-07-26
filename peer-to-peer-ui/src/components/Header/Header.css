@@ -1,135 +1,139 @@
 .header {
-    display: flex;
-    justify-content: center; /* Center the headerBottom within the header */
-    align-items: center;
-    padding: 20px; /* Add some padding for spacing */
-    position: relative; /* Make the header a positioned element */
-    border:0;
-    background-color: #FBF7EE;
+	display: flex;
+	justify-content: center; /* Center the headerBottom within the header */
+	align-items: center;
+	padding: 20px; /* Add some padding for spacing */
+	position: relative; /* Make the header a positioned element */
+	border: 0;
+	background-color: #fbf7ee;
 }
 
 .logo {
-    width: 120px;
-    height: auto;
-    margin-left: 20px;
-    margin-top: 20px;
-    left: 0; /* Align the logo to the left */
+	width: 120px;
+	height: auto;
+	margin-left: 20px;
+	margin-top: 20px;
+	left: 0; /* Align the logo to the left */
 }
 
 .headerBottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the SearchBar and NavBar horizontally */
-    width: 100%; /* Ensure headerBottom takes the full width */
-    margin-right: auto;
-    margin-left: auto;
-    background-color: #FBF7EE;
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Center the SearchBar and NavBar horizontally */
+	width: 100%; /* Ensure headerBottom takes the full width */
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #fbf7ee;
 }
 
-
 .spacer {
-    flex: 1; /* Pushes headerBottom to the center */
+	flex: 1; /* Pushes headerBottom to the center */
 }
 
 .bigTitle {
-    text-align: center;
+	text-align: center;
 }
 
 .google-signin-button {
-    background-color: #f2f2f2;
-    background-image: none;
-    border: none;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    color: #1f1f1f;
-    cursor: pointer;
-    font-family: 'Roboto', arial, sans-serif;
-    font-size: 14px;
-    height: 40px;
-    letter-spacing: 0.25px;
-    outline: none;
-    overflow: hidden;
-    padding: 0 12px;
-    position: relative;
-    text-align: center;
-    -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
-    transition: background-color .218s, border-color .218s, box-shadow .218s;
-    vertical-align: middle;
-    white-space: nowrap;
-    width: auto;
-    max-width: 400px;
-    min-width: min-content;
-  }
-  
+	background-color: #f2f2f2;
+	background-image: none;
+	border: none;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #1f1f1f;
+	cursor: pointer;
+	font-family: "Roboto", arial, sans-serif;
+	font-size: 14px;
+	height: 40px;
+	letter-spacing: 0.25px;
+	outline: none;
+	overflow: hidden;
+	padding: 0 12px;
+	position: relative;
+	text-align: center;
+	-webkit-transition: background-color 0.218s, border-color 0.218s,
+		box-shadow 0.218s;
+	transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: auto;
+	max-width: 400px;
+	min-width: min-content;
+}
 
-  
-  .google-signin-button-content-wrapper {
-    -webkit-align-items: center;
-    align-items: center;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    height: 100%;
-    justify-content: space-between;
-    position: relative;
-    width: 100%;
-  }
-  
-  .google-signin-button-contents {
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-    font-family: 'Roboto', arial, sans-serif;
-    font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: top;
-  }
-  
-  .google-signin-button-state {
-    -webkit-transition: opacity .218s;
-    transition: opacity .218s;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  
-  .google-signin-button:disabled {
-    cursor: default;
-    background-color: #ffffff61;
-  }
-  
-  .google-signin-button:disabled .google-signin-button-state {
-    background-color: #1f1f1f1f;
-  }
-  
-  .google-signin-button:disabled .google-signin-button-contents {
-    opacity: 38%;
-  }
-  
-  .google-signin-button:disabled .google-signin-button-icon {
-    opacity: 38%;
-  }
-  
-  .google-signin-button:not(:disabled):active .google-signin-button-state, 
-  .google-signin-button:not(:disabled):focus .google-signin-button-state {
-    background-color: #001d35;
-    opacity: 12%;
-  }
-  
-  .google-signin-button:not(:disabled):hover {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
-  }
-  
-  .google-signin-button:not(:disabled):hover .google-signin-button-state {
-    background-color: #001d35;
-    opacity: 8%;
-  }
-  
+.google-signin-button-content-wrapper {
+	-webkit-align-items: center;
+	align-items: center;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	height: 100%;
+	justify-content: space-between;
+	position: relative;
+	width: 100%;
+}
+
+.google-signin-button-contents {
+	-webkit-flex-grow: 1;
+	flex-grow: 1;
+	font-family: "Roboto", arial, sans-serif;
+	font-weight: 500;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: top;
+}
+
+.google-signin-button-state {
+	-webkit-transition: opacity 0.218s;
+	transition: opacity 0.218s;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.google-signin-button:disabled {
+	cursor: default;
+	background-color: #ffffff61;
+}
+
+.google-signin-button:disabled .google-signin-button-state {
+	background-color: #1f1f1f1f;
+}
+
+.google-signin-button:disabled .google-signin-button-contents {
+	opacity: 38%;
+}
+
+.google-signin-button:disabled .google-signin-button-icon {
+	opacity: 38%;
+}
+
+.google-signin-button:not(:disabled):active .google-signin-button-state,
+.google-signin-button:not(:disabled):focus .google-signin-button-state {
+	background-color: #001d35;
+	opacity: 12%;
+}
+
+.google-signin-button:not(:disabled):hover {
+	-webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+		0 1px 3px 1px rgba(60, 64, 67, 0.15);
+	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+		0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+
+.google-signin-button:not(:disabled):hover .google-signin-button-state {
+	background-color: #001d35;
+	opacity: 8%;
+}
+
+.header-logo {
+	width: 300px;
+	padding: 20px 0 0 0;
+}
