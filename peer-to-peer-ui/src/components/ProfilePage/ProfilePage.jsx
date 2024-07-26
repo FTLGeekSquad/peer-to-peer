@@ -11,7 +11,7 @@ import FileUpload from "../FileUpload/FileUpload";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import {jwtDecode} from 'jwt-decode';
-
+import { useNavigate } from "react-router-dom";
  
 
 
@@ -89,9 +89,13 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
     userId: 0
   });
 
+  const navigate = useNavigate(); // Get the navigate function from useNavigate
+
+
   const handleLogout = () => {
     console.log("Logging out");
     localStorage.removeItem("token");
+    navigate("/home");
   };
 
   const [isEditing, setIsEditing] = useState(false);
@@ -253,6 +257,16 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
     createdAt: '', 
     userId: 0
   });
+
+
+  const navigate = useNavigate(); // Get the navigate function from useNavigate
+
+
+  const handleLogout = () => {
+    console.log("Logging out");
+    localStorage.removeItem("token");
+    navigate("/home");
+  };
   
   useEffect(() => {
     if(userInfo) {
@@ -391,6 +405,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
             <p>Location: {user.location}</p>
           </div>
           <button className="edit-button" onClick={handleOpenModal}>Edit Account Details</button>
+          <button onClick={handleLogout}>Log out</button>
+
         </div>
       </section>
 
