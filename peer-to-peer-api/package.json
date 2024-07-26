@@ -11,6 +11,8 @@
 	"license": "ISC",
 	"description": "",
 	"dependencies": {
+		"@fortawesome/free-solid-svg-icons": "^6.6.0",
+		"@fortawesome/react-fontawesome": "^0.2.2",
 		"@prisma/client": "^5.16.2",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",

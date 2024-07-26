@@ -11,7 +11,7 @@ const Modal = ({ show, onClose, children }) => {
     <div className="modal" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <button className='close'onClick={onClose}>Close</button>
+          <button className='close'onClick={onClose}>X</button>
         </div>
         <div className="modal-body">{children}</div>
       </div>

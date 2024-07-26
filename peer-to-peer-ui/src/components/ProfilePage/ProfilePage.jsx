@@ -6,15 +6,15 @@ import logo from "../../assets/logo.png";
 import profileImg from "../../assets/profile.png";
 import placeHolderListing from "../../assets/placeholderListing.png";
 import { Link } from "react-router-dom";
-import axios from 'axios';
-import FileUpload from '../FileUpload/FileUpload';
-import { jwtDecode } from "jwt-decode";
-
+import axios from "axios";
+import FileUpload from "../FileUpload/FileUpload";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
-  const [showCreateListing, setShowCreateListing] = useState(false);
+	const [showCreateListing, setShowCreateListing] = useState(false);
 	const { savedListings, removeListing } = useSavedListings(); // Use the context
   // const [token, setToken] = useState("");
   const [userInfo, setUserInfo] = useState(null);
@@ -140,6 +140,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
     return date.toLocaleDateString(undefined, options);
   };
 
+  // const {savedListings, removeListing} = useSavedListings();
+
   return (
     <>
       <section className="profile-info">
@@ -191,22 +193,26 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
           <button className="tab active">Saved</button>
         </div>
         <div className="listings-grid">
-          {savedListings.map((listing) => (
-            <div key={listing.listingId} className="listing-card">
-              <img src={listing.photo || placeHolderListing} alt="Listing" />
-              <div className="listing-details">
-                <p>{listing.title}</p>
-                <p>{listing.location}</p>
-                <p>${listing.priceHourly} per hour</p>
-                <button
-                  className="contact-button"
-                  onClick={() => removeListing(listing.listingId)}
-                >
-                  Remove
-                </button>
+          {Array.isArray(savedListings) && savedListings.length > 0 ? (
+            savedListings.map((listing) => (
+              <div key={listing.listingId} className="listing-card">
+                <img src={listing.photo || placeHolderListing} alt="Listing" />
+                <div className="listing-details">
+                  <p>{listing.title}</p>
+                  <p>{listing.location}</p>
+                  <p>${listing.priceHourly} per hour</p>
+                  <button
+                    className="contact-button"
+                    onClick={() => removeListing(listing.listingId)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No saved listings.</p>
+          )}
         </div>
       </section>
 	</>
@@ -264,9 +270,9 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
   }
   }, [userInfo]);
 
-  const handleOpenModal = () => {
-    setShowCreateListing(true);
-  };
+	const handleOpenModal = () => {
+		setShowCreateListing(true);
+	};
 
   const handleCloseModal = () => {
     setShowCreateListing(false);
@@ -289,17 +295,17 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
       return;
     }
 
-    const listingData = {
-      title,
-      userId,
-      description,
-      category,
-      subCategory,
-      priceHourly,
-      photo,
-      location,
-      availability: {} // Add a default value or modify as needed
-    };
+		const listingData = {
+			title,
+			userId,
+			description,
+			category,
+			subCategory,
+			priceHourly,
+			photo,
+			location,
+			availability: {}, // Add a default value or modify as needed
+		};
 
     try {
       const response = await axios.post('http://localhost:3000/listings', listingData);
@@ -336,6 +342,31 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, options);
   };
+
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        // const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+        // eventually needs to correlate w/ who's logged in
+        const response = await axios.get(`http://localhost:3000/listings/user/all-listings/1`);
+
+        setListings(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, [userId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching listings: {error.message}</p>;
 
   return (
     <>
@@ -441,45 +472,29 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
       </div>
 
       <section className="listings">
-        <div className="tabs">
-          <button className="tab active">All</button>
-        </div>
-        <div className="listings-grid">
-          <div className="listing-item">
-          
-          <div className="listing-card">
-            <img src={placeHolderListing} alt="Listing" />
-          
-            <div className="listing-details">
-              <p className="listingCardTitle">Title</p>
-              <div className="paragraph">
-              <p className="location">Location</p>
-              <p className="price">Price</p>
+      <div className="tabs">
+        <button className="tab active">All</button>
+      </div>
+      <div className="listings-grid">
+        {listings.length > 0 ? (
+          listings.map((listing) => (
+            <div key={listing.listingId} className="listing-card">
+              <img src={listing.photo || placeHolderListing} alt="Listing" />
+              <div className="listing-details">
+                <p className="listingCardTitle">{listing.title}</p>
+                <div className="paragraph">
+                  <p className="location">{listing.location}</p>
+                  <p className="price">${listing.priceHourly} per hour</p>
+                </div>
+                {/* Add other listing details here if needed */}
               </div>
-              {/* <button className="contact-button">Mark as Contacted</button> */}
             </div>
-          </div>
-          <div className="listing-card">
-            <img src={placeHolderListing} alt="Listing" />
-            <div className="listing-details">
-              <p>Title</p>
-              <p>Location</p>
-              <p>Price</p>
-              <button className="contact-button">Mark as Contacted</button>
-            </div>
-          </div>
-          <div className="listing-card">
-            <img src={placeHolderListing} alt="Listing" />
-            <div className="listing-details">
-              <p>Title</p>
-              <p>Location</p>
-              <p>Price</p>
-              <button className="contact-button">Mark as Contacted</button>
-            </div>
-          </div>
-        </div>
-        </div>
-      </section>
+          ))
+        ) : (
+          <p>No listings available.</p>
+        )}
+      </div>
+    </section>
     </>
   );
 };
