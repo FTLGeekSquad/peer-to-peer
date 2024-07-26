@@ -33,21 +33,24 @@
 
 import React from "react";
 import "./Equipment.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 function Equipment({ listing, onSave }) {
 	// const { listingId, title, priceHourly, location } = listing;
 
-	const { //instead of listing every param
+	const {
+		//instead of listing every param
 		listingId,
 		title,
-	   description,
+		description,
 		category,
 		subCategory,
 		priceHourly,
 		photo,
-		location
+		location,
 		//availability
-	 } = listing;
+	} = listing;
 
 	return (
 		<div className="equipmentCard">
@@ -57,7 +60,10 @@ function Equipment({ listing, onSave }) {
 			<div className="paragraph">
 				<p className="price">${priceHourly} per hour</p>
 				<p className="location">{location}</p>
-				<button onClick={() => onSave(listing)}>Save</button>
+				{/* <button onClick={() => onSave(listing)}>Save</button> */}
+				<button className="bookmark-button" onClick={() => onSave(listing)}>
+					<FontAwesomeIcon icon={faBookmark} />
+				</button>
 			</div>
 		</div>
 	);

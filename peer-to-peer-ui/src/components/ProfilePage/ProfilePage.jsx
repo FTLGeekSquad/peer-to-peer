@@ -6,14 +6,16 @@ import logo from "../../assets/logo.png";
 import profileImg from "../../assets/profile.png";
 import placeHolderListing from "../../assets/placeholderListing.png";
 import { Link } from "react-router-dom";
-import axios from 'axios';
-import FileUpload from '../FileUpload/FileUpload';
+import axios from "axios";
+import FileUpload from "../FileUpload/FileUpload";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+
 
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
-  const [showCreateListing, setShowCreateListing] = useState(false);
+	const [showCreateListing, setShowCreateListing] = useState(false);
 	const { savedListings, removeListing } = useSavedListings(); // Use the context
-
 
 	return (
 		<div className="profile-page">
@@ -48,9 +50,9 @@ const ProfilePage = () => {
 					/>
 				) : (
 					<ListContent
-            showCreateListing={showCreateListing}
-            setShowCreateListing={setShowCreateListing}
-          />
+						showCreateListing={showCreateListing}
+						setShowCreateListing={setShowCreateListing}
+					/>
 				)}
 			</main>
 		</div>
@@ -65,6 +67,12 @@ const RentContent = ({ savedListings, removeListing }) => {
     location: '', 
     createdAt: ''
   });
+
+  const handleLogout = () => {
+    console.log("Logging out");
+    localStorage.removeItem("token");
+  };
+
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -131,6 +139,7 @@ const RentContent = ({ savedListings, removeListing }) => {
             <p>Location: {user.location}</p>
           </div>
           <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Account Details</button>
+          <button onClick={handleLogout}>Log out</button>
         </div>
       </section>
 
@@ -242,9 +251,9 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     fetchUserData();
   }, []);
 
-  const handleOpenModal = () => {
-    setShowCreateListing(true);
-  };
+	const handleOpenModal = () => {
+		setShowCreateListing(true);
+	};
 
   const handleCloseModal = () => {
     setShowCreateListing(false);
@@ -267,17 +276,17 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
       return;
     }
 
-    const listingData = {
-      title,
-      userId,
-      description,
-      category,
-      subCategory,
-      priceHourly,
-      photo,
-      location,
-      availability: {} // Add a default value or modify as needed
-    };
+		const listingData = {
+			title,
+			userId,
+			description,
+			category,
+			subCategory,
+			priceHourly,
+			photo,
+			location,
+			availability: {}, // Add a default value or modify as needed
+		};
 
     try {
       const response = await axios.post('http://localhost:3000/listings', listingData);

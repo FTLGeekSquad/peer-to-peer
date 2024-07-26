@@ -7,7 +7,7 @@ router.get("/:userId", userController.getUserById);
 router.post("/", userController.createUser);
 router.put("/:userId", userController.updateUser);
 router.delete("/:userId", userController.deleteUser);
-
+router.get("/", userController.getUserByEmail);
 // Get saved listings for a user
 router.get('/:userId/saved-listings', userController.getSavedListings);
 
