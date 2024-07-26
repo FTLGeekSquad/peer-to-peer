@@ -48,6 +48,8 @@
 
 import React, { useContext } from "react";
 import "./Services.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 function Services({ listing, onSave }) {
 	// const { listingId, title, priceHourly, location } = listing;
@@ -72,7 +74,9 @@ function Services({ listing, onSave }) {
 			<div className="paragraph">
 				<p className="price">${priceHourly} per hour</p>
 				<p className="location">{location}</p>
-				<button onClick={() => onSave(listing)}>Save</button>
+				<button className="bookmark-button" onClick={() => onSave(listing)}>
+					<FontAwesomeIcon icon={faBookmark} />
+				</button>
 			</div>
 		</div>
 	);

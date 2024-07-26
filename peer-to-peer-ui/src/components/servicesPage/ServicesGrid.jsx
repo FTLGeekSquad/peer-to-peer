@@ -99,6 +99,7 @@ function ServicesGrid() {
 					show={selectedService !== null}
 					onClose={() => setSelectedService(null)}
 				>
+					<img className="modal-img" src={selectedService.photo} />
 					<h2>{selectedService.title}</h2>
 					<p>
 						<strong>Location:</strong> {selectedService.location}

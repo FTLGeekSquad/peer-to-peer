@@ -1,57 +1,55 @@
 .equipmentCard {
-    background-color: #C3CBC6; /* Card background color */
-    border: 1px solid #ddd; /* Card border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    padding: 9px;
-    width: 200px; /* Set the width of the card */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	background-color: #fff; /* Card background color */
+	border: 1px solid #ddd; /* Card border */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+	padding: 9px;
+	width: 200px; /* Set the width of the card */
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .equipmentCard img {
-    border-radius: 8px; /* Rounded corners for the image */
-    width: 100%;
-    height: auto;
-    margin-bottom: 6px; /* Space between image and content */
+	border-radius: 8px; /* Rounded corners for the image */
+	width: 100%;
+	height: auto;
+	margin-bottom: 6px; /* Space between image and content */
 }
 
-
 .equipmentCard:hover {
-    transform: translateY(-5px); /* Lift the card on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+	transform: translateY(-5px); /* Lift the card on hover */
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
 }
 
 .equipmentCard p {
-    font-family: 'Solway', sans-serif;
-    padding: 0px;
-    margin: 4px;
-    margin-left: 0;
-    font-weight: 300;
-    
+	font-family: "Solway", sans-serif;
+	padding: 0px;
+	margin: 4px;
+	margin-left: 0;
+	font-weight: 300;
 }
 
 .equipmentCardTitle {
-    font-family: 'Solway', sans-serif;
-    font-size: 25px;
-    font-weight: 500;
-    padding: 1px;
-    width: 180px;
+	font-family: "Solway", sans-serif;
+	font-size: 25px;
+	font-weight: 500;
+	padding: 1px;
+	width: 180px;
 }
 
 .paragraph {
-    text-align: left;
-    width: 180px;
-    font-size: 16px;
+	text-align: left;
+	width: 180px;
+	font-size: 16px;
 }
 
 .location {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .button {
-  color: #ddd;
+	color: #ddd;
 }

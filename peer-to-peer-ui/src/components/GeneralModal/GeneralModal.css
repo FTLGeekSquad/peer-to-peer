@@ -12,14 +12,16 @@
 }
 
 .modal-content {
-	background: #fff;
-	border-radius: 10px;
-	width: 90%;
-	max-width: 500px;
-	padding: 20px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	animation: slideDown 0.3s ease-out;
+  background: #fffbf3; /* Soft, light background color */
+  border-radius: 20px; /* More rounded corners */
+  width: 90%;
+  max-width: 500px;
+  padding: 25px; /* Slightly increased padding */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Larger, softer shadow */
+  animation: slideDown 0.4s ease-out; /* Slightly longer animation */
+  border: 2px solid #dbb3b3; /* Light, playful border color */
 }
+
 
 .modal-header {
 	display: flex;

@@ -96,6 +96,7 @@ function SpacesGrid() {
 					show={selectedSpace !== null}
 					onClose={() => setSelectedSpace(null)}
 				>
+					<img className="modal-img" src={selectedSpace.photo} />
 					<h2>{selectedSpace.title}</h2>
 					<p>
 						<strong>Location:</strong> {selectedSpace.location}

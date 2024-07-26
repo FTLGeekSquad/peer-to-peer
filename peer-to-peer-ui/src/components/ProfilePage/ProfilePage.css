@@ -278,7 +278,7 @@
 
 .styled-input:focus {
   outline: none;
-  border-color: #4caf50; 
+  border-color: #DBB3B3; 
 }
 
 @keyframes slide-down {
@@ -317,7 +317,7 @@
   border: none;
   cursor: pointer;
   font-size: 1.5rem;
-  color: #FBF7EE;; /* Adjust color as needed */
+  color: #C1C9C4;; /* Adjust color as needed */
   transition: color 0.3s;
 }
 
