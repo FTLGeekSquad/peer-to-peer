@@ -10,6 +10,9 @@ import axios from "axios";
 import FileUpload from "../FileUpload/FileUpload";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import {jwtDecode} from 'jwt-decode';
+
+ 
 
 
 const ProfilePage = () => {
@@ -82,7 +85,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
     email: '',
     phoneNumber: '',
     location: '', 
-    createdAt: ''
+    createdAt: '', 
+    userId: 0
   });
 
   const handleLogout = () => {
@@ -105,6 +109,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 						phoneNumber: response.data.phoneNumber || "",
 						location: response.data.location || "",
 						createdAt: response.data.createdAt || "",
+            userId: response.data.userId || 0
 					});
 				} catch (error) {
 					console.error("Error fetching user data:", error);
@@ -118,7 +123,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
   const handleEdit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put('http://localhost:3000/users/1', user); // Adjust the URL based on your API endpoint
+      console.log(user.userId);
+      await axios.put(`http://localhost:3000/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating user data:', error);
@@ -244,7 +250,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
     email: '',
     phoneNumber: '',
     location: '', 
-    createdAt: ''
+    createdAt: '', 
+    userId: 0
   });
   
   useEffect(() => {
@@ -259,7 +266,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
           email: response.data.email || '',
           phoneNumber: response.data.phoneNumber || '',
           location: response.data.location || '',
-          createdAt: response.data.createdAt || ''
+          createdAt: response.data.createdAt || '', 
+          userId: response.data.userId || 0
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -352,7 +360,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
       try {
         // const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
         // eventually needs to correlate w/ who's logged in
-        const response = await axios.get(`http://localhost:3000/listings/user/all-listings/1`);
+        const response = await axios.get(`http://localhost:3000/users/email/${userInfo.email}`);
 
         setListings(response.data);
         setLoading(false);

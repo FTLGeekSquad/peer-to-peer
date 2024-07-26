@@ -45,6 +45,18 @@ const createUser = async (name, email) => {
 	  data: userData,
 	});
   };
+
+  const editUserByEmail = async (userEmail, userData) => {
+	try {
+	  const updatedUser = await prisma.user.update({
+		where: { email: userEmail },
+		data: userData,
+	  });
+	  return updatedUser;
+	} catch (error) {
+	  throw new Error(`Failed to update user with email ${userEmail}: ${error.message}`);
+	}
+  };
   
 //Function to delete a card
 const deleteUser = async (userId) => {
@@ -122,5 +134,6 @@ module.exports = {
 	getSavedListings,
 	saveListing,
 	removeListing,
-	getUserByEmail
+	getUserByEmail, 
+	editUserByEmail
 };
