@@ -8,12 +8,28 @@ import placeHolderListing from "../../assets/placeholderListing.png";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import FileUpload from '../FileUpload/FileUpload';
+import { jwtDecode } from "jwt-decode";
+
 
 
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
   const [showCreateListing, setShowCreateListing] = useState(false);
 	const { savedListings, removeListing } = useSavedListings(); // Use the context
+  // const [token, setToken] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+
+  const token = localStorage.getItem("token")
+
+  // get the user from the token and get the user info from the DB using the backend
+  useEffect(() => {
+    if(token){
+      // setToken(localStorage.getItem("token"))
+      setUserInfo(jwtDecode(token))
+    }
+  }, [])
+
+  console.log("userInfo in useEffect:" , userInfo?.email)
 
 
 	return (
@@ -44,11 +60,13 @@ const ProfilePage = () => {
 			<main className="main-content">
 				{activeTab === "rent" ? (
 					<RentContent
+          userInfo={userInfo}
 						savedListings={savedListings}
 						removeListing={removeListing}
 					/>
 				) : (
 					<ListContent
+            userInfo={userInfo}
             showCreateListing={showCreateListing}
             setShowCreateListing={setShowCreateListing}
           />
@@ -58,7 +76,7 @@ const ProfilePage = () => {
 	);
 };
 
-const RentContent = ({ savedListings, removeListing }) => {
+const RentContent = ({ savedListings, removeListing, userInfo }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -75,26 +93,27 @@ const RentContent = ({ savedListings, removeListing }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Fetch user data when component mounts
-    const fetchUserData = async () => {
-      console.log("Fetching user data...");
-      try {
-        const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
-        console.log("Response data:", response.data); // Log the response data
-        setUser({
-          name: response.data.name || '',
-          email: response.data.email || '',
-          phoneNumber: response.data.phoneNumber || '',
-          location: response.data.location || '', 
-          createdAt: response.data.createdAt || ''
-        });
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
+		if (userInfo) {
+			const fetchUserData = async () => {
+				console.log("Fetching user data...");
+				try {
+					const response = await axios.get(`http://localhost:3000/users/email/${userInfo.email}`);
+					console.log("Response data:", response.data);
+					setUser({
+						name: response.data.name || "",
+						email: response.data.email || "",
+						phoneNumber: response.data.phoneNumber || "",
+						location: response.data.location || "",
+						createdAt: response.data.createdAt || "",
+					});
+				} catch (error) {
+					console.error("Error fetching user data:", error);
+				}
+			};
 
-    fetchUserData();
-  }, []);
+			fetchUserData();
+		}
+	}, [userInfo]);
 
   const handleEdit = async (event) => {
     event.preventDefault();
@@ -202,7 +221,7 @@ The form's submit button is enabled only when all required fields are filled, in
 */
 
 
-const ListContent = ({ showCreateListing, setShowCreateListing }) => {
+const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -223,10 +242,11 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
   });
   
   useEffect(() => {
+    if(userInfo) {
     const fetchUserData = async () => {
       console.log("Fetching user data...");
       try {
-        const response = await axios.get('http://localhost:3000/users/1'); // Adjust the URL based on your API endpoint
+        const response = await axios.get(`http://localhost:3000/users/email/${userInfo.email}`); // Adjust the URL based on your API endpoint
         console.log("Response data:", response.data); // Log the response data
         setUser({
           name: response.data.name || '',
@@ -241,7 +261,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
     };
 
     fetchUserData();
-  }, []);
+  }
+  }, [userInfo]);
 
   const handleOpenModal = () => {
     setShowCreateListing(true);

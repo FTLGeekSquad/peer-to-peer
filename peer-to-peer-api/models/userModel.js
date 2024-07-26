@@ -11,6 +11,7 @@ const getAllUsers = async () => {
 
 // maybe do get user by email instead
 const getUserByEmail = async (email) => {
+	console.log("In model, user email passed down is:", email)
 	return prisma.user.findUnique({
 	  where: { email },
 	});

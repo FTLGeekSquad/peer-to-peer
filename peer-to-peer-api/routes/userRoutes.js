@@ -7,7 +7,7 @@ router.get("/:userId", userController.getUserById);
 router.post("/", userController.createUser);
 router.put("/:userId", userController.updateUser);
 router.delete("/:userId", userController.deleteUser);
-router.get("/", userController.getUserByEmail);
+router.get("/email/:userEmail", userController.getUserByEmail);
 
 
 // other routes
