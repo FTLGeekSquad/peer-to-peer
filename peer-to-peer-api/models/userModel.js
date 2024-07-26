@@ -29,6 +29,7 @@ const getUserById = async (userId) => {
 };
 
 const createUser = async (name, email) => {
+
 	return prisma.user.create({
 	  data: {
 		name,

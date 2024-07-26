@@ -78,6 +78,7 @@ const deleteUser = async (req, res) => {
 };
 
 
+
 // Get saved listings for a user
 const getSavedListings = async (req, res) => {
     const { userId } = req.params;
