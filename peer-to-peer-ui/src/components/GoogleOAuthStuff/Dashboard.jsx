@@ -19,14 +19,16 @@ const Dashboard = () => {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
-    setUserInfo(resp.data.user.name);
+    console.log("resp", resp)
+    setUserInfo(resp.data);
+
   }
 
   return (
     <div>
       <h2>Dashboard</h2>
       <button onClick={getResource}>Get Resource</button> 
-      <div>User name: {userInfo}</div>    
+      <div>User name: {JSON.stringify(userInfo)}</div>    
       <button onClick={handleLogout}>Log out</button>
     </div>
   );

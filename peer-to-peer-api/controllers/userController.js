@@ -25,9 +25,11 @@ const getUserById = async (req, res) => {
 
 //get user by email
 const getUserByEmail = async (req, res) => {
-	const { email } = req.params;
+	// console.log("params is", req)
+	const { userEmail } = req.params;
+	console.log("email in controller is:", userEmail)
 	try {
-	  const user = await userModel.getUserByEmail(email);
+	  const user = await userModel.getUserByEmail(userEmail);
 	  if (user) {
 		res.status(200).json(user);
 	  } else {
