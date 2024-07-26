@@ -10,8 +10,7 @@ import axios from "axios";
 import FileUpload from "../FileUpload/FileUpload";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-
-
+import {jwtDecode} from 'jwt-decode';
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
 	const [showCreateListing, setShowCreateListing] = useState(false);
@@ -78,6 +77,7 @@ const ProfilePage = () => {
 
 const RentContent = ({ savedListings, removeListing, userInfo }) => {
   const [user, setUser] = useState({
+    userId: null, //set userId as null initially
     name: '',
     email: '',
     phoneNumber: '',
@@ -100,6 +100,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 					const response = await axios.get(`http://localhost:3000/users/email/${userInfo.email}`);
 					console.log("Response data:", response.data);
 					setUser({
+            userId: parseInt(response.data.userId, 10) || 0, //parsing the userId as an integer
 						name: response.data.name || "",
 						email: response.data.email || "",
 						phoneNumber: response.data.phoneNumber || "",
@@ -118,7 +119,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
   const handleEdit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put('http://localhost:3000/users/1', user); // Adjust the URL based on your API endpoint
+      console.log(user.userId)
+      await axios.put(`http://localhost:3000/users/${user.userId}`); // Adjust the URL based on your API endpoint
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating user data:', error);
