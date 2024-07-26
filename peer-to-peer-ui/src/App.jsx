@@ -51,7 +51,7 @@ function App() {
 		</Routes>
 	</Router>
 	  </SavedListingsProvider>
-	);
+	)
 };
 export default App;
 

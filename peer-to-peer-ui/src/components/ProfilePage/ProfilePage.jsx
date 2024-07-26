@@ -11,6 +11,7 @@ import FileUpload from "../FileUpload/FileUpload";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import {jwtDecode} from 'jwt-decode';
+
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
 	const [showCreateListing, setShowCreateListing] = useState(false);
@@ -77,7 +78,7 @@ const ProfilePage = () => {
 
 const RentContent = ({ savedListings, removeListing, userInfo }) => {
   const [user, setUser] = useState({
-    userId: null, //set userId as null initially
+    userId: 0, //set userId as null initially
     name: '',
     email: '',
     phoneNumber: '',
