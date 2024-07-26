@@ -34,10 +34,10 @@ const ProfilePage = () => {
 
 	return (
 		<div className="profile-page">
+			<Link to="/home">
+				<img src={logo} alt="Logo" className="logo" />
+			</Link>
 			<header className="header">
-				<Link to="/home">
-					<img src={logo} alt="Logo" className="pLogo" />
-				</Link>
 				<nav className="navigation">
 					<button
 						className={`nav-button ${activeTab === "rent" ? "active" : ""}`}
@@ -422,115 +422,120 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 					</button>
 					<button onClick={handleLogout}>Log out</button>
 				</div>
-			</section>
 
-			<div className="createListing">
-				<div className="create-listing-button-container">
-					<button className="create-listing-button" onClick={handleOpenModal}>
-						Create Listing
-					</button>
-				</div>
-				{showCreateListing && (
-					<div className="modal" onClick={handleCloseModal}>
-						<div
-							className="listing-modal-content"
-							onClick={(e) => e.stopPropagation()}
-						>
-							<div className="listing-modal-header">
-								<button className="modal-close" onClick={handleCloseModal}>
-									&times;
-								</button>
-								<h2 className="modalTitle">Create a Listing</h2>
-							</div>
-							<div className="modal-body">
-								{uploadSuccess && (
-									<p className="upload-success-message">{uploadSuccess}</p>
-								)}
-								<form onSubmit={handleCreateListing} className="centered-form">
-									<input
-										type="text"
-										value={title}
-										onChange={(e) => setTitle(e.target.value)}
-										placeholder="Enter a Title"
-										required
-										className="styled-input"
-									/>
-									<input
-										type="text"
-										value={description}
-										onChange={(e) => setDescription(e.target.value)}
-										placeholder="Description"
-										required
-										className="styled-input"
-									/>
-									<select
-										value={category}
-										onChange={(e) => {
-											setCategory(e.target.value);
-											setSubCategory(""); // Reset subCategory when category changes
-										}}
-										required
-										className="styled-input"
-									>
-										<option value="" disabled>
-											Select a category
-										</option>
-										<option value="equipment">Equipment</option>
-										<option value="services">Services</option>
-										<option value="spaces">Spaces</option>
-									</select>
-									<select
-										value={subCategory}
-										onChange={(e) => setSubCategory(e.target.value)}
-										required
-										className="styled-input"
-										disabled={!category} // Disable subCategory if no category is selected
-									>
-										<option value="" disabled>
-											Select a subcategory
-										</option>
-										{category &&
-											subcategoryOptions[category]?.map((sub) => (
-												<option key={sub} value={sub}>
-													{sub}
-												</option>
-											))}
-									</select>
-									<input
-										type="number"
-										value={priceHourly}
-										onChange={(e) => setPriceHourly(parseFloat(e.target.value))}
-										placeholder="Price Hourly"
-										required
-										className="styled-input"
-									/>
-									<input
-										type="text"
-										value={location}
-										onChange={(e) => setLocation(e.target.value)}
-										placeholder="Location"
-										required
-										className="styled-input"
-									/>
-									<FileUpload
-										onFileUploaded={handleFileUploaded}
-										setIsPhotoUploaded={setIsPhotoUploaded}
-										handleUploading={handleUploading}
-										className="fileUpload"
-									/>
-									<button
-										type="submit"
-										className="create-listing-button"
-										disabled={isUploading}
-									>
-										Create Listing
+				<div className="createListing">
+					<div className="create-listing-button-container">
+						<button className="create-listing-button" onClick={handleOpenModal}>
+							Create Listing
+						</button>
+					</div>
+					{showCreateListing && (
+						<div className="modal" onClick={handleCloseModal}>
+							<div
+								className="listing-modal-content"
+								onClick={(e) => e.stopPropagation()}
+							>
+								<div className="listing-modal-header">
+									<h2 className="modalTitle">Create a Listing</h2>
+									<button className="modal-close" onClick={handleCloseModal}>
+										&times;
 									</button>
-								</form>
+								</div>
+								<div className="modal-body">
+									{uploadSuccess && (
+										<p className="upload-success-message">{uploadSuccess}</p>
+									)}
+									<form
+										onSubmit={handleCreateListing}
+										className="centered-form"
+									>
+										<input
+											type="text"
+											value={title}
+											onChange={(e) => setTitle(e.target.value)}
+											placeholder="Enter a Title"
+											required
+											className="styled-input"
+										/>
+										<input
+											type="text"
+											value={description}
+											onChange={(e) => setDescription(e.target.value)}
+											placeholder="Description"
+											required
+											className="styled-input"
+										/>
+										<select
+											value={category}
+											onChange={(e) => {
+												setCategory(e.target.value);
+												setSubCategory(""); // Reset subCategory when category changes
+											}}
+											required
+											className="styled-input"
+										>
+											<option value="" disabled>
+												Select a category
+											</option>
+											<option value="equipment">Equipment</option>
+											<option value="services">Services</option>
+											<option value="spaces">Spaces</option>
+										</select>
+										<select
+											value={subCategory}
+											onChange={(e) => setSubCategory(e.target.value)}
+											required
+											className="styled-input"
+											disabled={!category} // Disable subCategory if no category is selected
+										>
+											<option value="" disabled>
+												Select a subcategory
+											</option>
+											{category &&
+												subcategoryOptions[category]?.map((sub) => (
+													<option key={sub} value={sub}>
+														{sub}
+													</option>
+												))}
+										</select>
+										<input
+											type="number"
+											value={priceHourly}
+											onChange={(e) =>
+												setPriceHourly(parseFloat(e.target.value))
+											}
+											placeholder="Price Hourly"
+											required
+											className="styled-input"
+										/>
+										<input
+											type="text"
+											value={location}
+											onChange={(e) => setLocation(e.target.value)}
+											placeholder="Location"
+											required
+											className="styled-input"
+										/>
+										<FileUpload
+											onFileUploaded={handleFileUploaded}
+											setIsPhotoUploaded={setIsPhotoUploaded}
+											handleUploading={handleUploading}
+											className="fileUpload"
+										/>
+										<button
+											type="submit"
+											className="create-listing-button"
+											disabled={isUploading}
+										>
+											Create Listing
+										</button>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
-				)}
-			</div>
+					)}
+				</div>
+			</section>
 
 			<section className="listings">
 				<div className="tabs">
