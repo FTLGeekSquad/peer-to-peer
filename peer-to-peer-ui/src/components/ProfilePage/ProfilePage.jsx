@@ -247,7 +247,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [priceHourly, setPriceHourly] = useState("");
 	const [photo, setPhoto] = useState("");
 	const [location, setLocation] = useState("");
-	const [userId] = useState(1); // Assuming the userId is 1 for this example
+	const [userId] = useState(0); // Assuming the userId is 1 for this example
 	const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const [uploadSuccess, setUploadSuccess] = useState("");
@@ -259,6 +259,9 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		createdAt: "",
 		userId: 0,
 	});
+
+	console.log(user.userId)
+
 
 	const navigate = useNavigate(); // Get the navigate function from useNavigate
 
@@ -272,6 +275,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		if (userInfo) {
 			const fetchUserData = async () => {
 				console.log("Fetching user data...");
+				console.log(`http://localhost:3000/users/email/${userInfo.email}`)
 				try {
 					const response = await axios.get(
 						`http://localhost:3000/users/email/${userInfo.email}`
@@ -377,13 +381,18 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+	console.log(`http://localhost:3000/listings/user/all-listings/${user.userId}`)
+
+
 	useEffect(() => {
 		const fetchListings = async () => {
 			try {
 				// const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
 				// eventually needs to correlate w/ who's logged in
 				const response = await axios.get(
-					`http://localhost:3000/users/email/${userInfo.email}`
+					// `http://localhost:3000/users/email/${userInfo.email}`
+        //   `http://localhost:3000/listings/user/all-listings/${user.userId},` 
+
 				);
 
 				setListings(response.data);
