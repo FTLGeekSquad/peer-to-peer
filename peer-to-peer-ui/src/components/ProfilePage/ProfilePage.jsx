@@ -219,19 +219,27 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 							<div key={listing.listingId} className="listing-card">
 								<img src={listing.photo || placeHolderListing} alt="Listing" />
 								<div className="listing-details">
-									<p className="listing-title">{listing.title}</p>
+									<div className="titleBookmark">
+										<p className="listing-title">{listing.title}</p>
+										<button
+									className="bookmark-button active" // Initially active to show pink icon
+									onClick={() => removeListing(listing.listingId)}
+								>
+									<FontAwesomeIcon icon={faBookmark} />
+								</button>
+									</div>
 									<p className="listing-location">{listing.location}</p>
 									<p className="listing-price">
 										${listing.priceHourly} per hour
 									</p>
 								</div>
 
-								<button
+								{/* <button
 									className="bookmark-button active" // Initially active to show pink icon
 									onClick={() => removeListing(listing.listingId)}
 								>
 									<FontAwesomeIcon icon={faBookmark} />
-								</button>
+								</button> */}
 							
 							</div>
 						))
@@ -651,6 +659,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 					<button className="tab active">All</button>
 				</div>
 				<div className="listings-grid">
+					
 					{listings.length > 0 ? (
 						listings.map((listing) => (
 							<div key={listing.listingId} className="listing-card">

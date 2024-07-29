@@ -1,8 +1,5 @@
 /* ProfilePage.css */
-.profile-page {
-	font-family: Arial, sans-serif;
-	color: #333;
-}
+
 
 .header {
 	display: flex;
@@ -110,18 +107,20 @@
 	padding: 20px;
 }
 
+
 .listing-card {
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 10px;
-	width: 200px;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	background-color: #fff; /* Card background color */
+    border: 1px solid #ddd; /* Card border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 9px;
+    width: 200px; /* Set the width of the card */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Prevent overflow */
 }
 
 .listing-card:hover {
@@ -137,8 +136,13 @@
 }
 
 .listing-details {
-	text-align: center;
+	text-align: left;
 	margin: 10px 0;
+	width: 100%;
+}
+
+.listingCardTitle {
+	text-align: left;
 }
 
 .listing-title {
@@ -268,4 +272,34 @@
 
 .create-listing-button:hover {
 	background-color: #c3cbc6;
+}
+
+.paragraph {
+	text-align: left;
+}
+
+.titleBookmark {
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    justify-content: space-between; /* Distribute space between title and button */
+    width: 100%; /* Ensure the width covers the full container */
+}
+
+.bookmark-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333; /* Default color for the icon (gray) */
+    font-size: 20px; /* Adjust icon size */
+    padding: 5px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+    pointer-events: auto; /* Ensure button can be clicked */
+}
+
+.bookmark-button.active {
+    color: #D7B0B0; /* Color when active (pink) */
+}
+
+.bookmark-button:hover {
+    color: #D7B0B0; /* Color on hover */
 }

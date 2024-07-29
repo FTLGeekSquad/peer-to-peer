@@ -39,7 +39,7 @@ function Services({ onClick, listing, onSave }) {
 				</button>
 			</div>
 			<div className="paragraph">
-				<p className="price">${priceHourly} per hour</p>
+				<p className="price">${priceHourly} / hr</p>
 				<p className="location">{location}</p>
 			</div>
 		</div>
