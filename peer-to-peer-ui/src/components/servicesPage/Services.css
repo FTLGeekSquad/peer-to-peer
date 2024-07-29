@@ -43,5 +43,21 @@
     font-size: 14px
 }
 
+.bookmark-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333; /* Default color for the icon (gray) */
+    font-size: 20px; /* Adjust icon size */
+    padding: 5px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
 
+.bookmark-button.active {
+    color: #D7B0B0; /* Color when active (pink) */
+}
+
+.bookmark-button:hover {
+    color: #D7B0B0; /* Color on hover */
+}
 
