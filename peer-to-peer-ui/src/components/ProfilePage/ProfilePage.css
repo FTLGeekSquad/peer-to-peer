@@ -1,3 +1,4 @@
+/* ProfilePage.css */
 .profile-page {
 	font-family: Arial, sans-serif;
 	color: #333;
@@ -12,9 +13,9 @@
 	border-bottom: 1px solid #ccc;
 }
 
-.logo img {
+/* .logo img {
 	height: 50px;
-}
+} */
 
 .navigation {
 	display: flex;
@@ -99,6 +100,7 @@
 	font-weight: bold;
 	background-color: #c3cbc6;
 }
+
 .listings-grid {
 	display: flex;
 	flex-direction: row;
@@ -165,105 +167,7 @@
 	background-color: #ccc;
 }
 
-/* .listings-grid {
-	display: flex;
-	flex-direction: row;
-	gap: 20px;
-}
-
-.listing-item {
-	display: flex;
-	flex-direction: row;
-}
-
-.listing-card {
-	background-color: #c3cbc6;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 9px;
-	width: 200px;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: row;
-	margin: 10px;
-	align-items: center;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.listing-card img {
-	height: 100px;
-}
-
-.listing-card p {
-	font-family: "Solway", sans-serif;
-	padding: 0px;
-	margin: 4px;
-	margin-left: 0;
-	font-weight: 300;
-} */
-
-/* ListContent.css */
-.upload-success-message {
-	color: green;
-	font-weight: bold;
-	margin-bottom: 10px;
-}
-
-.contact-button {
-	background-color: #e0e0e0;
-	border: 1px solid #ccc;
-	padding: 5px;
-	cursor: pointer;
-	margin-top: 10px;
-}
-
-.pLogo {
-	width: 80px;
-	height: auto;
-}
-
-.modal-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.modal-content {
-	background: white;
-	padding: 20px;
-	border-radius: 8px;
-	width: 400px;
-	max-width: 100%;
-	position: relative;
-}
-
-.modal-close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: none;
-	border: none;
-	font-size: 24px;
-	font-weight: bold;
-	color: #333;
-	cursor: pointer;
-}
-
-.modal-close:hover {
-	color: #e3b9b9;
-}
-
-.createListing {
-	position: relative;
-}
-
+/* Modal Styles */
 .modal {
 	position: fixed;
 	top: 0;
@@ -285,20 +189,21 @@
 	max-width: 600px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	animation: slide-down 0.3s ease-out;
-	height: 50%;
 }
 
 .listing-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	background-color: #fbf7ee;
-	border-radius: 10px;
+	padding: 10px;
+	border-radius: 10px 10px 0 0;
 }
 
 .modalTitle {
-	display: flex;
-	margin-top: 0px;
-	flex-direction: row;
-	justify-content: center;
-	padding: 12px;
+	margin: 0;
+	font-size: 24px;
+	font-weight: bold;
 }
 
 .modal-close {
@@ -309,20 +214,26 @@
 	color: #333;
 }
 
+.modal-close:hover {
+	color: #e3b9b9;
+}
+
 .modal-body {
+	padding: 20px;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 }
 
 .centered-form {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
 .styled-input {
-	width: 80%;
+	width: 100%;
 	margin-bottom: 10px;
 	padding: 10px;
 	border: 1px solid #ccc;
@@ -335,21 +246,13 @@
 	border-color: #dbb3b3;
 }
 
-@keyframes slide-down {
-	from {
-		transform: translateY(-50%);
-		opacity: 0;
-	}
-	to {
-		transform: translateY(0);
-		opacity: 1;
-	}
+.upload-success-message {
+	color: green;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .create-listing-button {
-	position: absolute;
-	bottom: 20px;
-	right: 20px;
 	padding: 10px 20px;
 	background-color: #c3cbc5;
 	color: black;
@@ -357,6 +260,7 @@
 	border: 1px solid black;
 	border-radius: 5px;
 	cursor: pointer;
+  margin-top: 20px;
 	font-size: 16px;
 	font-weight: bold;
 	transition: background-color 0.3s, color 0.3s;
@@ -364,17 +268,4 @@
 
 .create-listing-button:hover {
 	background-color: #c3cbc6;
-}
-
-.bookmark-button {
-	background: none;
-	border: none;
-	cursor: pointer;
-	font-size: 1.5rem;
-	color: #c1c9c4; /* Adjust color as needed */
-	transition: color 0.3s;
-}
-
-.bookmark-button:hover {
-	color: #dbb3b3; /* Adjust hover color as needed */
 }

@@ -10,15 +10,16 @@
     flex-direction: column;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Prevent overflow */
 }
 
 .servicesCard img {
     border-radius: 8px; /* Rounded corners for the image */
     width: 100%;
-    height: auto;
+    height: 140px; /* Set a fixed height for the image */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
     margin-bottom: 6px; /* Space between image and content */
 }
-
 
 .servicesCard:hover {
     transform: translateY(-5px); /* Lift the card on hover */
@@ -30,25 +31,43 @@
     padding: 0px;
     margin: 4px;
     margin-left: 0;
-    font-weight: 300;
-    
+    font-weight: 400;
+    white-space: normal; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis to overflowing text */
 }
 
 .servicesCardTitle {
     font-family: 'Solway', sans-serif;
-    font-size: 25px;
-    font-weight: 500;
-    padding: 1px;
-    width: 180px;
-    text-align: left;
+    font-size: 17px;
+    margin: 0; /* Remove default margin */
+    flex-grow: 1; /* Allow the title to take up available space */
 }
 
-.paragraph {
-    text-align: left;
-    width: 180px;
-    font-size: 16px;
+.titleBookmark {
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    justify-content: space-between; /* Distribute space between title and button */
+    width: 100%; /* Ensure the width covers the full container */
 }
 
-.location {
-    font-size: 14px;
+.bookmark-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333; /* Default color for the icon (gray) */
+    font-size: 20px; /* Adjust icon size */
+    padding: 5px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+    pointer-events: auto; /* Ensure button can be clicked */
 }
+
+.bookmark-button.active {
+    color: #D7B0B0; /* Color when active (pink) */
+}
+
+.bookmark-button:hover {
+    color: #D7B0B0; /* Color on hover */
+}
+
+

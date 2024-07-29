@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
-import Header from "../Header/Header";
+import HeaderHomePage from "../HeaderHomePage/HeaderHomePage";
 import equipment from "/src/assets/equipment.png";
 import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
@@ -11,7 +11,7 @@ const HomePage = () => {
 	// The context will have the userID- all the components will thenhave the userID
 	return (
 		<div className="home-page">
-			<Header />
+			<HeaderHomePage />
 			<div className="categories">
 				<Link to="/equipment" className="category-link">
 					<img src={equipment} alt="Category 1" className="category-image" />

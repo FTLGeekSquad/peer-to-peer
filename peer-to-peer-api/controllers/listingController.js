@@ -129,6 +129,8 @@ const getListingsByUserId = async (req, res) => {
 
 
 
+
+
 module.exports = {
 	getAllListings,
 	getListingById, 
