@@ -73,6 +73,14 @@ const ProfilePage = () => {
 };
 
 const RentContent = ({ savedListings, removeListing, userInfo }) => {
+
+
+	const [isRemoved, setIsRemoved] = useState(false); // State to track if the item is removed
+
+	const handleRemove = () => {
+		setIsRemoved(!isRemoved); // Toggle the removed state
+		removeListing(listing.listingId); // Call the removeListing function passed as a prop
+	};
 	
 
 	const [user, setUser] = useState({
@@ -217,12 +225,14 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 										${listing.priceHourly} per hour
 									</p>
 								</div>
+
 								<button
-									className="contact-button"
+									className="bookmark-button active" // Initially active to show pink icon
 									onClick={() => removeListing(listing.listingId)}
 								>
-									Remove
+									<FontAwesomeIcon icon={faBookmark} />
 								</button>
+							
 							</div>
 						))
 					) : (

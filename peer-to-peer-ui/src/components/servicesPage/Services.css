@@ -5,7 +5,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
     padding: 9px;
     width: 200px; /* Set the width of the card */
-    height: 300px; /* Set a fixed height for the card */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -32,15 +31,24 @@
     padding: 0px;
     margin: 4px;
     margin-left: 0;
-    font-weight: 300;
-    white-space: nowrap; /* Prevent text wrapping */
+    font-weight: 400;
+    white-space: normal; /* Prevent text wrapping */
     overflow: hidden; /* Hide overflow text */
     text-overflow: ellipsis; /* Add ellipsis to overflowing text */
 }
 
 .servicesCardTitle {
     font-family: 'Solway', sans-serif;
-    font-size: 14px
+    font-size: 17px;
+    margin: 0; /* Remove default margin */
+    flex-grow: 1; /* Allow the title to take up available space */
+}
+
+.titleBookmark {
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    justify-content: space-between; /* Distribute space between title and button */
+    width: 100%; /* Ensure the width covers the full container */
 }
 
 .bookmark-button {
@@ -51,6 +59,7 @@
     font-size: 20px; /* Adjust icon size */
     padding: 5px;
     transition: color 0.3s ease; /* Smooth transition for color change */
+    pointer-events: auto; /* Ensure button can be clicked */
 }
 
 .bookmark-button.active {
@@ -60,4 +69,5 @@
 .bookmark-button:hover {
     color: #D7B0B0; /* Color on hover */
 }
+
 
