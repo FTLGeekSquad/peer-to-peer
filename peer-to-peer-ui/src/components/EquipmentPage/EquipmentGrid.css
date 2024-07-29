@@ -47,3 +47,9 @@
 .modal-img {
 	width: 200px;
 }
+
+.css-d9c359-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
+    color: red;
+    background-color: rgba(25, 118, 210, 0.08);
+}
+

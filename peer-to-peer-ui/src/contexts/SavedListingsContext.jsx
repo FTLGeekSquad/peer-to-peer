@@ -6,13 +6,16 @@ const SavedListingsContext = createContext();
 export const useSavedListings = () => useContext(SavedListingsContext);
 
 export const SavedListingsProvider = ({ children, userId }) => {
+	console.log("userId in cintext is:",userId )
+	
 	const [savedListings, setSavedListings] = useState([]);
+
 
 	// Fetch saved listings from the backend when the component mounts
 	useEffect(() => {
 		const fetchSavedListings = async () => {
 			try {
-				const response = await axios.get(`/api/users/${userId}/saved-listings`);
+				const response = await axios.get(`http://localhost:3000/users/${userId}/saved-listings`);
 				console.log(response.data);
 				setSavedListings(response.data);
 			} catch (error) {
@@ -26,7 +29,7 @@ export const SavedListingsProvider = ({ children, userId }) => {
 	const saveListing = async (listing) => {
 		try {
 			const response = await axios.post(
-				`http://localhost:3000/users/1/saved-listings`,
+				`http://localhost:3000/users/${userId}/saved-listings`,
 				{ listing }
 			);
 			setSavedListings(response.data);
@@ -40,7 +43,7 @@ export const SavedListingsProvider = ({ children, userId }) => {
 		try {
 			// eventually will have to change to only the logged in users' ID
 			const response = await axios.delete(
-				`http://localhost:3000/users/1/saved-listings/${listingId}`
+				`http://localhost:3000/users/${userId}/saved-listings/${listingId}`
 			);
 			setSavedListings(response.data);
 		} catch (error) {

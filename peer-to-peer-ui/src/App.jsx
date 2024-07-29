@@ -20,7 +20,7 @@ import { SavedListingsProvider } from "./contexts/SavedListingsContext"; // Impo
 
 function App() {
 	return (
-		<SavedListingsProvider>
+		<SavedListingsProvider >
 			<Router>
 				{/* <To be displayed on every page*/}
 

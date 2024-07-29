@@ -35,9 +35,10 @@ import React from "react";
 import "./Equipment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-
+import { useSavedListings } from "../../contexts/SavedListingsContext";
 function Equipment({ onClick, listing, onSave }) {
 	// const { listingId, title, priceHourly, location } = listing;
+	const { saveListing } = useSavedListings(); // Get saveListing from context
 
 	const {
 		//instead of listing every param
@@ -64,7 +65,7 @@ function Equipment({ onClick, listing, onSave }) {
 					{/* <button onClick={() => onSave(listing)}>Save</button> */}
 				</div>
 			</div>
-			<button className="bookmark-button" onClick={() => onSave(listing)}>
+			<button className="bookmark-button" onClick={() => saveListing(listing)}>
 				<FontAwesomeIcon icon={faBookmark} />
 			</button>
 		</div>

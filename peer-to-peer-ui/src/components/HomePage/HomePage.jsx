@@ -7,6 +7,8 @@ import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
 
 const HomePage = () => {
+	//Get the user info using the token -> set the userId in the COntext.
+	// The context will have the userID- all the components will thenhave the userID
 	return (
 		<div className="home-page">
 			<Header />
