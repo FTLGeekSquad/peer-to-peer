@@ -73,6 +73,14 @@ const ProfilePage = () => {
 };
 
 const RentContent = ({ savedListings, removeListing, userInfo }) => {
+
+
+	const [isRemoved, setIsRemoved] = useState(false); // State to track if the item is removed
+
+	const handleRemove = () => {
+		setIsRemoved(!isRemoved); // Toggle the removed state
+		removeListing(listing.listingId); // Call the removeListing function passed as a prop
+	};
 	
 
 	const [user, setUser] = useState({
@@ -217,12 +225,14 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 										${listing.priceHourly} per hour
 									</p>
 								</div>
+
 								<button
-									className="contact-button"
+									className="bookmark-button active" // Initially active to show pink icon
 									onClick={() => removeListing(listing.listingId)}
 								>
-									Remove
+									<FontAwesomeIcon icon={faBookmark} />
 								</button>
+							
 							</div>
 						))
 					) : (
@@ -316,6 +326,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		if (userInfo) {
 			const fetchUserData = async () => {
 				console.log("Fetching user data...");
+				console.log(`http://localhost:3000/users/email/${userInfo.email}`)
 				try {
 					const response = await axios.get(
 						`http://localhost:3000/users/email/${userInfo.email}`
@@ -449,6 +460,9 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [listings, setListings] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+
+	console.log(`http://localhost:3000/listings/user/all-listings/${user.userId}`)
+
 
 	// useEffect(() => {
 	// 	const fetchListings = async () => {
