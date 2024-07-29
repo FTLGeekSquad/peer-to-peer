@@ -13,7 +13,7 @@ export const SavedListingsProvider = ({ children, userId }) => {
 		const fetchSavedListings = async () => {
 			try {
 				const response = await axios.get(`/api/users/${userId}/saved-listings`);
-				console.log(response.data);
+				//console.log(response.data);
 				setSavedListings(response.data);
 			} catch (error) {
 				console.error("Error fetching saved listings:", error);

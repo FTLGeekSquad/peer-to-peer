@@ -73,6 +73,8 @@ const ProfilePage = () => {
 };
 
 const RentContent = ({ savedListings, removeListing, userInfo }) => {
+	
+
 	const [user, setUser] = useState({
 		name: "",
 		email: "",
@@ -247,10 +249,11 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [priceHourly, setPriceHourly] = useState("");
 	const [photo, setPhoto] = useState("");
 	const [location, setLocation] = useState("");
-	const [userId] = useState(1); // Assuming the userId is 1 for this example
+	// const [userId] = useState(null); // Assuming the userId is 1 for this example
 	const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const [uploadSuccess, setUploadSuccess] = useState("");
+	// console.log("user info from prop is ", userInfo)
 	const [user, setUser] = useState({
 		name: "",
 		email: "",
@@ -260,13 +263,54 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		userId: 0,
 	});
 
-	const navigate = useNavigate(); // Get the navigate function from useNavigate
+	// useEffect(() => {
+	// 	if (userInfo) {
+	// 		const fetchUserData = async () => {
+	// 			console.log("Fetching user data...");
+	// 			try {
+	// 				const response = await axios.get(
+	// 					`http://localhost:3000/users/email/${userInfo.email}`
+	// 				); // Adjust the URL based on your API endpoint
+	// 				console.log("Response data:", response.data); // Log the response data
+	// 				setUser({
+	// 					name: response.data.name || "",
+	// 					email: response.data.email || "",
+	// 					phoneNumber: response.data.phoneNumber || "",
+	// 					location: response.data.location || "",
+	// 					createdAt: response.data.createdAt || "",
+	// 					userId: response.data.userId,
+	// 				});
+	// 				// console.log("user after axios is", user)
+	// 			} catch (error) {
+	// 				console.error("Error fetching user data:", error);
+	// 			}
+	// 		};
 
-	const handleLogout = () => {
-		console.log("Logging out");
-		localStorage.removeItem("token");
-		navigate("/home");
-	};
+	// 		fetchUserData();
+	// 	}
+
+	// 	const fetchListings = async (user) => {
+	// 		console.log("User in ListCOntent is", user)
+	// 		try {
+	// 			// const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+	// 			// eventually needs to correlate w/ who's logged in
+	// 			console.log("user is:", user)
+	// 			const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`
+	// 			);
+
+	// 			setListings(response.data);
+	// 			setLoading(false);
+	// 		} catch (err) {
+	// 			setError(err);
+	// 			setLoading(false);
+	// 		}
+	// 	};
+
+	// 	fetchListings(user);
+
+
+	// }, [userInfo]);
+
 
 	useEffect(() => {
 		if (userInfo) {
@@ -283,16 +327,45 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 						phoneNumber: response.data.phoneNumber || "",
 						location: response.data.location || "",
 						createdAt: response.data.createdAt || "",
-						userId: response.data.userId || 0,
+						userId: response.data.userId,
 					});
 				} catch (error) {
 					console.error("Error fetching user data:", error);
 				}
 			};
-
+	
 			fetchUserData();
 		}
 	}, [userInfo]);
+	
+	// New useEffect to fetch listings when user state is updated
+	useEffect(() => {
+		const fetchListings = async () => {
+			if (user.userId) {
+				console.log("Fetching listings for userId:", user.userId);
+				try {
+					const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`);
+					setListings(response.data);
+					setLoading(false);
+				} catch (err) {
+					setError(err);
+					setLoading(false);
+				}
+			}
+		};
+	
+		fetchListings();
+	}, [user]); // Dependency array includes user
+	
+	const navigate = useNavigate(); // Get the navigate function from useNavigate
+
+	const handleLogout = () => {
+		console.log("Logging out");
+		localStorage.removeItem("token");
+		navigate("/home");
+	};
+
+
 
 	const handleOpenModal = () => {
 		setShowCreateListing(true);
@@ -377,25 +450,47 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		const fetchListings = async () => {
-			try {
-				// const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
-				// eventually needs to correlate w/ who's logged in
-				const response = await axios.get(
-					`http://localhost:3000/users/email/${userInfo.email}`
-				);
+	// useEffect(() => {
+	// 	const fetchListings = async () => {
 
-				setListings(response.data);
-				setLoading(false);
-			} catch (err) {
-				setError(err);
-				setLoading(false);
-			}
-		};
+	// 		if (userInfo) {
+	// 				console.log("Fetching user data...");
+	// 				try {
+	// 					const response = await axios.get(
+	// 						`http://localhost:3000/users/email/${userInfo.email}`
+	// 					); // Adjust the URL based on your API endpoint
+	// 					console.log("Response data:", response.data); // Log the response data
+	// 					setUser({
+	// 						name: response.data.name || "",
+	// 						email: response.data.email || "",
+	// 						phoneNumber: response.data.phoneNumber || "",
+	// 						location: response.data.location || "",
+	// 						createdAt: response.data.createdAt || "",
+	// 						userId: response.data.userId,
+	// 					});
+	// 					// console.log("user after axios is", user)
+	// 				} catch (error) {
+	// 					console.error("Error fetching user data:", error);
+	// 				}
+	// 		}
+	// 		console.log("User in ListCOntent is", user)
+	// 		try {
+	// 			// const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+	// 			// eventually needs to correlate w/ who's logged in
+	// 			console.log("user is:", user)
+	// 			const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`
+	// 			);
 
-		fetchListings();
-	}, [userId]);
+	// 			setListings(response.data);
+	// 			setLoading(false);
+	// 		} catch (err) {
+	// 			setError(err);
+	// 			setLoading(false);
+	// 		}
+	// 	};
+
+	// 	fetchListings();
+	// }, [userInfo]);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error fetching listings: {error.message}</p>;
