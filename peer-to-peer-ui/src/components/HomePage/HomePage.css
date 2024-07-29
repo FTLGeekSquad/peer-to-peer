@@ -81,9 +81,7 @@ body, html {
   min-height: 100vh;
 }
 
-.categories, .banner {
-  flex: 1;
-}
+
 
 
 
