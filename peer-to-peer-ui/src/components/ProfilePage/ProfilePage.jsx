@@ -272,6 +272,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
               </p>
             </div>
             <p>{selectedEquipment.description}</p>
+			<p className="price">${selectedEquipment.priceHourly} per hour</p>
+
             <div className="userInfo">
               {selectedEquipment.user && (
                 <>
@@ -763,13 +765,15 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
               </p>
             </div>
             <p>{selectedEquipment.description}</p>
+			<p className="price">${selectedEquipment.priceHourly} per hour</p>
             <div className="userInfo" >
-              {selectedEquipment.user &&  (
+              
                 <>
-                  <p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
-                  <p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p>
+                  {/* <p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
+                  <p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p> */}
+				  
                 </>
-              )}
+              
 			  {/* the user name and contact info aren't posting in the modal */}
             </div>
           </div>
