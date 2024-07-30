@@ -1,6 +1,6 @@
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-const redirectUrl = "http://localhost:3000/auth/google/callback";
+const redirectUrl = "https://peer-to-peer-59rz.onrender.com/auth/google/callback";
 require("dotenv").config(); // Load environment variables
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
@@ -56,7 +56,7 @@ if (!user) {
 }
 // res.json(user)
 
-		res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
+		res.redirect(`https://peer-to-peer-ui.onrender.com/callback?token=${tokens.id_token}`);
 		//post to the database
 
 		// //check if the are already in the database
