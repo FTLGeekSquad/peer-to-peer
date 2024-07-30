@@ -16,7 +16,7 @@ function EquipmentGrid() {
 	const { saveListing } = useSavedListings(); // Use the context
 	const [isLoggedIn, setIsLoggedIn] = useState(false); // only show some stuff if logged in
 
-	const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/equipment";
+	const dataUrl = "http://localhost:3000/listings/filter/equipment";
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -66,10 +66,10 @@ function EquipmentGrid() {
 		<>
 			<Header handleSubmit={handleSearch} />
 			{/* Toggle buttons with: 
-                - Cameras https://peer-to-peer-59rz.onrender.com/listings/filter/equipment?subCategory=cameras
-                - Lenses lenses: https://peer-to-peer-59rz.onrender.com/listings/filter/equipment?subCategory=lenses
-                - Flash/Flash Equipment flashes: https://peer-to-peer-59rz.onrender.com/listings/filter/equipment?subCategory=flashes
-                - Tripods tripods: https://peer-to-peer-59rz.onrender.com/listings/filter/equipment?subCategory=tripods
+                - Cameras http://localhost:3000/listings/filter/equipment?subCategory=cameras
+                - Lenses lenses: http://localhost:3000/listings/filter/equipment?subCategory=lenses
+                - Flash/Flash Equipment flashes: http://localhost:3000/listings/filter/equipment?subCategory=flashes
+                - Tripods tripods: http://localhost:3000/listings/filter/equipment?subCategory=tripods
             */}
 			<div className="allComponents">
 				<div className="bottom">

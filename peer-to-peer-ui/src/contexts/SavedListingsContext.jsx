@@ -26,7 +26,7 @@ export const SavedListingsProvider = ({ children, userId }) => {
 	const saveListing = async (listing) => {
 		try {
 			const response = await axios.post(
-				`https://peer-to-peer-59rz.onrender.com/users/1/saved-listings`,
+				`http://localhost:3000/users/1/saved-listings`,
 				{ listing }
 			);
 			setSavedListings(response.data);
@@ -40,7 +40,7 @@ export const SavedListingsProvider = ({ children, userId }) => {
 		try {
 			// eventually will have to change to only the logged in users' ID
 			const response = await axios.delete(
-				`https://peer-to-peer-59rz.onrender.com/users/1/saved-listings/${listingId}`
+				`http://localhost:3000/users/1/saved-listings/${listingId}`
 			);
 			setSavedListings(response.data);
 		} catch (error) {

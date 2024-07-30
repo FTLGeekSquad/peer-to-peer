@@ -34,7 +34,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 				console.log("Fetching user data...");
 				try {
 					const response = await axios.get(
-						`https://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`
+						`http://localhost:3000/users/email/${userInfo.email}`
 					);
 					console.log("Response data:", response.data);
 					setUser({
@@ -60,7 +60,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 		event.preventDefault();
 		try {
 			console.log(user.userId);
-			await axios.put(`https://peer-to-peer-59rz.onrender.com/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
+			await axios.put(`http://localhost:3000/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
 			setIsEditing(false);
 		} catch (error) {
 			console.error("Error updating user data:", error);

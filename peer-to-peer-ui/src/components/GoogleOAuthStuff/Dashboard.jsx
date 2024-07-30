@@ -14,7 +14,7 @@ const Dashboard = () => {
   };
 
   const getResource = async () => {
-    const resp = await axios.get("https://peer-to-peer-59rz.onrender.com/protected_route", {
+    const resp = await axios.get("http://localhost:3000/protected_route", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
