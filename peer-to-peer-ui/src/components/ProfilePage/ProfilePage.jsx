@@ -14,6 +14,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import headerLogo from "/src/assets/header_logo.png";
 import Modal from "../GeneralModal/GeneralModal";
+import Footer from "../Footer/Footer";
 
 
 const ProfilePage = () => {
@@ -36,6 +37,7 @@ const ProfilePage = () => {
 	console.log("userInfo in useEffect:", userInfo?.email);
 
 	return (
+		<>
 		<div className="profile-page">
 
 		<div className="header-container">
@@ -76,7 +78,11 @@ const ProfilePage = () => {
 					/>
 				)}
 			</main>
+			
+
 		</div>
+		<Footer/>
+		</>
 	);
 };
 
@@ -780,6 +786,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
         </Modal>
       )}
     </section>
+
 		</>
 	);
 };

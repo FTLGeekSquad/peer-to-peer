@@ -78,7 +78,7 @@ body, html {
   flex-direction: column;
   min-height: 100vh;
 }
-.footer {
+.footer-home {
   background-color: #FBF7EE;
   padding: 20px 0;
 }

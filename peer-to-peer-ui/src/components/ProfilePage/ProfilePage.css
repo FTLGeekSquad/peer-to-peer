@@ -1,5 +1,26 @@
 /* ProfilePage.css */
 
+.profile-page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh; /* Ensures the footer sticks at the bottom */
+  }
+  
+  .main-content {
+	flex: 1; /* Allows the main content to take up available space */
+  }
+  
+  /* Your existing styles for other components */
+  
+  /* Add styles for the footer */
+  .footer {
+	background-color: #ececec;
+	padding: 10px;
+	text-align: center;
+	margin-top: auto; /* Pushes the footer to the bottom */
+  }
+  
+
 
 .header {
 	display: flex;

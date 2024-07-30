@@ -56,7 +56,7 @@ if (!user) {
 }
 // res.json(user)
 
-		res.redirect(`https://peer-to-peer-ui.onrender.com/callback?token=${tokens.id_token}`);
+		res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
 		//post to the database
 
 		// //check if the are already in the database

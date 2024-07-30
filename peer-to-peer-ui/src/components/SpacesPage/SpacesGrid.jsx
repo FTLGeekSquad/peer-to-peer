@@ -6,6 +6,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
 import "./SpacesGrid.css";
 import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
+import Footer from "../Footer/Footer";
 
 function SpacesGrid() {
 	const [spaces, setSpaces] = useState([]);
@@ -101,6 +102,7 @@ function SpacesGrid() {
 					<p>{selectedSpace.description}</p>
 				</Modal>
 			)}
+			<Footer/>
 		</>
 	);
 }

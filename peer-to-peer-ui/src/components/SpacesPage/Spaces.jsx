@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./Spaces.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../Footer/Footer";
 
 function Spaces({ onClick, listing, onSave }) {
 	const [isSaved, setIsSaved] = useState(false); // State to track if the item is saved
@@ -51,6 +52,7 @@ function Spaces({ onClick, listing, onSave }) {
 			</div>
 			
 		</div>
+
 	);
 }
 

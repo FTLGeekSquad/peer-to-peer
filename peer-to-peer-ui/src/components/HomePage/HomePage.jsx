@@ -10,6 +10,7 @@ import spaces from "/src/assets/spaces.png";
 import roxanapfp from "/src/assets/RoxanaPfp.png";
 import sydneypfp from "/src/assets/SydneyPfp.jpg";
 import jazzlynpfp from "/src/assets/JazzPfp.jpg";
+import Footer from "../Footer/Footer";
 
 const HomePage = () => {
 	return (
@@ -38,7 +39,7 @@ const HomePage = () => {
 				</div>
 			</div>
 
-			<footer className="footer">
+			<footer className="footer-home">
 				<div className="footer-content">
 					<div className="footer-section about">
 						<h3>About Us</h3>
@@ -130,9 +131,9 @@ const HomePage = () => {
 						<p>Phone: (123) 456-7890</p>
 					</div>
 				</div>
-				<div className="footer-bottom">
-					<p>&copy; 2024 Peer2Peer | All Rights Reserved</p>
-				</div>
+				
+				<Footer/>
+
 			</footer>
 		</div>
 	);

@@ -1,30 +1,31 @@
+/* Make the root container a flex container with column direction */
 .allComponents {
 	display: flex;
 	flex-direction: column;
-	align-items: center; /* Center content horizontally */
-	margin-top: 40px; /* Space from the top */
-	padding: 20px; /* Padding for better spacing */
-}
-
-.bottom {
+	min-height: 100vh; /* Full height of the viewport */
+  }
+  
+  /* The main content area should take up all the available space */
+  .bottom {
+	flex: 1; /* This makes .bottom grow and take up the available space */
 	display: flex;
 	flex-direction: column; /* Stack toggle buttons and grid vertically */
 	align-items: center; /* Center align children */
 	width: 100%; /* Full width of container */
-}
-
-.subcategoryToggle {
+  }
+  
+  .subcategoryToggle {
 	margin-bottom: 20px; /* Space between toggle buttons and equipment grid */
-}
-
-.equipmentGrid {
+  }
+  
+  .equipmentGrid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px; /* Gap between cards */
 	justify-content: center; /* Center align items */
-}
-
-.equipment-item {
+  }
+  
+  .equipment-item {
 	background-color: #c3cbc6; /* Card background color */
 	border: 1px solid #b4c1b9; /* Card border */
 	border-radius: 8px; /* Rounded corners */
@@ -37,33 +38,31 @@
 	flex-direction: column;
 	align-items: center;
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.equipment-item:hover {
+  }
+  
+  .equipment-item:hover {
 	transform: translateY(-5px); /* Lift the card on hover */
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-}
-
-.modal-img {
+  }
+  
+  .modal-img {
 	width: 400px; /* Set a fixed width */
 	height: 250px; /* Set a fixed height */
 	object-fit: cover; /* Ensure the image covers the area without distortion */
-}
-
-.modalHeader {
+  }
+  
+  .modalHeader {
 	margin-top: -15%;
 	margin-right: auto;
-}
-
-.modalWords {
+  }
+  
+  .modalWords {
 	text-align: left;
 	width: 100%;
-}
-
-.lowerTitle {
+  }
+  
+  .lowerTitle {
 	margin: 5px;
-}
+  }
+  
 
-.locationText {
-	
-}

@@ -9,6 +9,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
 import "./ServicesGrid.css";
 import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
+import Footer from "../Footer/Footer";
 
 function ServicesGrid() {
 	const [services, setServices] = useState([]);
@@ -104,6 +105,7 @@ function ServicesGrid() {
 					<p>{selectedService.description}</p>
 				</Modal>
 			)}
+			<Footer/>
 		</>
 	);
 }
