@@ -17,7 +17,7 @@ function ServicesGrid() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
 
-	const dataUrl = "http://localhost:3000/listings/filter/services";
+	const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/services";
 
 	useEffect(() => {
 		const fetchServices = async () => {
@@ -59,8 +59,8 @@ function ServicesGrid() {
 		<>
 			<Header handleSubmit={handleSearch} />
 			{/* Toggle buttons with: 
-                - Photography http://localhost:3000/listings/filter/services?category=photography
-                - Videography http://localhost:3000/listings/filter/services?category=videography
+                - Photography https://peer-to-peer-59rz.onrender.com/listings/filter/services?category=photography
+                - Videography https://peer-to-peer-59rz.onrender.com/listings/filter/services?category=videography
             */}
 			<div className="allComponents">
 				<div className="bottom">

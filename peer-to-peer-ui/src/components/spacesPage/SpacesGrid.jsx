@@ -14,7 +14,7 @@ function SpacesGrid() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
 
-	const dataUrl = "http://localhost:3000/listings/filter/spaces";
+	const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/spaces";
 
 	useEffect(() => {
 		const fetchSpaces = async () => {
@@ -56,8 +56,8 @@ function SpacesGrid() {
 		<>
 			<Header handleSubmit={handleSearch} />
 			{/* Toggle buttons with: 
-                - Indoor http://localhost:3000/listings/filter/spaces?subCategory=indoor
-                - Outdoor http://localhost:3000/listings/filter/spaces?subCategory=outdoor
+                - Indoor https://peer-to-peer-59rz.onrender.com/listings/filter/spaces?subCategory=indoor
+                - Outdoor https://peer-to-peer-59rz.onrender.com/listings/filter/spaces?subCategory=outdoor
             */}
 			<div className="allComponents">
 				<div className="bottom">

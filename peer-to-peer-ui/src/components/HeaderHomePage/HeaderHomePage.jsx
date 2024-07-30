@@ -20,7 +20,7 @@ const HeaderHomePage = ({ handleSubmit }) => {
 	}, []);
 
 	const handleLogin = () => {
-		window.location.href = "http://localhost:3000/auth/login";
+		window.location.href = "https://peer-to-peer-59rz.onrender.com/auth/login";
 	};
 
 	return (

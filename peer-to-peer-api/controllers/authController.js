@@ -1,6 +1,6 @@
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-const redirectUrl = "http://localhost:3000/auth/google/callback";
+const redirectUrl = "https://peer-to-peer-59rz.onrender.com/auth/google/callback";
 require("dotenv").config(); // Load environment variables
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
