@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import "./HomePage.css";
 import HeaderHomePage from "../HeaderHomePage/HeaderHomePage";
 import equipment from "/src/assets/equipment.png";
@@ -57,14 +59,14 @@ const HomePage = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img src="/path/to/linkedin-icon.png" alt="LinkedIn" />
+										<LinkedInIcon fontSize="large" />
 									</a>
 									<a
 										href="https://github.com/RoxanaCruz"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img src="/path/to/github-icon.png" alt="GitHub" />
+										<GitHubIcon fontSize="large" />
 									</a>
 								</div>
 								<p className="description">
@@ -80,14 +82,14 @@ const HomePage = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img src="/path/to/linkedin-icon.png" alt="LinkedIn" />
+										<LinkedInIcon fontSize="large" />
 									</a>
 									<a
 										href="https://github.com/scbrown-224"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img src="/path/to/github-icon.png" alt="GitHub" />
+										<GitHubIcon fontSize="large" />
 									</a>
 								</div>
 								<p className="description">
@@ -105,14 +107,14 @@ const HomePage = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img src="/path/to/linkedin-icon.png" alt="LinkedIn" />
+										<LinkedInIcon fontSize="large" />
 									</a>
 									<a
 										href="https://github.com/JazlynJ1212"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img src="/path/to/github-icon.png" alt="GitHub" />
+										<GitHubIcon fontSize="large" />
 									</a>
 								</div>
 								<p className="description">
