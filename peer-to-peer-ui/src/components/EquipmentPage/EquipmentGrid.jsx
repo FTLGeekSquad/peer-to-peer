@@ -98,12 +98,17 @@ function EquipmentGrid() {
 					show={selectedEquipment !== null}
 					onClose={() => setSelectedEquipment(null)}
 				>
+					<h2 className="modalHeader">{selectedEquipment.title}</h2>
 					<img className="modal-img" src={selectedEquipment.photo} />
-					<h2>{selectedEquipment.title}</h2>
-					<p>
+					<div className="modalWords">
+					<div className="upperWords">
+					<h2 className='lowerTitle'>{selectedEquipment.title}</h2>
+					<p className="locationText">
 						<strong>Location:</strong> {selectedEquipment.location}
 					</p>
+					</div>
 					<p>{selectedEquipment.description}</p>
+					</div>
 				</Modal>
 			)}
 		</>
