@@ -75,6 +75,7 @@
 	border-radius: 5px;
 	cursor: pointer;
 	margin: 2px;
+	font-weight: bold;
 }
 
 .logout {
@@ -85,6 +86,7 @@
 	border-radius: 5px;
 	cursor: pointer;
 	margin: 2px;
+	font-weight: bold;
 }
 
 .listings {
