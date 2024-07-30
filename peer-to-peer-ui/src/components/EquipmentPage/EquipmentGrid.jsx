@@ -14,8 +14,16 @@ function EquipmentGrid() {
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
+	const [isLoggedIn, setIsLoggedIn] = useState(false); // only show some stuff if logged in
 
 	const dataUrl = "http://localhost:3000/listings/filter/equipment";
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (token) {
+			setIsLoggedIn(true);
+		}
+	}, []);
 
 	useEffect(() => {
 		const fetchEquipment = async () => {
@@ -52,6 +60,7 @@ function EquipmentGrid() {
 	const filteredEquipment = equipment.filter((equip) =>
 		equip.title.toLowerCase().includes(searchTerm.toLowerCase())
 	);
+
 
 	return (
 		<>
@@ -110,10 +119,20 @@ function EquipmentGrid() {
 					</p>
 					</div>
 					<p>{selectedEquipment.description}</p>
+					
+					<div className="userInfo" style={{ filter: isLoggedIn ? 'none' : 'blur(5px)' }}>
+        				{selectedEquipment.user && (
+          				<>
+            			<p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
+            			<p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p>
+          				</>
+        				)}
+        			
+      </div>
 
 
-	{/* trying to change the modal */}
 					</div>
+					{!isLoggedIn && <p>Please log in to view contact information.</p>}
 				</Modal>
 			)}
 		</>

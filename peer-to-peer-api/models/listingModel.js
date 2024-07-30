@@ -80,6 +80,7 @@ const getListingsByCategory = async (category, subCategory) => {
 
 		const listings = await prisma.listing.findMany({
 			where: filter,
+			include: { user: true },
 		});
 		return listings;
 	} catch (error) {
