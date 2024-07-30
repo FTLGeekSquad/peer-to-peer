@@ -107,7 +107,7 @@ const morgan = require("morgan");
 const PORT = 3000;
 app.use(morgan('dev'));
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://peer-to-peer-ui.onrender.com",
 }));
 app.use(express.json());
 const listingRoutes = require("./routes/listingRoutes");
