@@ -303,3 +303,19 @@
 .bookmark-button:hover {
     color: #D7B0B0; /* Color on hover */
 }
+
+.header-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* Distribute space between items */
+	padding: 0 20px; /* Add some padding if needed */
+  }
+  
+  .header-logo {
+	margin: 0 auto; /* Center the logo in the flex container */
+  }
+  
+  .logo {
+	margin-left: 0; /* Align the logo on the right */
+  }
+  

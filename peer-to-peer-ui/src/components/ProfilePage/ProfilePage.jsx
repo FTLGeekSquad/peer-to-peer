@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import headerLogo from "/src/assets/header_logo.png";
+
 
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
@@ -34,9 +36,14 @@ const ProfilePage = () => {
 
 	return (
 		<div className="profile-page">
+
+		<div className="header-container">
 			<Link to="/home">
 				<img src={logo} alt="Logo" className="logo" />
 			</Link>
+			<img className="header-logo" src={headerLogo} />
+
+		</div>
 			<header className="header">
 				<nav className="navigation">
 					<button
