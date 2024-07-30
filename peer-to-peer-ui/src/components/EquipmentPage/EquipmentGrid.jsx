@@ -93,6 +93,8 @@ function EquipmentGrid() {
 				</div>
 			</div>
 
+			
+
 			{selectedEquipment && (
 				<Modal
 					show={selectedEquipment !== null}
@@ -108,6 +110,9 @@ function EquipmentGrid() {
 					</p>
 					</div>
 					<p>{selectedEquipment.description}</p>
+
+
+	{/* trying to change the modal */}
 					</div>
 				</Modal>
 			)}
