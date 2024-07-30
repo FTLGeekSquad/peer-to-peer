@@ -108,7 +108,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 				console.log("Fetching user data...");
 				try {
 					const response = await axios.get(
-						`http://localhost:3000/users/email/${userInfo.email}`
+						`https://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`
 					);
 					console.log("Response data:", response.data);
 					setUser({
@@ -132,7 +132,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 		event.preventDefault();
 		try {
 			console.log(user.userId);
-			await axios.put(`http://localhost:3000/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
+			await axios.put(`https://peer-to-peer-59rz.onrender.com/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
 			setIsEditing(false);
 		} catch (error) {
 			console.error("Error updating user data:", error);
@@ -279,7 +279,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	// 			console.log("Fetching user data...");
 	// 			try {
 	// 				const response = await axios.get(
-	// 					`http://localhost:3000/users/email/${userInfo.email}`
+	// 					`https://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`
 	// 				); // Adjust the URL based on your API endpoint
 	// 				console.log("Response data:", response.data); // Log the response data
 	// 				setUser({
@@ -302,10 +302,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	// 	const fetchListings = async (user) => {
 	// 		console.log("User in ListCOntent is", user)
 	// 		try {
-	// 			// const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+	// 			// const response = await axios.get(`https://peer-to-peer-59rz.onrender.com/listings/user/${userId}`);
 	// 			// eventually needs to correlate w/ who's logged in
 	// 			console.log("user is:", user)
-	// 			const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`
+	// 			const response = await axios.get(`https://peer-to-peer-59rz.onrender.com/listings/all-listings/${user.userId}`
 	// 			);
 
 	// 			setListings(response.data);
@@ -326,10 +326,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		if (userInfo) {
 			const fetchUserData = async () => {
 				console.log("Fetching user data...");
-				console.log(`http://localhost:3000/users/email/${userInfo.email}`)
+				console.log(`https://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`)
 				try {
 					const response = await axios.get(
-						`http://localhost:3000/users/email/${userInfo.email}`
+						`https://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`
 					); // Adjust the URL based on your API endpoint
 					console.log("Response data:", response.data); // Log the response data
 					setUser({
@@ -355,7 +355,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 			if (user.userId) {
 				console.log("Fetching listings for userId:", user.userId);
 				try {
-					const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`);
+					const response = await axios.get(`https://peer-to-peer-59rz.onrender.com/listings/all-listings/${user.userId}`);
 					setListings(response.data);
 					setLoading(false);
 				} catch (err) {
@@ -417,7 +417,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:3000/listings",
+				"https://peer-to-peer-59rz.onrender.com/listings",
 				listingData
 			);
 			console.log("Listing created:", response.data);
@@ -461,7 +461,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	console.log(`http://localhost:3000/listings/user/all-listings/${user.userId}`)
+	console.log(`https://peer-to-peer-59rz.onrender.com/listings/user/all-listings/${user.userId}`)
 
 
 	// useEffect(() => {
@@ -471,7 +471,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	// 				console.log("Fetching user data...");
 	// 				try {
 	// 					const response = await axios.get(
-	// 						`http://localhost:3000/users/email/${userInfo.email}`
+	// 						`https://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`
 	// 					); // Adjust the URL based on your API endpoint
 	// 					console.log("Response data:", response.data); // Log the response data
 	// 					setUser({
@@ -489,10 +489,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	// 		}
 	// 		console.log("User in ListCOntent is", user)
 	// 		try {
-	// 			// const response = await axios.get(`http://localhost:3000/listings/user/${userId}`);
+	// 			// const response = await axios.get(`https://peer-to-peer-59rz.onrender.com/listings/user/${userId}`);
 	// 			// eventually needs to correlate w/ who's logged in
 	// 			console.log("user is:", user)
-	// 			const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`
+	// 			const response = await axios.get(`https://peer-to-peer-59rz.onrender.com/listings/all-listings/${user.userId}`
 	// 			);
 
 	// 			setListings(response.data);

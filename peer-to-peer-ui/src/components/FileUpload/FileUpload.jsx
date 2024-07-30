@@ -48,7 +48,7 @@ function FileUpload({ onFileUploaded }) {
 export default FileUpload;
 */
 
-import AWS from "aws-sdk";
+//import AWS from "aws-sdk";
 import { useState } from "react";
 import "./FileUpload.css";
 
@@ -60,13 +60,13 @@ function FileUpload({ onFileUploaded, setIsPhotoUploaded, handleUploading }) {
 		const S3_BUCKET = "peer2peerphotos";
 		const REGION = "us-east-2";
 
-		AWS.config.update({
+		window.AWS.config.update({
 			accessKeyId: import.meta.env.VITE_ACCESS_KEY,
 			secretAccessKey: import.meta.env.VITE_SECRET_ACCESS_KEY,
 			region: REGION,
 		});
 
-    const s3 = new AWS.S3();
+    const s3 = new window.AWS.S3();
     const params = {
       Bucket: S3_BUCKET,
       Key: file.name,

@@ -28,7 +28,7 @@
 
 // const clientId = process.env.GOOGLE_CLIENT_ID;
 // const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-// const redirectUrl = "http://localhost:3000/auth/google/callback";
+// const redirectUrl = "https://peer-to-peer-59rz.onrender.com/auth/google/callback";
 // require("dotenv").config(); // Load environment variables
 
 // const oauth2Client = new OAuth2Client(clientId, clientSecret, redirectUrl);
@@ -107,7 +107,7 @@ const morgan = require("morgan");
 const PORT = 3000;
 app.use(morgan('dev'));
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://peer-to-peer-ui.onrender.com",
 }));
 app.use(express.json());
 const listingRoutes = require("./routes/listingRoutes");
