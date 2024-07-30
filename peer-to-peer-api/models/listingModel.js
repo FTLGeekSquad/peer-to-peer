@@ -91,7 +91,9 @@ const getListingsByCategory = async (category, subCategory) => {
 // Fetch all listings by userId
 const getListingsByUserId = async (userId) => {
 	return prisma.listing.findMany({
-	  where: { userId: parseInt(userId) }
+	  where: { userId: parseInt(userId), 
+	  include: { user: true },
+	  }
 	});
   };
   

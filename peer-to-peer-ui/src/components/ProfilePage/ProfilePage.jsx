@@ -13,6 +13,7 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import headerLogo from "/src/assets/header_logo.png";
+import Modal from "../GeneralModal/GeneralModal";
 
 
 const ProfilePage = () => {
@@ -108,6 +109,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 	};
 
 	const [isEditing, setIsEditing] = useState(false);
+	const [selectedEquipment, setSelectedEquipment] = useState(null);
+
 
 	useEffect(() => {
 		if (userInfo) {
@@ -216,45 +219,71 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 				</div>
 			)}
 
-			<section className="listings">
-				<div className="tabs">
-					<button className="tab active">Saved</button>
-				</div>
-				<div className="listings-grid">
-					{Array.isArray(savedListings) && savedListings.length > 0 ? (
-						savedListings.map((listing) => (
-							<div key={listing.listingId} className="listing-card">
-								<img src={listing.photo || placeHolderListing} alt="Listing" />
-								<div className="listing-details">
-									<div className="titleBookmark">
-										<p className="listing-title">{listing.title}</p>
-										<button
-									className="bookmark-button active" // Initially active to show pink icon
-									onClick={() => removeListing(listing.listingId)}
-								>
-									<FontAwesomeIcon icon={faBookmark} />
-								</button>
-									</div>
-									<p className="listing-location">{listing.location}</p>
-									<p className="listing-price">
-										${listing.priceHourly} per hour
-									</p>
-								</div>
+<section className="listings">
+      <div className="tabs">
+        <button className="tab active">Saved</button>
+      </div>
+      <div className="listings-grid">
+        {Array.isArray(savedListings) && savedListings.length > 0 ? (
+          savedListings.map((listing) => (
+            <div 
+              key={listing.listingId} 
+              className="listing-card" 
+              onClick={() => setSelectedEquipment(listing)} // Set selectedEquipment on click
+            >
+              <img 
+                src={listing.photo || placeHolderListing} 
+                alt="Listing" 
+              />
+              <div className="listing-details">
+                <div className="titleBookmark">
+                  <p className="listing-title">{listing.title}</p>
+                  <button
+                    className="bookmark-button active" // Initially active to show pink icon
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent modal from opening
+                      removeListing(listing.listingId);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faBookmark} />
+                  </button>
+                </div>
+                <p className="listing-location">{listing.location}</p>
+                <p className="listing-price">
+                  ${listing.priceHourly} per hour
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No saved listings.</p>
+        )}
+      </div>
 
-								{/* <button
-									className="bookmark-button active" // Initially active to show pink icon
-									onClick={() => removeListing(listing.listingId)}
-								>
-									<FontAwesomeIcon icon={faBookmark} />
-								</button> */}
-							
-							</div>
-						))
-					) : (
-						<p>No saved listings.</p>
-					)}
-				</div>
-			</section>
+      {selectedEquipment && (
+        <Modal show={selectedEquipment !== null} onClose={() => setSelectedEquipment(null)}>
+          <h2 className="modalHeader">{selectedEquipment.title}</h2>
+          <img className="modal-img" src={selectedEquipment.photo} alt={selectedEquipment.title} />
+          <div className="modalWords">
+            <div className="upperWords">
+              <h2 className="lowerTitle">{selectedEquipment.title}</h2>
+              <p className="locationText">
+                <strong>Location:</strong> {selectedEquipment.location}
+              </p>
+            </div>
+            <p>{selectedEquipment.description}</p>
+            <div className="userInfo">
+              {selectedEquipment.user && (
+                <>
+                  <p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
+                  <p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p>
+                </>
+              )}
+            </div>
+          </div>
+        </Modal>
+      )}
+    </section>
 		</>
 	);
 };
@@ -285,8 +314,11 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		phoneNumber: "",
 		location: "",
 		createdAt: "",
-		userId: 0,
+		userId: 1,
 	});
+
+	const [selectedEquipment, setSelectedEquipment] = useState(null);
+
 
 	// useEffect(() => {
 	// 	if (userInfo) {
@@ -364,24 +396,51 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		}
 	}, [userInfo]);
 	
-	// New useEffect to fetch listings when user state is updated
+	// // New useEffect to fetch listings when user state is updated
+	// useEffect(() => {
+	// 	const fetchListings = async () => {
+	// 		if (user.userId) {
+	// 			console.log("Fetching listings for userId:", user.userId);
+	// 			try {
+	// 				const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`);
+	// 				setListings(response.data);
+	// 				setLoading(false);
+	// 			} catch (err) {
+	// 				setError(err);
+	// 				setLoading(false);
+	// 			}
+	// 		}
+	// 	};
+	
+	// 	fetchListings();
+	// }, [user]); // Dependency array includes user
+
+
 	useEffect(() => {
 		const fetchListings = async () => {
-			if (user.userId) {
-				console.log("Fetching listings for userId:", user.userId);
-				try {
-					const response = await axios.get(`http://localhost:3000/listings/all-listings/${user.userId}`);
-					setListings(response.data);
-					setLoading(false);
-				} catch (err) {
-					setError(err);
-					setLoading(false);
-				}
+		  if (user.userId) {
+			console.log("Fetching listings for userId:", user.userId);
+			try {
+			  const response = await axios.get(
+				`http://localhost:3000/listings/all-listings/${user.userId}`
+			  );
+			  setListings(response.data);
+			  setLoading(false);
+			} catch (err) {
+			  setError(err);
+			  setLoading(false);
 			}
+		  }
 		};
 	
 		fetchListings();
-	}, [user]); // Dependency array includes user
+	  }, [user]);
+
+	  useEffect(() => {
+		if (selectedEquipment) {
+		  console.log("Selected Equipment User:", selectedEquipment.user);
+		}
+	  }, [selectedEquipment]);
 	
 	const navigate = useNavigate(); // Get the navigate function from useNavigate
 
@@ -662,30 +721,61 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 			</section>
 
 			<section className="listings">
-				<div className="tabs">
-					<button className="tab active">All</button>
-				</div>
-				<div className="listings-grid">
-					
-					{listings.length > 0 ? (
-						listings.map((listing) => (
-							<div key={listing.listingId} className="listing-card">
-								<img src={listing.photo || placeHolderListing} alt="Listing" />
-								<div className="listing-details">
-									<p className="listingCardTitle">{listing.title}</p>
-									<div className="paragraph">
-										<p className="location">{listing.location}</p>
-										<p className="price">${listing.priceHourly} per hour</p>
-									</div>
-									{/* Add other listing details here if needed */}
-								</div>
-							</div>
-						))
-					) : (
-						<p>No listings available.</p>
-					)}
-				</div>
-			</section>
+      <div className="tabs">
+        <button className="tab active">All</button>
+      </div>
+      <div className="listings-grid">
+        {listings.length > 0 ? (
+          listings.map((listing) => (
+            <div 
+              key={listing.listingId} 
+              className="listing-card" 
+              onClick={() => setSelectedEquipment(listing)}
+            >
+              <img 
+                src={listing.photo || placeHolderListing} 
+                alt="Listing" 
+              />
+              <div className="listing-details">
+                <p className="listingCardTitle">{listing.title}</p>
+                <div className="paragraph">
+                  <p className="location">{listing.location}</p>
+                  <p className="price">${listing.priceHourly} per hour</p>
+                </div>
+                {/* Add other listing details here if needed */}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No listings available.</p>
+        )}
+      </div>
+
+      {selectedEquipment && (
+        <Modal show={selectedEquipment !== null} onClose={() => setSelectedEquipment(null)}>
+          <h2 className="modalHeader">{selectedEquipment.title}</h2>
+          <img className="modal-img" src={selectedEquipment.photo} alt={selectedEquipment.title} />
+          <div className="modalWords">
+            <div className="upperWords">
+              <h2 className="lowerTitle">{selectedEquipment.title}</h2>
+              <p className="locationText">
+                <strong>Location:</strong> {selectedEquipment.location}
+              </p>
+            </div>
+            <p>{selectedEquipment.description}</p>
+            <div className="userInfo" >
+              {selectedEquipment.user &&  (
+                <>
+                  <p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
+                  <p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p>
+                </>
+              )}
+			  {/* the user name and contact info aren't posting in the modal */}
+            </div>
+          </div>
+        </Modal>
+      )}
+    </section>
 		</>
 	);
 };
