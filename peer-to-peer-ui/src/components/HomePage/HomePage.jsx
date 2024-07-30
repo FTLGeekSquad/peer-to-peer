@@ -5,6 +5,9 @@ import HeaderHomePage from "../HeaderHomePage/HeaderHomePage";
 import equipment from "/src/assets/equipment.png";
 import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
+import roxanapfp from "/src/assets/RoxanaPfp.png";
+import sydneypfp from "/src/assets/SydneyPfp.jpg";
+import jazzlynpfp from "/src/assets/JazzPfp.jpg";
 
 const HomePage = () => {
 	return (
@@ -43,6 +46,81 @@ const HomePage = () => {
 						</p>
 					</div>
 					<div className="footer-section links">
+						<h3>Meet the Creators</h3>
+						<div className="creators">
+							<div className="creator-card">
+								<img src={roxanapfp} alt="Roxana" className="creator-photo" />
+								<h4>Roxana</h4>
+								<div className="social-icons">
+									<a
+										href="https://www.linkedin.com/in/roxanacruzlopez/"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img src="/path/to/linkedin-icon.png" alt="LinkedIn" />
+									</a>
+									<a
+										href="https://github.com/RoxanaCruz"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img src="/path/to/github-icon.png" alt="GitHub" />
+									</a>
+								</div>
+								<p className="description">
+									CS & ECE @Cal State LA | Looking to learn, apply, and create
+								</p>
+							</div>
+							<div className="creator-card">
+								<img src={sydneypfp} alt="Sydney" className="creator-photo" />
+								<h4>Sydney</h4>
+								<div className="social-icons">
+									<a
+										href="https://www.linkedin.com/in/sydneybrown224"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img src="/path/to/linkedin-icon.png" alt="LinkedIn" />
+									</a>
+									<a
+										href="https://github.com/scbrown-224"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img src="/path/to/github-icon.png" alt="GitHub" />
+									</a>
+								</div>
+								<p className="description">
+									Computer & Cognitive Science @Vanderbilt | hope to discover
+									spaces where my computer science skills can help solve human
+									rights issues
+								</p>
+							</div>
+							<div className="creator-card">
+								<img src={jazzlynpfp} alt="Jazzlyn" className="creator-photo" />
+								<h4>Jazzlyn</h4>
+								<div className="social-icons">
+									<a
+										href="https://www.linkedin.com/in/jazlyn-jones"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img src="/path/to/linkedin-icon.png" alt="LinkedIn" />
+									</a>
+									<a
+										href="https://github.com/JazlynJ1212"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img src="/path/to/github-icon.png" alt="GitHub" />
+									</a>
+								</div>
+								<p className="description">
+									CS @Spelman | passionate about sustainability and learning
+									about technology
+								</p>
+							</div>
+						</div>
 					</div>
 					<div className="footer-section contact">
 						<h3>Contact Us</h3>
@@ -51,7 +129,7 @@ const HomePage = () => {
 					</div>
 				</div>
 				<div className="footer-bottom">
-					<p>&copy; 2024 Photography Rentals | All Rights Reserved</p>
+					<p>&copy; 2024 Peer2Peer | All Rights Reserved</p>
 				</div>
 			</footer>
 		</div>
