@@ -138,11 +138,6 @@ body, html {
   margin: 10px 0;
 }
 
-.social-icons img {
-  height: 24px;
-  width: 24px;
-}
-
 .description {
   font-size: 0.875rem;
   color: #555;
@@ -153,8 +148,3 @@ body, html {
   padding: 10px;
   background-color: #ececec;
 }
-
-
-
-
-
