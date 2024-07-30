@@ -68,11 +68,23 @@
 }
 
 .edit-button {
-	background-color: #f0f0f0;
-	border: 1px solid #ccc;
-	padding: 5px 10px;
-	margin-top: 10px;
+	background: linear-gradient(45deg, #c3cbc5, #d6aeae);
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
 	cursor: pointer;
+	margin: 2px;
+}
+
+.logout {
+	background: linear-gradient(45deg, #c3cbc5, #d6aeae);
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 2px;
 }
 
 .listings {

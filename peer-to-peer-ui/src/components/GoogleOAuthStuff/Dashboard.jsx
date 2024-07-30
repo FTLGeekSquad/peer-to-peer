@@ -29,7 +29,7 @@ const Dashboard = () => {
       <h2>Dashboard</h2>
       <button onClick={getResource}>Get Resource</button> 
       <div>User name: {userInfo}</div>    
-      <button onClick={handleLogout}>Log out</button>
+      <button className='logout' onClick={handleLogout}>Log out</button>
     </div>
   );
 };

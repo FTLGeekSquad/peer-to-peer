@@ -105,7 +105,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 					<button className="edit-button" onClick={() => setIsEditing(true)}>
 						Edit Account Details
 					</button>
-					<button onClick={handleLogout}>Log out</button>
+					<button className="logout" onClick={handleLogout}>Log out</button>
 				</div>
 			</section>
 
