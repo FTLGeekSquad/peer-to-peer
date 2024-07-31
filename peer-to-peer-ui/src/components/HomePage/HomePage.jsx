@@ -9,7 +9,7 @@ import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
 import roxanapfp from "/src/assets/RoxanaPfp.png";
 import sydneypfp from "/src/assets/SydneyPfp.jpg";
-import jazzlynpfp from "/src/assets/JazzPfp.jpg";
+import jazlynpfp from "/src/assets/JazzPfp.jpg";
 
 const HomePage = () => {
 	return (
@@ -105,8 +105,8 @@ const HomePage = () => {
 								</p>
 							</div>
 							<div className="creator-card">
-								<img src={jazzlynpfp} alt="Jazzlyn" className="creator-photo" />
-								<h4>Jazzlyn</h4>
+								<img src={jazlynpfp} alt="Jazlyn" className="creator-photo" />
+								<h4>Jazlyn</h4>
 								<div className="social-icons">
 									<a
 										href="https://www.linkedin.com/in/jazlyn-jones"
