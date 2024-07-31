@@ -6,8 +6,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import FileUpload from "../FileUpload/FileUpload";
 import { useNavigate } from "react-router-dom";
+import { useSavedListings } from "../../contexts/SavedListingsContext";
 
-const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
+
+const ListContent = ({ showCreateListing, setShowCreateListing }) => {
+	const { userData } = useSavedListings();
+	console.log(userData)
+	const [listings, setListings] = useState(null);
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState("");
@@ -20,54 +25,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [uploadSuccess, setUploadSuccess] = useState("");
 
     const navigate = useNavigate(); // get the navigate function from useNavigate
-
-
-	// const [user, setUser] = useState({
-	// 	name: "",
-	// 	email: "",
-	// 	phoneNumber: "",
-	// 	location: "",
-	// 	createdAt: "",
-	// 	userId: 0,
-	// });
-
-    // //combines it into one user effect for data population
-    // useEffect(() => {
-    //     if (userInfo) {
-    //         const fetchUserData = async () => {
-    //             console.log("Fetching user data...");
-    //             try {
-    //                 const response = await axios.get(
-    //                     `http://localhost:3000/users/email/${userInfo.email}`
-    //                 );
-    //                 console.log("Response data:", response.data);
-    //                 const userData = {
-    //                     name: response.data.name || "",
-    //                     email: response.data.email || "",
-    //                     phoneNumber: response.data.phoneNumber || "",
-    //                     location: response.data.location || "",
-    //                     createdAt: response.data.createdAt || "",
-    //                     userId: response.data.userId,
-    //                 };
-    //                 setUser(userData);
-    
-    //                 if (userData.userId) {
-    //                     const listingsResponse = await axios.get(
-    //                         `http://localhost:3000/listings/all-listings/${userData.userId}`
-    //                     );
-    //                     setListings(listingsResponse.data);
-    //                 }
-    //                 setLoading(false);
-    //             } catch (error) {
-    //                 setError(error);
-    //                 console.error("Error fetching user data:", error);
-    //             }
-    //         };
-    
-    //         fetchUserData();
-    //     }
-    // }, [userInfo]);
-    
+	
+	useEffect(() => {
+			setListings(userData.allListings);
+	}, []);
 
 	const handleLogout = () => {
 		console.log("Logging out");
@@ -75,7 +36,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		navigate("/home");
 	};
 
-
+console.log("Listings:", userData.listings)
 
 	const handleOpenModal = () => {
 		setShowCreateListing(true);
@@ -156,8 +117,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		return date.toLocaleDateString(undefined, options);
 	};
 
-	const [listings, setListings] = useState([]);
-	const [loading, setLoading] = useState(true);
+	//const [listings, setListings] = useState([]);
+	const [loading, setLoading] = useState(null);
 	const [error, setError] = useState(null);
 
 	if (loading) return <p>Loading...</p>;
@@ -170,15 +131,15 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 					<img src={profileImg} alt="Profile" />
 				</div>
 				<div className="profile-details">
-					<h2>{user.name}</h2>
+					<h2>{userData.name}</h2>
 					<p>
-						Member since{" "}
-						{user.createdAt ? formatDate(user.createdAt) : "Loading..."}
+						Member since:{" "}
+						{userData.createdAt ? formatDate(userData.createdAt) : "Loading..."}
 					</p>
 					<div className="contact-info">
-						<p>Email: {user.email}</p>
-						<p>Phone Number: {user.phoneNumber}</p>
-						<p>Location: {user.location}</p>
+						<p>Email: {userData.email}</p>
+						<p>Phone Number: {userData.phoneNumber}</p>
+						<p>Location: {userData.location}</p>
 					</div>
 					<button className="edit-button" onClick={handleOpenModal}>
 						Edit Account Details
@@ -305,8 +266,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 					<button className="tab active">All</button>
 				</div>
 				<div className="listings-grid">
-					{listings.length > 0 ? (
-						listings.map((listing) => (
+					{userData.listings.length > 0 ? (
+						userData.listings.map((listing) => (
 							<div key={listing.listingId} className="listing-card">
 								<img src={listing.photo || placeHolderListing} alt="Listing" />
 								<div className="listing-details">
@@ -315,12 +276,12 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 										<p className="location">{listing.location}</p>
 										<p className="price">${listing.priceHourly} per hour</p>
 									</div>
-									{/* Add other listing details here if needed */}
+									
 								</div>
 							</div>
 						))
 					) : (
-						<p>No listings available.</p>
+						<p>No listings available.</p> 
 					)}
 				</div>
 			</section>

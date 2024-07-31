@@ -48,15 +48,15 @@ const ProfilePage = () => {
 				{activeTab === "rent" ? (
 					
 					<RentContent
-						userInfo={userInfo}
+						//userInfo={userInfo}
 						// savedListings={savedListings}
 						// removeListing={removeListing}
 					/>
 				) : (
 					<ListContent
-						userInfo={userInfo}
+						//userInfo={userInfo}
 						//showCreateListing={showCreateListing} may need to uncomment this, unsure right now
-						setShowCreateListing={setShowCreateListing}
+						//setShowCreateListing={setShowCreateListing}
 					/>
 				)}
 			</main>

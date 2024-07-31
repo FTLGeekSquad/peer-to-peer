@@ -6,8 +6,8 @@ import { SavedListingsProvider } from './contexts/SavedListingsContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <SavedListingsProvider> */}
+    <SavedListingsProvider>
     <App />
-    {/* </SavedListingsProvider> */}
+    </SavedListingsProvider>
   </React.StrictMode>,
 )

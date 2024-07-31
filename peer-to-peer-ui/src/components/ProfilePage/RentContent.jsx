@@ -8,17 +8,12 @@ import { useSavedListings } from "../../contexts/SavedListingsContext";
 
 
 
-const RentContent = ({ userInfo }) => {
-	const { savedListings, removeListing } = useSavedListings(); // Use the context
-	const [user, setUser] = useState({
-		name: "",
-		email: "",
-		phoneNumber: "",
-		location: "",
-		createdAt: "",
-		userId: 0,
-	});
+const RentContent = () => {
+	const { userData } = useSavedListings();
 
+	console.log('user info', userData)
+	//const { savedListings, removeListing } = useSavedListings(); // Use the context
+	const [savedListings, setSavedListings] = useState(null);
 	const navigate = useNavigate(); // Get the navigate function from useNavigate
 
 	const handleLogout = () => {
@@ -28,49 +23,25 @@ const RentContent = ({ userInfo }) => {
 	};
 
 	const [isEditing, setIsEditing] = useState(false);
+	
+	useEffect(() => {
+		setSavedListings(userData.savedListings);
+}, []);
+	
+	console.log("Rent Content Page", userData)
 
-	const {userId} = useSavedListings();
-	console.log("Rent Content Page", userId)
-
-	// useEffect(() => {
-	// 	if (userInfo) {
-	// 		const fetchUserData = async () => {
-	// 			console.log("Fetching user data...");
-	// 			try {
-	// 				const response = await axios.get(
-	// 					`http://localhost:3000/users/email/${userInfo.email}`
-	// 				);
-	// 				console.log("Response data:", response.data);
-	// 				setUser({
-	// 					name: response.data.name || "",
-	// 					email: response.data.email || "",
-	// 					phoneNumber: response.data.phoneNumber || "",
-	// 					location: response.data.location || "",
-	// 					createdAt: response.data.createdAt || "",
-	// 					userId: response.data.userId || 0,
-                        
-	// 				});
-        
-	// 			} catch (error) {
-	// 				console.error("Error fetching user data:", error);
-	// 			}
-	// 		};
-
-	// 		fetchUserData();
-	// 	}
-	// }, [userInfo]);
 
 	const handleEdit = async (event) => {
 		event.preventDefault();
 		try {
-			console.log(user.userId);
-			await axios.put(`http://localhost:3000/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
+			console.log(userData.userId);
+			await axios.put(`http://localhost:3000/users/${userData.userId}`, userData); // Adjust the URL based on your API endpoint
 			setIsEditing(false);
 		} catch (error) {
 			console.error("Error updating user data:", error);
 		}
 	};
-
+//do I need this? 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setUser((prevUser) => ({
@@ -87,7 +58,7 @@ const RentContent = ({ userInfo }) => {
 	};
 
 	// const {savedListings, removeListing} = useSavedListings();
-    console.log("Fetched userId before provider:", user.userId);
+    //console.log("Fetched userId before provider:", userData.userId);
 	return (
         <>
 		{/* //<SavedListingsProvider userId={user.userId}> */}
@@ -96,15 +67,15 @@ const RentContent = ({ userInfo }) => {
 					<img src={profileImg} alt="Profile" />
 				</div>
 				<div className="profile-details">
-					<h2>{user.name}</h2>
+					<h2>{userData.name}</h2>
 					<p>
 						Member since{" "}
-						{user.createdAt ? formatDate(user.createdAt) : "Loading..."}
+						{userData.createdAt ? formatDate(userData.createdAt) : "Loading..."}
 					</p>
 					<div className="contact-info">
-						<p>Email: {user.email}</p>
-						<p>Phone Number: {user.phoneNumber}</p>
-						<p>Location: {user.location}</p>
+						<p>Email: {userData.email}</p>
+						<p>Phone Number: {userData.phoneNumber}</p>
+						<p>Location: {userData.location}</p>
 					</div>
 					<button className="edit-button" onClick={() => setIsEditing(true)}>
 						Edit Account Details
@@ -121,7 +92,7 @@ const RentContent = ({ userInfo }) => {
 							<input
 								type="text"
 								name="phoneNumber"
-								value={user.phoneNumber || ""} // Default to empty string if undefined
+								value={userData.phoneNumber || ""} // Default to empty string if undefined
 								onChange={handleChange}
 							/>
 						</label>
@@ -130,7 +101,7 @@ const RentContent = ({ userInfo }) => {
 							<input
 								type="text"
 								name="location"
-								value={user.location || ""} // Default to empty string if undefined
+								value={userData.location || ""} // Default to empty string if undefined
 								onChange={handleChange}
 							/>
 						</label>
