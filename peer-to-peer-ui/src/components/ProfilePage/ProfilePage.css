@@ -410,6 +410,7 @@
 	font-family: 'Poppins', sans-serif;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	font-weight: bold;
   }
   
   .edit-button:hover,

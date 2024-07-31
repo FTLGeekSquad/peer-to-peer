@@ -5,9 +5,14 @@ import placeHolderListing from "../../assets/placeholderListing.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SavedListingsProvider } from "../../contexts/SavedListingsContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../GeneralModal/GeneralModal";
 
 
 const RentContent = ({ savedListings, removeListing, userInfo }) => {
+
+	const [selectedEquipment, setSelectedEquipment] = useState(null);
 
 	const [user, setUser] = useState({
 		name: "",
@@ -44,9 +49,9 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 						location: response.data.location || "",
 						createdAt: response.data.createdAt || "",
 						userId: response.data.userId || 0,
-                        
+
 					});
-        
+
 				} catch (error) {
 					console.error("Error fetching user data:", error);
 				}
@@ -85,7 +90,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 	// const {savedListings, removeListing} = useSavedListings();
     console.log("Fetched userId before provider:", user.userId);
 	return (
-        
+
 		<SavedListingsProvider userId={user.userId}>
 			<section className="profile-info">
 				<div className="profile-picture">
@@ -105,7 +110,7 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 					<button className="edit-button" onClick={() => setIsEditing(true)}>
 						Edit Account Details
 					</button>
-					<button className="logout" onClick={handleLogout}>Log out</button>
+					<button className='logout' onClick={handleLogout}>Log out</button>
 				</div>
 			</section>
 
@@ -138,37 +143,75 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 				</div>
 			)}
 
-			<section className="listings">
-				<div className="tabs">
-					<button className="tab active">Saved</button>
-				</div>
-				<div className="listings-grid">
-					{Array.isArray(savedListings) && savedListings.length > 0 ? (
-						savedListings.map((listing) => (
-							<div key={listing.listingId} className="listing-card">
-								<img src={listing.photo || placeHolderListing} alt="Listing" />
-								<div className="listing-details">
-									<p className="listing-title">{listing.title}</p>
-									<p className="listing-location">{listing.location}</p>
-									<p className="listing-price">
-										${listing.priceHourly} per hour
-									</p>
-								</div>
-								<button
-									className="contact-button"
-									onClick={() => removeListing(listing.listingId)}
-								>
-									Remove
-								</button>
-							</div>
-						))
-					) : (
-						<p>No saved listings.</p>
-					)}
-				</div>
-			</section>
+<section className="listings">
+      <div className="tabs">
+        <button className="tab active">Saved</button>
+      </div>
+      <div className="listings-grid">
+        {Array.isArray(savedListings) && savedListings.length > 0 ? (
+          savedListings.map((listing) => (
+            <div 
+              key={listing.listingId} 
+              className="listing-card" 
+              onClick={() => setSelectedEquipment(listing)} // Set selectedEquipment on click
+            >
+              <img 
+                src={listing.photo || placeHolderListing} 
+                alt="Listing" 
+              />
+              <div className="listing-details">
+                <div className="titleBookmark">
+                  <p className="listing-title">{listing.title}</p>
+                  <button
+                    className="bookmark-button active" // Initially active to show pink icon
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent modal from opening
+                      removeListing(listing.listingId);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faBookmark} />
+                  </button>
+                </div>
+                <p className="listing-location">{listing.location}</p>
+                <p className="listing-price">
+                  ${listing.priceHourly} per hour
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No saved listings.</p>
+        )}
+      </div>
+
+      {selectedEquipment && (
+        <Modal show={selectedEquipment !== null} onClose={() => setSelectedEquipment(null)}>
+          <h2 className="modalHeader">{selectedEquipment.title}</h2>
+          <img className="modal-img" src={selectedEquipment.photo} alt={selectedEquipment.title} />
+          <div className="modalWords">
+            <div className="upperWords">
+              <h2 className="lowerTitle">{selectedEquipment.title}</h2>
+              <p className="locationText">
+                <strong>Location:</strong> {selectedEquipment.location}
+              </p>
+            </div>
+            <p>{selectedEquipment.description}</p>
+			<p className="price">${selectedEquipment.priceHourly} per hour</p>
+
+            <div className="userInfo">
+              {selectedEquipment.user && (
+                <>
+                  <p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
+                  <p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p>
+                </>
+              )}
+            </div>
+          </div>
+        </Modal>
+      )}
+    </section>
             </SavedListingsProvider>
-		
+
 	);
 };
 
