@@ -9,7 +9,8 @@ export const SavedListingsProvider = ({ children, userId }) => {
 	console.log("userId in cintext is:",userId )
 	
 	const [savedListings, setSavedListings] = useState([]);
-
+//useState for user
+//const [userId, setUserId] = useState(null);
 
 	// Fetch saved listings from the backend when the component mounts
 	useEffect(() => {
@@ -53,7 +54,7 @@ export const SavedListingsProvider = ({ children, userId }) => {
 
 	return (
 		<SavedListingsContext.Provider
-			value={{ savedListings, saveListing, removeListing }}
+			value={{ savedListings, saveListing, removeListing, userId }}
 		>
 			{children}
 		</SavedListingsContext.Provider>

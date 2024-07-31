@@ -22,107 +22,52 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
     const navigate = useNavigate(); // get the navigate function from useNavigate
 
 
-	const [user, setUser] = useState({
-		name: "",
-		email: "",
-		phoneNumber: "",
-		location: "",
-		createdAt: "",
-		userId: 0,
-	});
+	// const [user, setUser] = useState({
+	// 	name: "",
+	// 	email: "",
+	// 	phoneNumber: "",
+	// 	location: "",
+	// 	createdAt: "",
+	// 	userId: 0,
+	// });
 
-	// useEffect(() => {
-	// 	if (userInfo) {
-	// 		const fetchUserData = async () => {
-	// 			console.log("Fetching user data...");
-	// 			try {
-	// 				const response = await axios.get(
-	// 					`http://localhost:3000/users/email/${userInfo.email}`
-	// 				); // Adjust the URL based on your API endpoint
-	// 				console.log("Response data:", response.data); // Log the response data
-	// 				setUser({
-	// 					name: response.data.name || "",
-	// 					email: response.data.email || "",
-	// 					phoneNumber: response.data.phoneNumber || "",
-	// 					location: response.data.location || "",
-	// 					createdAt: response.data.createdAt || "",
-	// 					userId: response.data.userId,
-	// 				});
-    //             if (response.data.userId)
-    //             {
-    //                 const response = await axios.get(`http://localhost:3000/listings/user/all-listings/${user.userId}`);
-	// 				setListings(response.data);
-	// 				setLoading(false);
-
-    //             }
-	// 			} catch (error) {
+    // //combines it into one user effect for data population
+    // useEffect(() => {
+    //     if (userInfo) {
+    //         const fetchUserData = async () => {
+    //             console.log("Fetching user data...");
+    //             try {
+    //                 const response = await axios.get(
+    //                     `http://localhost:3000/users/email/${userInfo.email}`
+    //                 );
+    //                 console.log("Response data:", response.data);
+    //                 const userData = {
+    //                     name: response.data.name || "",
+    //                     email: response.data.email || "",
+    //                     phoneNumber: response.data.phoneNumber || "",
+    //                     location: response.data.location || "",
+    //                     createdAt: response.data.createdAt || "",
+    //                     userId: response.data.userId,
+    //                 };
+    //                 setUser(userData);
+    
+    //                 if (userData.userId) {
+    //                     const listingsResponse = await axios.get(
+    //                         `http://localhost:3000/listings/all-listings/${userData.userId}`
+    //                     );
+    //                     setListings(listingsResponse.data);
+    //                 }
+    //                 setLoading(false);
+    //             } catch (error) {
     //                 setError(error);
-	// 				console.error("Error fetching user data:", error);
-	// 			}
-	// 		};
-	
-	// 		fetchUserData();
-	// 	}
-	// }, [userInfo]);
-
-    //combines it into one user effect for data population
-    useEffect(() => {
-        if (userInfo) {
-            const fetchUserData = async () => {
-                console.log("Fetching user data...");
-                try {
-                    const response = await axios.get(
-                        `http://localhost:3000/users/email/${userInfo.email}`
-                    );
-                    console.log("Response data:", response.data);
-                    const userData = {
-                        name: response.data.name || "",
-                        email: response.data.email || "",
-                        phoneNumber: response.data.phoneNumber || "",
-                        location: response.data.location || "",
-                        createdAt: response.data.createdAt || "",
-                        userId: response.data.userId,
-                    };
-                    setUser(userData);
+    //                 console.error("Error fetching user data:", error);
+    //             }
+    //         };
     
-                    if (userData.userId) {
-                        const listingsResponse = await axios.get(
-                            `http://localhost:3000/listings/user/all-listings/${userData.userId}`
-                        );
-                        setListings(listingsResponse.data);
-                    }
-                    setLoading(false);
-                } catch (error) {
-                    setError(error);
-                    console.error("Error fetching user data:", error);
-                }
-            };
+    //         fetchUserData();
+    //     }
+    // }, [userInfo]);
     
-            fetchUserData();
-        }
-    }, [userInfo]);
-    
-	
-	// New useEffect to fetch listings when user state is updated
-	// useEffect(() => {
-	// 	const fetchListings = async () => {
-	// 		if (user.userId) {
-	// 			console.log("Fetching listings for userId:", user.userId);
-	// 			try {
-	// 				const response = await axios.get(`http://localhost:3000/listings/user/all-listings/${user.userId}`);
-	// 				setListings(response.data);
-	// 				setLoading(false);
-	// 			} catch (err) {
-	// 				setError(err);
-	// 				setLoading(false);
-	// 			}
-	// 		}
-	// 	};
-	
-	// 	fetchListings();
-	// }, [user]); // Dependency array includes user
-	
-	
 
 	const handleLogout = () => {
 		console.log("Logging out");

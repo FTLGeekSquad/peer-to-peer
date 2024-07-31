@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ProfilePage.css";
 import profileImg from "../../assets/profile.png";
 import placeHolderListing from "../../assets/placeholderListing.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { SavedListingsProvider } from "../../contexts/SavedListingsContext";
+import { useSavedListings } from "../../contexts/SavedListingsContext";
 
 
-const RentContent = ({ savedListings, removeListing, userInfo }) => {
 
+const RentContent = ({ userInfo }) => {
+	const { savedListings, removeListing } = useSavedListings(); // Use the context
 	const [user, setUser] = useState({
 		name: "",
 		email: "",
@@ -28,33 +29,36 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 
 	const [isEditing, setIsEditing] = useState(false);
 
-	useEffect(() => {
-		if (userInfo) {
-			const fetchUserData = async () => {
-				console.log("Fetching user data...");
-				try {
-					const response = await axios.get(
-						`http://localhost:3000/users/email/${userInfo.email}`
-					);
-					console.log("Response data:", response.data);
-					setUser({
-						name: response.data.name || "",
-						email: response.data.email || "",
-						phoneNumber: response.data.phoneNumber || "",
-						location: response.data.location || "",
-						createdAt: response.data.createdAt || "",
-						userId: response.data.userId || 0,
-                        
-					});
-        
-				} catch (error) {
-					console.error("Error fetching user data:", error);
-				}
-			};
+	const {userId} = useSavedListings();
+	console.log("Rent Content Page", userId)
 
-			fetchUserData();
-		}
-	}, [userInfo]);
+	// useEffect(() => {
+	// 	if (userInfo) {
+	// 		const fetchUserData = async () => {
+	// 			console.log("Fetching user data...");
+	// 			try {
+	// 				const response = await axios.get(
+	// 					`http://localhost:3000/users/email/${userInfo.email}`
+	// 				);
+	// 				console.log("Response data:", response.data);
+	// 				setUser({
+	// 					name: response.data.name || "",
+	// 					email: response.data.email || "",
+	// 					phoneNumber: response.data.phoneNumber || "",
+	// 					location: response.data.location || "",
+	// 					createdAt: response.data.createdAt || "",
+	// 					userId: response.data.userId || 0,
+                        
+	// 				});
+        
+	// 			} catch (error) {
+	// 				console.error("Error fetching user data:", error);
+	// 			}
+	// 		};
+
+	// 		fetchUserData();
+	// 	}
+	// }, [userInfo]);
 
 	const handleEdit = async (event) => {
 		event.preventDefault();
@@ -85,8 +89,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 	// const {savedListings, removeListing} = useSavedListings();
     console.log("Fetched userId before provider:", user.userId);
 	return (
-        
-		<SavedListingsProvider userId={user.userId}>
+        <>
+		{/* //<SavedListingsProvider userId={user.userId}> */}
 			<section className="profile-info">
 				<div className="profile-picture">
 					<img src={profileImg} alt="Profile" />
@@ -167,7 +171,8 @@ const RentContent = ({ savedListings, removeListing, userInfo }) => {
 					)}
 				</div>
 			</section>
-            </SavedListingsProvider>
+            {/* </SavedListingsProvider> */}
+			</>
 		
 	);
 };

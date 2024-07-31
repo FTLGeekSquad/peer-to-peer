@@ -1,15 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import "./HomePage.css";
 import HeaderHomePage from "../HeaderHomePage/HeaderHomePage";
 import equipment from "/src/assets/equipment.png";
 import services from "/src/assets/services.png";
 import spaces from "/src/assets/spaces.png";
+import axios from "axios";
+import { SavedListingsProvider } from "../../contexts/SavedListingsContext.jsx";
 
-const HomePage = () => {
+
+const HomePage = ({setUserInfo}) => {
+//user useState
+const [userInfo, setUserInfo] = useState(null);
+const [error, setError] = useState(null);
+const [user, setUser] = useState({
+	name: "",
+	email: "",
+	phoneNumber: "",
+	location: "",
+	createdAt: "",
+	userId: 0,
+});
 	//Get the user info using the token -> set the userId in the COntext.
+	const token = localStorage.getItem("token");
+	// get the user from the token and get the user info from the DB using the backend
+	useEffect(() => {
+		if (token) {
+			// setToken(localStorage.getItem("token"))
+			setUserInfo(jwtDecode(token));
+		}
+	}, []);
+    //combines it into one user effect for data population
+    useEffect(() => {
+        if (userInfo) {
+            const fetchUserData = async () => {
+                console.log("Fetching user data...");
+                try {
+                    const response = await axios.get(
+                        `http://localhost:3000/users/email/${userInfo.email}`
+                    );
+                    console.log("Response data:", response.data);
+                    const userData = {
+                        name: response.data.name || "",
+                        email: response.data.email || "",
+                        phoneNumber: response.data.phoneNumber || "",
+                        location: response.data.location || "",
+                        createdAt: response.data.createdAt || "",
+                        userId: response.data.userId,
+                    };
+                    setUser(userData);
+    
+                    if (userData.userId) {
+                        const listingsResponse = await axios.get(
+                            `http://localhost:3000/listings/all-listings/${userData.userId}`
+                        );
+                        setListings(listingsResponse.data);
+						console.log('User Data in home page:', userInfo)
+                    }
+                    setLoading(false);
+                } catch (error) {
+                    setError(error);
+                    console.error("Error fetching user data:", error);
+                }
+            };
+    
+            fetchUserData();
+        }
+    }, [userInfo]);
+    
+
+
 	// The context will have the userID- all the components will thenhave the userID
 	return (
+<SavedListingsProvider userId={user.userId}>
+   
+
 		<div className="home-page">
 			<HeaderHomePage />
 			<div className="categories">
@@ -57,10 +123,12 @@ const HomePage = () => {
 				</div>
 			</footer>
 		</div>
+		</SavedListingsProvider>
 	);
 };
 
 export default HomePage;
+
 
 // import React from "react";
 // import { Link } from "react-router-dom";
