@@ -77,6 +77,7 @@
 	flex: 1;
 	border-right: 1px solid #ccc;
 	padding-right: 20px;
+	max-height: 20%;
 }
 
 .profile-picture img {
@@ -86,6 +87,7 @@
 
 .profile-details {
 	text-align: center;
+	max-height: 20%;
 }
 
 .edit-button {
@@ -354,3 +356,116 @@
 	margin-left: 0; /* Align the logo on the right */
   }
   
+  .profile-info {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #FBF7EE; /* Light gray background */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+	max-height: 20%;
+  }
+  
+  .profile-picture {
+	margin-right: 20px;
+  }
+  
+  .profile-picture img {
+	width: 120px; /* Adjust size as needed */
+	height: 120px;
+	border-radius: 50%;
+	border: 4px solid #e2e2e2; /* Light border */
+  }
+  
+  .profile-details {
+	flex: 1;
+  }
+  
+  .profile-details h2 {
+	margin: 0;
+	font-size: 24px;
+	color: #333;
+	font-family: 'Poppins', sans-serif; /* Playful font */
+  }
+  
+  .profile-details p {
+	margin: 5px 0;
+	color: #555;
+	font-family: 'Poppins', sans-serif;
+  }
+  
+  .contact-info p {
+	margin: 3px 0;
+	color: #777;
+  }
+  
+  .edit-button,
+  .logout {
+	margin-top: 10px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 20px;
+	background-color: #ffcccc; /* Soft pink */
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+  .edit-button:hover,
+  .logout:hover {
+	background-color: #ff9999; /* Darker pink on hover */
+  }
+  
+  .modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .modal form {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 300px;
+  }
+  
+  .modal label {
+	display: block;
+	margin-bottom: 10px;
+	color: #333;
+	font-family: 'Poppins', sans-serif;
+  }
+  
+  .modal input {
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+  }
+  
+  .modal button[type="submit"],
+  .modal button[type="button"] {
+	margin-top: 15px;
+	padding: 10px;
+	border: none;
+	border-radius: 20px;
+	background-color: #ffcccc;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+  .modal button[type="submit"]:hover,
+  .modal button[type="button"]:hover {
+	background-color: #ff9999;
+  }
