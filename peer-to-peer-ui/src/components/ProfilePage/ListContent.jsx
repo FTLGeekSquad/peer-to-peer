@@ -23,6 +23,10 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 	const [uploadSuccess, setUploadSuccess] = useState("");
     const [selectedEquipment, setSelectedEquipment] = useState(null);
 
+
+	const [isEditing, setIsEditing] = useState(false);
+
+
     const navigate = useNavigate(); // get the navigate function from useNavigate
 
 
@@ -105,6 +109,17 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
             fetchUserData();
         }
     }, [userInfo]);
+
+    const handleEdit = async (event) => {
+		event.preventDefault();
+		try {
+			console.log(user.userId);
+			await axios.put(`http://localhost:3000/users/${user.userId}`, user); // Adjust the URL based on your API endpoint
+			setIsEditing(false);
+		} catch (error) {
+			console.error("Error updating user data:", error);
+		}
+	};
 
 
 	// New useEffect to fetch listings when user state is updated
@@ -190,6 +205,14 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 		}
 	};
 
+    const handleChange = (event) => {
+		const { name, value } = event.target;
+		setUser((prevUser) => ({
+			...prevUser,
+			[name]: value,
+		}));
+	};
+
 	const subcategoryOptions = {
 		equipment: ["Cameras", "Lenses", "Flashes", "Tripods"],
 		spaces: ["Indoor", "Outdoor"],
@@ -239,10 +262,40 @@ const ListContent = ({ showCreateListing, setShowCreateListing, userInfo }) => {
 						<p>Phone Number: {user.phoneNumber}</p>
 						<p>Location: {user.location}</p>
 					</div>
-					<button className="edit-button" onClick={handleOpenModal}>
+					<button className="edit-button" onClick={() => setIsEditing(true)}>
 						Edit Account Details
 					</button>
 					<button className='logout' onClick={handleLogout}>Log out</button>
+
+                    {isEditing && (
+				<div className="modal">
+					<form onSubmit={handleEdit}>
+						<label>
+							Phone Number:
+							<input
+								type="text"
+								name="phoneNumber"
+								value={user.phoneNumber || ""} // Default to empty string if undefined
+								onChange={handleChange}
+							/>
+						</label>
+						<label>
+							Location:
+							<input
+								type="text"
+								name="location"
+								value={user.location || ""} // Default to empty string if undefined
+								onChange={handleChange}
+							/>
+						</label>
+						<button type="submit">Save</button>
+						<button type="button" onClick={() => setIsEditing(false)}>
+							Cancel
+						</button>
+					</form>
+				</div>
+			)}
+
 				</div>
 
 				<div className="createListing">
