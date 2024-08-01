@@ -8,6 +8,7 @@ import { useSavedListings } from "../../contexts/SavedListingsContext";
 import "./EquipmentGrid.css";
 import Modal from "../GeneralModal/GeneralModal";
 import Footer from "../Footer/Footer";
+import googleButton from "/src/assets/web_light_rd_SI.svg";
 
 function EquipmentGrid() {
   const [equipment, setEquipment] = useState([]);
@@ -16,8 +17,17 @@ function EquipmentGrid() {
   const [searchTerm, setSearchTerm] = useState("");
   const { saveListing } = useSavedListings();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const dataUrl = "http://localhost:3000/listings/filter/equipment";
+
+  const closeModal = () => {
+		setShowModal(false);
+	  };
+
+    const handleLogin = () => {
+      window.location.href = "http://localhost:3000/auth/login";
+    };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -88,6 +98,8 @@ function EquipmentGrid() {
                   onClick={handleItemClick}
                   listing={equip}
                   onSave={saveListing}
+                  setShowModal={setShowModal}
+                  isLoggedIn={isLoggedIn}
                 />
               </div>
             ))}
@@ -129,6 +141,19 @@ function EquipmentGrid() {
           {!isLoggedIn && <p>Please log in to view contact information.</p>}
         </Modal>
       )}
+
+<Modal show={showModal} onClose={closeModal}>
+        <div className="modal-content">
+          <h3>Please log in to save listings</h3>
+          <img
+            className="google-signin-button-icon"
+            onClick={handleLogin}
+            src={googleButton}
+            alt="Google icon"
+          />
+        </div>
+      </Modal>
+
       <Footer />
     </>
   );

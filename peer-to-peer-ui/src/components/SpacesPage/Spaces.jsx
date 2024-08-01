@@ -6,14 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
 
-function Spaces({ onClick, listing, onSave }) {
+function Spaces({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
 	const [isSaved, setIsSaved] = useState(false); // State to track if the item is saved
 
 	const handleSave = (event) => {
 		event.stopPropagation();
-		setIsSaved(!isSaved); // Toggle the saved state
-		onSave(listing); // Call the onSave function passed as a prop
-	};
+		if (isLoggedIn) {
+		  setIsSaved(!isSaved); // Toggle the saved state, will prolly have to change when jazz is done
+		  onSave(listing); // Call the onSave function passed as a prop
+		} else {
+		  setShowModal(true); // Show the modal if the user is not logged in
+		}
+	  };
+
 
 	const {
 		//instead of listing every param

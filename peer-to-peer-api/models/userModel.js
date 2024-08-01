@@ -16,7 +16,7 @@ const getUserByEmail = async (email) => {
 		where: { email },
 		include: {
 			allListings: true,
-			savedListings: true,
+			// savedListings: true,
 		},
 	});
 };

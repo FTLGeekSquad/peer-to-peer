@@ -1,10 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Equipment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { useSavedListings } from "../../contexts/SavedListingsContext";
-function Equipment({ onClick, listing, onSave }) {
+import googleButton from "/src/assets/web_light_rd_SI.svg";
+import Modal from "../GeneralModal/GeneralModal";
+
+function Equipment({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
 	// const { listingId, title, priceHourly, location } = listing;
 	const { saveListing } = useSavedListings(); // Get saveListing from context
 
@@ -23,16 +26,24 @@ function Equipment({ onClick, listing, onSave }) {
 
 	const [isSaved, setIsSaved] = useState(false); // State to track if the item is saved
 
-	const handleSave = (event) => {
+
+
+
+	  const handleSave = (event) => {
 		event.stopPropagation();
-		setIsSaved(!isSaved); // Toggle the saved state
-		onSave(listing); // Call the onSave function passed as a prop
-	};
+		if (isLoggedIn) {
+		  setIsSaved(!isSaved); // Toggle the saved state, will prolly have to change when jazz is done
+		  onSave(listing); // Call the onSave function passed as a prop
+		} else {
+		  setShowModal(true); // Show the modal if the user is not logged in
+		}
+	  };
+
+	  
 
 	return (
 		<div className="equipmentCard">
 			<div onClick={() => onClick(listing)}>
-				{/* <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> */}
 				<img src={photo} alt={title} />
 				<div className="titleBookmark">
 					<h3 className="equipmentCardTitle">{title}</h3>
@@ -49,9 +60,11 @@ function Equipment({ onClick, listing, onSave }) {
 				<div className="paragraph">
 					<p className="price">${priceHourly} / hr</p>
 					<p className="location">{location}</p>
-					{/* <button onClick={() => onSave(listing)}>Save</button> */}
 				</div>
 			</div>
+
+			
+			
 		</div>
 	);
 }

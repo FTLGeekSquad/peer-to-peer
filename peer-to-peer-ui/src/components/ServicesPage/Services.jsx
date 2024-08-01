@@ -3,7 +3,7 @@ import "./Services.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
-function Services({ onClick, listing, onSave }) {
+function Services({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
 	const {
 		listingId,
 		title,
@@ -18,11 +18,15 @@ function Services({ onClick, listing, onSave }) {
 	const [isSaved, setIsSaved] = useState(false);
 
 	const handleSave = (event) => {
-		// Prevent event propagation to stop modal from opening
 		event.stopPropagation();
-		setIsSaved(!isSaved);
-		onSave(listing);
-	};
+		if (isLoggedIn) {
+		  setIsSaved(!isSaved); // Toggle the saved state, will prolly have to change when jazz is done
+		  onSave(listing); // Call the onSave function passed as a prop
+		} else {
+		  setShowModal(true); // Show the modal if the user is not logged in
+		}
+	  };
+
 
 	return (
 		<div className="servicesCard" onClick={() => onClick(listing)}>

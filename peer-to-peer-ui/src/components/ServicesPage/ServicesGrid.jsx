@@ -10,6 +10,8 @@ import { useSavedListings } from "../../contexts/SavedListingsContext"; // Impor
 import "./ServicesGrid.css";
 import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import Footer from "../Footer/Footer";
+import googleButton from "/src/assets/web_light_rd_SI.svg";
+
 
 function ServicesGrid() {
 	const [services, setServices] = useState([]);
@@ -17,8 +19,26 @@ function ServicesGrid() {
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
+	const [showModal, setShowModal] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
 	const dataUrl = "http://localhost:3000/listings/filter/services";
+
+	const handleLogin = () => {
+		window.location.href = "http://localhost:3000/auth/login";
+	  };
+
+	const closeModal = () => {
+		setShowModal(false);
+	  };
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (token) {
+		  setIsLoggedIn(true);
+		}
+	  }, []);
 
 	useEffect(() => {
 		const fetchServices = async () => {
@@ -85,6 +105,8 @@ function ServicesGrid() {
 									onClick={handleItemClick}
 									listing={service}
 									onSave={saveListing} // Pass the saveListing function
+									setShowModal={setShowModal}
+                  					isLoggedIn={isLoggedIn}
 								/>
 							</div>
 						))}
@@ -93,18 +115,51 @@ function ServicesGrid() {
 			</div>
 
 			{selectedService && (
-				<Modal
-					show={selectedService !== null}
-					onClose={() => setSelectedService(null)}
-				>
-					<img className="modal-img" src={selectedService.photo} />
-					<h2>{selectedService.title}</h2>
-					<p>
-						<strong>Location:</strong> {selectedService.location}
-					</p>
-					<p>{selectedService.description}</p>
-				</Modal>
-			)}
+        <Modal
+          show={selectedService !== null}
+          onClose={() => setSelectedService(null)}
+        >
+          <h2 className="modalHeader">{selectedService.title}</h2>
+          <img className="modal-img" src={selectedService.photo} />
+          <div className="modalWords">
+            <div className="upperWords">
+              <h2 className="lowerTitle">{selectedService.title}</h2>
+              <p className="locationText">
+                <strong>Location:</strong> {selectedService.location}
+              </p>
+            </div>
+            <p>{selectedService.description}</p>
+            <div
+              className="userInfo"
+              style={{ filter: isLoggedIn ? "none" : "blur(5px)" }}
+            >
+              {selectedService.user && (
+                <>
+                  <p>
+                    <strong>Posted by:</strong> {selectedService.user.name}
+                  </p>
+                  <p>
+                    <strong>Contact:</strong> {selectedService.user.phoneNumber}
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+          {!isLoggedIn && <p>Please log in to view contact information.</p>}
+        </Modal>
+      )}
+
+			<Modal show={showModal} onClose={closeModal}>
+        <div className="modal-content">
+          <h3>Please log in to save listings</h3>
+          <img
+            className="google-signin-button-icon"
+            onClick={handleLogin}
+            src={googleButton}
+            alt="Google icon"
+          />
+        </div>
+      </Modal>
 			<Footer/>
 		</>
 	);

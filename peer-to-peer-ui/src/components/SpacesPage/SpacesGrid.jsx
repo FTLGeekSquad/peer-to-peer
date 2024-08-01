@@ -7,6 +7,8 @@ import { useSavedListings } from "../../contexts/SavedListingsContext"; // Impor
 import "./SpacesGrid.css";
 import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import Footer from "../Footer/Footer";
+import googleButton from "/src/assets/web_light_rd_SI.svg";
+
 
 function SpacesGrid() {
 	const [spaces, setSpaces] = useState([]);
@@ -14,8 +16,25 @@ function SpacesGrid() {
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
+	const [showModal, setShowModal] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (token) {
+		  setIsLoggedIn(true);
+		}
+	  }, []);
 
 	const dataUrl = "http://localhost:3000/listings/filter/spaces";
+
+	const closeModal = () => {
+		setShowModal(false);
+	  };
+
+    const handleLogin = () => {
+      window.location.href = "http://localhost:3000/auth/login";
+    };
 
 	useEffect(() => {
 		const fetchSpaces = async () => {
@@ -82,6 +101,8 @@ function SpacesGrid() {
 									onClick={handleItemClick}
 									listing={space}
 									onSave={saveListing} // Pass the saveListing function
+									setShowModal={setShowModal}
+                  					isLoggedIn={isLoggedIn}
 								/>
 							</div>
 						))}
@@ -90,18 +111,51 @@ function SpacesGrid() {
 			</div>
 
 			{selectedSpace && (
-				<Modal
-					show={selectedSpace !== null}
-					onClose={() => setSelectedSpace(null)}
-				>
-					<img className="modal-img" src={selectedSpace.photo} />
-					<h2>{selectedSpace.title}</h2>
-					<p>
-						<strong>Location:</strong> {selectedSpace.location}
-					</p>
-					<p>{selectedSpace.description}</p>
-				</Modal>
-			)}
+        <Modal
+          show={selectedSpace !== null}
+          onClose={() => setSelectedSpace(null)}
+        >
+          <h2 className="modalHeader">{selectedSpace.title}</h2>
+          <img className="modal-img" src={selectedSpace.photo} />
+          <div className="modalWords">
+            <div className="upperWords">
+              <h2 className="lowerTitle">{selectedSpace.title}</h2>
+              <p className="locationText">
+                <strong>Location:</strong> {selectedSpace.location}
+              </p>
+            </div>
+            <p>{selectedSpace.description}</p>
+            <div
+              className="userInfo"
+              style={{ filter: isLoggedIn ? "none" : "blur(5px)" }}
+            >
+              {selectedSpace.user && (
+                <>
+                  <p>
+                    <strong>Posted by:</strong> {selectedSpace.user.name}
+                  </p>
+                  <p>
+                    <strong>Contact:</strong> {selectedSpace.user.phoneNumber}
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+          {!isLoggedIn && <p>Please log in to view contact information.</p>}
+        </Modal>
+      )}
+
+<Modal show={showModal} onClose={closeModal}>
+        <div className="modal-content">
+          <h3>Please log in to save listings</h3>
+          <img
+            className="google-signin-button-icon"
+            onClick={handleLogin}
+            src={googleButton}
+            alt="Google icon"
+          />
+        </div>
+      </Modal>
 			<Footer/>
 		</>
 	);
