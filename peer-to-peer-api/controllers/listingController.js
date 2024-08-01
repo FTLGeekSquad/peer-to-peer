@@ -113,7 +113,8 @@ const getListingsByUserId = async (req, res) => {
     try {
         const user = await prisma.user.findUnique({
             where: { userId: parseInt(userId) },
-            include: { allListings: true }
+            include: { allListings: true },
+			
         });
 
         if (!user) {

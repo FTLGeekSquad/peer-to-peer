@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import RentContent from "./RentContent";
 import ListContent from "./ListContent";
+import Footer from "../Footer/Footer";
+import headerLogo from "/src/assets/header_logo.png";
 
 
 const ProfilePage = () => {
@@ -24,10 +26,16 @@ const ProfilePage = () => {
 	}, []);
 
 	return (
+		<>
 		<div className="profile-page">
+
+		<div className="header-container">
 			<Link to="/home">
 				<img src={logo} alt="Logo" className="logo" />
 			</Link>
+			<img className="header-logo" src={headerLogo} />
+
+		</div>
 			<header className="header">
 				<nav className="navigation">
 					<button
@@ -60,7 +68,11 @@ const ProfilePage = () => {
 					/>
 				)}
 			</main>
+			
+
 		</div>
+		<Footer/>
+		</>
 	);
 };
 

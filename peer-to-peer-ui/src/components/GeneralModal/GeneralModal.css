@@ -9,79 +9,92 @@
 	justify-content: center;
 	align-items: center;
 	z-index: 1000;
-}
-
-.modal-content {
+  }
+  
+  .modal-content {
 	background: #fffbf3; /* Soft, light background color */
 	border-radius: 20px; /* More rounded corners */
 	width: 90%;
 	max-width: 500px;
-	padding: 25px; /* Slightly increased padding */
+	padding: 0; /* Remove padding to allow header to cover the full width */
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Larger, softer shadow */
 	animation: slideDown 0.4s ease-out; /* Slightly longer animation */
-	border: 2px solid #dbb3b3; /* Light, playful border color */
-}
-
-.modal-header {
+  }
+  
+  .modal-header {
+	background-color: #C3CBC6; /* Green background color */
+	color: #fff; /* White text color */
+	padding: 15px;
+	border-radius: 20px 20px 0 0; /* Rounded corners only at the top */
 	display: flex;
-	justify-content: flex-end;
-}
-
-.modal-header .close {
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  .modal-header .close {
 	background: none;
 	border: none;
 	font-size: 1.5rem;
+	color: #fff;
 	cursor: pointer;
-}
-
-.modal-body {
+	margin-left: auto;
+  }
+  
+  .modal-header .title {
+	font-size: 1.25rem;
+	font-weight: bold;
+  }
+  
+  .modal-body {
+	padding: 25px; /* Padding inside the modal body */
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
-}
-
-.styled-input,
-.fileUpload {
+  }
+  
+  .styled-input,
+  .fileUpload {
 	padding: 10px;
 	margin: 10px 0;
 	border: 2px solid #eee;
 	border-radius: 5px;
 	width: 100%;
-}
-
-.styled-input:focus {
+  }
+  
+  .styled-input:focus {
 	border-color: #D6AEAE;
 	outline: none;
-}
-
-.create-listing-button {
+  }
+  
+  .create-listing-button {
 	background: linear-gradient(45deg, #c3cbc5, #d6aeae);
 	color: #fff;
 	border: none;
 	padding: 10px 20px;
 	border-radius: 5px;
 	cursor: pointer;
-	transition: background 0.3s ease;
-}
-
-.create-listing-button:hover {
+	/* transition: background 0.3s ease; */
+  }
+  
+  .create-listing-button:hover {
 	background: linear-gradient(45deg, #D6AEAE, #d6aeae);
-}
-
-.centered-form {
+  }
+  
+  .centered-form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 15px;
-}
-
-@keyframes slideDown {
+  }
+  
+  @keyframes slideDown {
 	from {
-		opacity: 0;
-		transform: translateY(-20%);
+	  opacity: 0;
+	  transform: translateY(-20%);
 	}
 	to {
-		opacity: 1;
-		transform: translateY(0);
+	  opacity: 1;
+	  transform: translateY(0);
 	}
-}
+  }
+  

@@ -7,10 +7,12 @@ import axios from "axios";
 import FileUpload from "../FileUpload/FileUpload";
 import { useNavigate } from "react-router-dom";
 import { useSavedListings } from "../../contexts/SavedListingsContext";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../GeneralModal/GeneralModal";
 
 const ListContent = ({ showCreateListing, setShowCreateListing }) => {
-	const { userData } = useSavedListings();
+	const { userData, setUserData } = useSavedListings();
 	console.log(userData)
 	const [listings, setListings] = useState(null);
 	const [title, setTitle] = useState("");
@@ -23,6 +25,8 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 	const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const [uploadSuccess, setUploadSuccess] = useState("");
+	const [isEditing, setIsEditing] = useState(false);
+	const [selectedEquipment, setSelectedEquipment] = useState(null);
 
     const navigate = useNavigate(); // get the navigate function from useNavigate
 	
@@ -35,6 +39,19 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 		localStorage.removeItem("token");
 		navigate("/home");
 	};
+
+	const handleEdit = async (event) => {
+        event.preventDefault();
+        try {
+            await axios.put(`http://localhost:3000/users/${userData.userId}`, {
+                phoneNumber: userData.phoneNumber,
+                location: userData.location,
+            });
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    };
 
 console.log("Listings:", userData.listings)
 
@@ -54,6 +71,8 @@ console.log("Listings:", userData.listings)
 		setIsPhotoUploaded(false);
 		setUploadSuccess("");
 	};
+
+
 
 	const handleCreateListing = async (e) => {
 		e.preventDefault();
@@ -92,6 +111,15 @@ console.log("Listings:", userData.listings)
 		}
 	};
 
+	const handleChange = (event) => {
+        const { name, value } = event.target;
+        setUserData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+
 	const subcategoryOptions = {
 		equipment: ["Cameras", "Lenses", "Flashes", "Tripods"],
 		spaces: ["Indoor", "Outdoor"],
@@ -111,6 +139,7 @@ console.log("Listings:", userData.listings)
 		}
 	};
 
+	
 	const formatDate = (dateString) => {
 		const options = { year: "numeric", month: "long", day: "numeric" };
 		const date = new Date(dateString);
@@ -133,7 +162,7 @@ console.log("Listings:", userData.listings)
 				<div className="profile-details">
 					<h2>{userData.name}</h2>
 					<p>
-						Member since:{" "}
+						Member since{" "}
 						{userData.createdAt ? formatDate(userData.createdAt) : "Loading..."}
 					</p>
 					<div className="contact-info">
@@ -141,10 +170,40 @@ console.log("Listings:", userData.listings)
 						<p>Phone Number: {userData.phoneNumber}</p>
 						<p>Location: {userData.location}</p>
 					</div>
-					<button className="edit-button" onClick={handleOpenModal}>
+					<button className="edit-button" onClick={() => setIsEditing(true)}>
 						Edit Account Details
 					</button>
-					<button onClick={handleLogout}>Log out</button>
+					<button className='logout' onClick={handleLogout}>Log out</button>
+
+                    {isEditing && (
+				<div className="modal">
+					<form onSubmit={handleEdit}>
+						<label>
+							Phone Number:
+							<input
+								type="text"
+								name="phoneNumber"
+								value={userData.phoneNumber || ""} // Default to empty string if undefined
+								onChange={handleChange}
+							/>
+						</label>
+						<label>
+							Location:
+							<input
+								type="text"
+								name="location"
+								value={userData.location || ""} // Default to empty string if undefined
+								onChange={handleChange}
+							/>
+						</label>
+						<button type="submit">Save</button>
+						<button type="button" onClick={() => setIsEditing(false)}>
+							Cancel
+						</button>
+					</form>
+				</div>
+			)}
+
 				</div>
 
 				<div className="createListing">
@@ -262,29 +321,63 @@ console.log("Listings:", userData.listings)
 			</section>
 
 			<section className="listings">
-				<div className="tabs">
-					<button className="tab active">All</button>
-				</div>
-				<div className="listings-grid">
-					{userData.listings.length > 0 ? (
-						userData.listings.map((listing) => (
-							<div key={listing.listingId} className="listing-card">
-								<img src={listing.photo || placeHolderListing} alt="Listing" />
-								<div className="listing-details">
-									<p className="listingCardTitle">{listing.title}</p>
-									<div className="paragraph">
-										<p className="location">{listing.location}</p>
-										<p className="price">${listing.priceHourly} per hour</p>
-									</div>
-									
-								</div>
-							</div>
-						))
-					) : (
-						<p>No listings available.</p> 
-					)}
-				</div>
-			</section>
+      <div className="tabs">
+        <button className="tab active">All</button>
+      </div>
+      <div className="listings-grid">
+        {userData.listings.length > 0 ? (
+          userData.listings.map((listing) => (
+            <div 
+              key={listing.listingId} 
+              className="listing-card" 
+              onClick={() => setSelectedEquipment(listing)}
+            >
+              <img 
+                src={listing.photo || placeHolderListing} 
+                alt="Listing" 
+              />
+              <div className="listing-details">
+                <p className="listingCardTitle">{listing.title}</p>
+                <div className="paragraph">
+                  <p className="location">{listing.location}</p>
+                  <p className="price">${listing.priceHourly} per hour</p>
+                </div>
+                {/* Add other listing details here if needed */}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No listings available.</p>
+        )}
+      </div>
+
+      {selectedEquipment && (
+        <Modal show={selectedEquipment !== null} onClose={() => setSelectedEquipment(null)}>
+          <h2 className="modalHeader">{selectedEquipment.title}</h2>
+          <img className="modal-img" src={selectedEquipment.photo} alt={selectedEquipment.title} />
+          <div className="modalWords">
+            <div className="upperWords">
+              <h2 className="lowerTitle">{selectedEquipment.title}</h2>
+              <p className="locationText">
+                <strong>Location:</strong> {selectedEquipment.location}
+              </p>
+            </div>
+            <p>{selectedEquipment.description}</p>
+			<p className="price">${selectedEquipment.priceHourly} per hour</p>
+            <div className="userInfo" >
+              
+                <>
+                  {/* <p><strong>Posted by:</strong> {selectedEquipment.user.name}</p>
+                  <p><strong>Contact:</strong> {selectedEquipment.user.phoneNumber}</p> */}
+				  
+                </>
+              
+			  {/* the user name and contact info aren't posting in the modal */}
+            </div>
+          </div>
+        </Modal>
+      )}
+    </section>
 		</>
 	);
 };
