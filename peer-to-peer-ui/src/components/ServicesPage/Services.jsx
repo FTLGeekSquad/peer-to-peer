@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "./Services.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-
-function Services({ onClick, listing, onSave }) {
+import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
+import axios from "axios";
+function Services({ onClick, listing }) {
+	const { userData, setUserData } = useSavedListings();
+	const [isSaved, setIsSaved] = useState(false);
+	const [savedListings, setSavedListings] = useState([]);
 	const {
 		listingId,
 		title,
@@ -15,14 +19,40 @@ function Services({ onClick, listing, onSave }) {
 		location,
 	} = listing;
 
-	const [isSaved, setIsSaved] = useState(false);
+	const saveListing = async (listingId) => {
+		try {
+			const response = await axios.post(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings([...savedListings, response.data]);
+			setUserData(userData);
+		} catch (error) {
+			console.error("Error saving listing:", error);
+		}
+	};
+
+	const removeListing = async (listingId) => {
+		try {
+			const response = await axios.delete(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
+			//sets it to listings that do not have the removed listingId
+			//setUserData(user);
+		} catch (error) {
+			console.error("Error removing listing:", error);
+		}
+	};
 
 	const handleSave = (event) => {
-		// Prevent event propagation to stop modal from opening
-		event.stopPropagation();
-		setIsSaved(!isSaved);
-		onSave(listing);
-	};
+        event.stopPropagation();
+        if (isSaved) {
+            removeListing(listingId);
+        } else {
+            saveListing(listingId);
+        }
+        setIsSaved(!isSaved);
+    };
 
 	return (
 		<div className="servicesCard" onClick={() => onClick(listing)}>

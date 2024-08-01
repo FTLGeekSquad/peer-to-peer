@@ -8,11 +8,12 @@ router.post("/", userController.createUser);
 router.put("/:userId", userController.updateUser);
 router.delete("/:userId", userController.deleteUser);
 router.get("/email/:userEmail", userController.getUserByEmail);
+
 // Get saved listings for a user
 router.get('/:userId/saved-listings', userController.getSavedListings);
 
 // Add a listing to saved listings
-router.post('/:userId/saved-listings', userController.saveListing);
+router.post('/:userId/saved-listings/:listingId', userController.saveListing);
 
 // Remove a listing from saved listings
 router.delete('/:userId/saved-listings/:listingId', userController.removeListing);

@@ -4,12 +4,12 @@ import "./Equipment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { useSavedListings } from "../../contexts/SavedListingsContext";
-function Equipment({ onClick, listing, onSave }) {
-	// const { listingId, title, priceHourly, location } = listing;
-	const { saveListing } = useSavedListings(); // Get saveListing from context
-
+import axios from "axios";
+function Equipment({ onClick, listing }) {
+	const { userData, setUserData } = useSavedListings();
+	const [isSaved, setIsSaved] = useState(false);
+	const [savedListings, setSavedListings] = useState([]);
 	const {
-		//instead of listing every param
 		listingId,
 		title,
 		description,
@@ -18,21 +18,47 @@ function Equipment({ onClick, listing, onSave }) {
 		priceHourly,
 		photo,
 		location,
-		//availability
 	} = listing;
 
-	const [isSaved, setIsSaved] = useState(false); // State to track if the item is saved
+	const saveListing = async (listingId) => {
+		try {
+			const response = await axios.post(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings([...savedListings, response.data]);
+			//setUserData(user);
+		} catch (error) {
+			console.error("Error saving listing:", error);
+		}
+	};
+
+	const removeListing = async (listingId) => {
+		try {
+			const response = await axios.delete(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
+			//sets it to listings that do not have the removed listingId
+			//setUserData(user);
+		} catch (error) {
+			console.error("Error removing listing:", error);
+		}
+	};
 
 	const handleSave = (event) => {
-		event.stopPropagation();
-		setIsSaved(!isSaved); // Toggle the saved state
-		onSave(listing); // Call the onSave function passed as a prop
-	};
+        event.stopPropagation();
+        if (isSaved) {
+            removeListing(listingId);
+        } else {
+            saveListing(listingId);
+        }
+        setIsSaved(!isSaved);
+    };
+
 
 	return (
 		<div className="equipmentCard">
 			<div onClick={() => onClick(listing)}>
-				{/* <img src={`https://picsum.photos/200?random=${listingId}`} alt={title} /> */}
 				<img src={photo} alt={title} />
 				<div className="titleBookmark">
 					<h3 className="equipmentCardTitle">{title}</h3>

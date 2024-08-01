@@ -12,12 +12,11 @@ import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import Footer from "../Footer/Footer";
 
 function ServicesGrid() {
+	const { userData, setUserData } = useSavedListings();
 	const [services, setServices] = useState([]);
 	const [selectedService, setSelectedService] = useState(null); // State for modal
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
-	const { saveListing } = useSavedListings(); // Use the context
-
 	const dataUrl = "http://localhost:3000/listings/filter/services";
 
 	useEffect(() => {
@@ -84,7 +83,6 @@ function ServicesGrid() {
 								<Services
 									onClick={handleItemClick}
 									listing={service}
-									onSave={saveListing} // Pass the saveListing function
 								/>
 							</div>
 						))}

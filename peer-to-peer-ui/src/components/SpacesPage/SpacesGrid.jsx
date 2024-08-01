@@ -9,12 +9,11 @@ import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
 import Footer from "../Footer/Footer";
 
 function SpacesGrid() {
+	const { userData, setUserData } = useSavedListings();
 	const [spaces, setSpaces] = useState([]);
 	const [selectedSpace, setSelectedSpace] = useState(null); // State for modal
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
-	const { saveListing } = useSavedListings(); // Use the context
-
 	const dataUrl = "http://localhost:3000/listings/filter/spaces";
 
 	useEffect(() => {
@@ -81,7 +80,6 @@ function SpacesGrid() {
 								<Spaces
 									onClick={handleItemClick}
 									listing={space}
-									onSave={saveListing} // Pass the saveListing function
 								/>
 							</div>
 						))}

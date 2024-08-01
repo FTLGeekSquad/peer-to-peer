@@ -10,15 +10,15 @@ import Modal from "../GeneralModal/GeneralModal";
 import Footer from "../Footer/Footer";
 
 function EquipmentGrid() {
+  const { userData, setUserData } = useSavedListings();
   const [equipment, setEquipment] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { saveListing } = useSavedListings();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const dataUrl = "http://localhost:3000/listings/filter/equipment";
-
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(false); //do we need this?
+//do we need this?
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -87,7 +87,6 @@ function EquipmentGrid() {
                 <Equipment
                   onClick={handleItemClick}
                   listing={equip}
-                  onSave={saveListing}
                 />
               </div>
             ))}
