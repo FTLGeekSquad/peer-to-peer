@@ -26,7 +26,7 @@ function Equipment({ onClick, listing }) {
 				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
 			);
 			setSavedListings([...savedListings, response.data]);
-			//setUserData(user);
+			setUserData(userData); //maybe
 		} catch (error) {
 			console.error("Error saving listing:", error);
 		}
@@ -39,7 +39,7 @@ function Equipment({ onClick, listing }) {
 			);
 			setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
 			//sets it to listings that do not have the removed listingId
-			//setUserData(user);
+			setUserData(userData); //maybe
 		} catch (error) {
 			console.error("Error removing listing:", error);
 		}

@@ -26,8 +26,9 @@ const Header = ({ handleSubmit }) => {
 	return (
 		<div>
 			{/* <h1 className="bigTitle">Peer2Peer</h1> */}
-			<header className="header">
 			<img className='header-logo' src={headerLogo} />
+			<header className="header">
+			
 
 				<Link to="/home">
 					<img src={logo} alt="Logo" className="logo" />

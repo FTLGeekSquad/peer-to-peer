@@ -21,6 +21,8 @@ const RentContent = () => {
         setSavedListings(userData.savedListings);
     }, [userData]);
 
+
+	
     const handleLogout = () => {
         console.log("Logging out");
         localStorage.removeItem("token");
@@ -55,6 +57,19 @@ const RentContent = () => {
         const date = new Date(dateString);
         return date.toLocaleDateString(undefined, options);
     };
+	
+	const removeListing = async (listingId) => {
+		try {
+			const response = await axios.delete(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
+			//sets it to listings that do not have the removed listingId
+			setUserData(userData); //maybe
+		} catch (error) {
+			console.error("Error removing listing:", error);
+		}
+	};
 
     return (
         <>
