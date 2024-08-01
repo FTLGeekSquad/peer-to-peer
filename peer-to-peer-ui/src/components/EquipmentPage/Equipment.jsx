@@ -1,18 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+
+import React, { useState, useEffect } from "react";
 import "./Equipment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-import { useSavedListings } from "../../contexts/SavedListingsContext";
-import googleButton from "/src/assets/web_light_rd_SI.svg";
-import Modal from "../GeneralModal/GeneralModal";
+import axios from "axios";
 
-function Equipment({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
-	// const { listingId, title, priceHourly, location } = listing;
-	const { saveListing } = useSavedListings(); // Get saveListing from context
-
+function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal, userData, setUserData }) {
+	const [isSaved, setIsSaved] = useState(false);
+	const [savedListings, setSavedListings] = useState([]);
 	const {
-		//instead of listing every param
 		listingId,
 		title,
 		description,
@@ -21,25 +17,62 @@ function Equipment({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
 		priceHourly,
 		photo,
 		location,
-		//availability
 	} = listing;
 
-	const [isSaved, setIsSaved] = useState(false); // State to track if the item is saved
+	useEffect(() => {
+		if (userData && userData.savedListings) {
+			const isListingSaved = userData.savedListings.some(
+				(savedListing) => savedListing.listingId === listingId
+			);
+			setIsSaved(isListingSaved);
+		}
+	}, [userData, listingId]);
 
+	const saveListing = async (listingId) => {
+		try {
+			const response = await axios.post(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings([...savedListings, response.data]);
+			setUserData({
+				...userData,
+				savedListings: [...userData.savedListings, response.data],
+			});
+		} catch (error) {
+			console.error("Error saving listing:", error);
+		}
+	};
 
+	const removeListing = async (listingId) => {
+		try {
+			await axios.delete(
+				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+			);
+			setSavedListings(savedListings.filter((listing) => listing.listingId !== listingId));
+			setUserData({
+				...userData,
+				savedListings: userData.savedListings.filter(
+					(listing) => listing.listingId !== listingId
+				),
+			});
+		} catch (error) {
+			console.error("Error removing listing:", error);
+		}
+	};
 
-
-	  const handleSave = (event) => {
+	const handleSave = (event) => {
 		event.stopPropagation();
 		if (isLoggedIn) {
-		  setIsSaved(!isSaved); // Toggle the saved state, will prolly have to change when jazz is done
-		  onSave(listing); // Call the onSave function passed as a prop
+			if (isSaved) {
+				removeListing(listingId);
+			} else {
+				saveListing(listingId);
+			}
+			setIsSaved(!isSaved);
 		} else {
-		  setShowModal(true); // Show the modal if the user is not logged in
+			setShowLoginModal(true);
 		}
-	  };
-
-	  
+	};
 
 	return (
 		<div className="equipmentCard">
@@ -47,14 +80,12 @@ function Equipment({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
 				<img src={photo} alt={title} />
 				<div className="titleBookmark">
 					<h3 className="equipmentCardTitle">{title}</h3>
-
 					<button
-					className={`bookmark-button ${isSaved ? "active" : ""}`}
-					onClick={handleSave}
-					// Ensure bookmark button click does not propagate
-					onMouseDown={(e) => e.preventDefault()}
-				>
-					<FontAwesomeIcon icon={faBookmark} />
+						className={`bookmark-button ${isSaved ? "active" : ""}`}
+						onClick={handleSave}
+						onMouseDown={(e) => e.preventDefault()}
+					>
+						<FontAwesomeIcon icon={faBookmark} />
 					</button>
 				</div>
 				<div className="paragraph">
@@ -62,9 +93,6 @@ function Equipment({ onClick, listing, onSave, setShowModal, isLoggedIn }) {
 					<p className="location">{location}</p>
 				</div>
 			</div>
-
-			
-			
 		</div>
 	);
 }

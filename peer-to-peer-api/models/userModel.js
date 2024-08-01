@@ -16,7 +16,7 @@ const getUserByEmail = async (email) => {
 		where: { email },
 		include: {
 			allListings: true,
-			// savedListings: true,
+			savedListings: true,
 		},
 	});
 };
@@ -77,7 +77,7 @@ const getSavedListings = async (userId) => {
 };
 
 // Add a listing to the user's saved listings
-const saveListing = async (userId, listing) => {
+const saveListing = async (userId, listingId) => {
 	// Retrieve the current user's savedListings
 	const user = await prisma.user.findUnique({
 		where: { userId: parseInt(userId) },
@@ -88,23 +88,18 @@ const saveListing = async (userId, listing) => {
 		throw new Error("User not found");
 	}
 
-	// Ensure savedListings is treated as an array
-	const currentListings = Array.isArray(user.savedListings)
-		? user.savedListings
-		: [];
-
-	// Add the new listing to the current listings
-	const updatedListings = [...currentListings, listing];
-
-	// Update the user's savedListings in the database
-	const updatedUser = await prisma.user.update({
-		where: { userId: parseInt(userId) },
+	return prisma.listing.update({
+		where: {
+			listingId: parseInt(listingId)
+		}, 
 		data: {
-			savedListings: updatedListings,
-		},
-	});
-
-	return updatedUser.savedListings;
+			savedUsers: {
+				connect: {
+					userId: parseInt(userId)
+				}
+			}
+		}
+	})
 };
 
 // Remove a listing from the user's saved listings
@@ -113,19 +108,23 @@ const removeListing = async (userId, listingId) => {
 		where: { userId: parseInt(userId) },
 		select: { savedListings: true },
 	});
-	if (!user) throw new Error("User not found");
 
-	const updatedListings = user.savedListings.filter(
-		(listing) => listing.listingId !== parseInt(listingId)
-	);
+	if (!user) {
+		throw new Error("User not found");
+	}
 
-	const updatedUser = await prisma.user.update({
-		where: { userId: parseInt(userId) },
+	return prisma.listing.update({
+		where: {
+			listingId: parseInt(listingId)
+		}, 
 		data: {
-			savedListings: updatedListings,
-		},
-	});
-	return updatedUser.savedListings;
+			savedUsers: {
+				disconnect: {
+					userId: parseInt(userId)
+				}
+			}
+		}
+	})
 };
 
 module.exports = {

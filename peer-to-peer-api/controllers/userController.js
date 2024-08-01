@@ -108,11 +108,10 @@ const getSavedListings = async (req, res) => {
 
 // Add a listing to saved listings
 const saveListing = async (req, res) => {
-    const { userId } = req.params;
-    const { listing } = req.body;
+    const { userId, listingId } = req.params;
 
     try {
-        const updatedListings = await userModel.saveListing(userId, listing);
+        const updatedListings = await userModel.saveListing(userId, listingId);
         res.json(updatedListings);
     } catch (error) {
         res.status(500).json({ message: 'Error saving listing', error: error.message });

@@ -16,6 +16,7 @@
   
   .subcategoryToggle {
 	margin-bottom: 20px; /* Space between toggle buttons and equipment grid */
+	margin-top: 20px;
   }
   
   .equipmentGrid {
@@ -66,15 +67,4 @@
   }
   
 
-<<<<<<< HEAD
-.modal-img {
-	width: 200px;
-}
 
-.css-d9c359-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
-    color: red;
-    background-color: rgba(25, 118, 210, 0.08);
-}
-
-=======
->>>>>>> e6f09f89e35bdb637835ce0660604e33e0adb27d

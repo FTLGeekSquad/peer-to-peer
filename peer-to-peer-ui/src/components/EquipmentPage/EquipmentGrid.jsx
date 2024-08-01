@@ -1,4 +1,5 @@
-// EquipmentGrid.jsx
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -11,23 +12,15 @@ import Footer from "../Footer/Footer";
 import googleButton from "/src/assets/web_light_rd_SI.svg";
 
 function EquipmentGrid() {
+  const { userData, setUserData } = useSavedListings();
   const [equipment, setEquipment] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { saveListing } = useSavedListings();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const dataUrl = "http://localhost:3000/listings/filter/equipment";
-
-  const closeModal = () => {
-		setShowModal(false);
-	  };
-
-    const handleLogin = () => {
-      window.location.href = "http://localhost:3000/auth/login";
-    };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -68,6 +61,10 @@ function EquipmentGrid() {
     setSelectedEquipment(equip);
   };
 
+  const handleLogin = () => {
+    window.location.href = "http://localhost:3000/auth/login";
+  };
+
   const filteredEquipment = equipment.filter((equip) =>
     equip.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -97,9 +94,10 @@ function EquipmentGrid() {
                 <Equipment
                   onClick={handleItemClick}
                   listing={equip}
-                  onSave={saveListing}
-                  setShowModal={setShowModal}
                   isLoggedIn={isLoggedIn}
+                  setShowLoginModal={setShowLoginModal}
+                  userData={userData}
+                  setUserData={setUserData}
                 />
               </div>
             ))}
@@ -142,7 +140,7 @@ function EquipmentGrid() {
         </Modal>
       )}
 
-<Modal show={showModal} onClose={closeModal}>
+      <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
         <div className="modal-content">
           <h3>Please log in to save listings</h3>
           <img
@@ -160,4 +158,3 @@ function EquipmentGrid() {
 }
 
 export default EquipmentGrid;
-
