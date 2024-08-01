@@ -1,8 +1,26 @@
 /* ProfilePage.css */
+
 .profile-page {
-	font-family: Arial, sans-serif;
-	color: #333;
-}
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh; /* Ensures the footer sticks at the bottom */
+  }
+  
+  .main-content {
+	flex: 1; /* Allows the main content to take up available space */
+  }
+  
+  /* Your existing styles for other components */
+  
+  /* Add styles for the footer */
+  .footer {
+	background-color: #ececec;
+	padding: 10px;
+	text-align: center;
+	margin-top: auto; /* Pushes the footer to the bottom */
+  }
+  
+
 
 .header {
 	display: flex;
@@ -59,6 +77,7 @@
 	flex: 1;
 	border-right: 1px solid #ccc;
 	padding-right: 20px;
+	max-height: 20%;
 }
 
 .profile-picture img {
@@ -68,14 +87,29 @@
 
 .profile-details {
 	text-align: center;
+	max-height: 20%;
 }
 
 .edit-button {
-	background-color: #f0f0f0;
-	border: 1px solid #ccc;
-	padding: 5px 10px;
-	margin-top: 10px;
+	background: linear-gradient(45deg, #c3cbc5, #d6aeae);
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
 	cursor: pointer;
+	margin: 2px;
+	font-weight: bold;
+}
+
+.logout {
+	background: linear-gradient(45deg, #c3cbc5, #d6aeae);
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 2px;
+	font-weight: bold;
 }
 
 .listings {
@@ -110,18 +144,20 @@
 	padding: 20px;
 }
 
+
 .listing-card {
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 10px;
-	width: 200px;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	background-color: #fff; /* Card background color */
+    border: 1px solid #ddd; /* Card border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 9px;
+    width: 200px; /* Set the width of the card */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Prevent overflow */
 }
 
 .listing-card:hover {
@@ -137,8 +173,13 @@
 }
 
 .listing-details {
-	text-align: center;
+	text-align: left;
 	margin: 10px 0;
+	width: 100%;
+}
+
+.listingCardTitle {
+	text-align: left;
 }
 
 .listing-title {
@@ -269,3 +310,163 @@
 .create-listing-button:hover {
 	background-color: #c3cbc6;
 }
+
+.paragraph {
+	text-align: left;
+}
+
+.titleBookmark {
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    justify-content: space-between; /* Distribute space between title and button */
+    width: 100%; /* Ensure the width covers the full container */
+}
+
+.bookmark-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333; /* Default color for the icon (gray) */
+    font-size: 20px; /* Adjust icon size */
+    padding: 5px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+    pointer-events: auto; /* Ensure button can be clicked */
+}
+
+.bookmark-button.active {
+    color: #D7B0B0; /* Color when active (pink) */
+}
+
+.bookmark-button:hover {
+    color: #D7B0B0; /* Color on hover */
+}
+
+.header-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* Distribute space between items */
+	padding: 0 20px; /* Add some padding if needed */
+  }
+  
+  .header-logo {
+	margin: 0 auto; /* Center the logo in the flex container */
+  }
+  
+  .logo {
+	margin-left: 0; /* Align the logo on the right */
+  }
+  
+  .profile-info {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #FBF7EE; /* Light gray background */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+	max-height: 20%;
+  }
+  
+  .profile-picture {
+	margin-right: 20px;
+  }
+  
+  .profile-picture img {
+	width: 120px; /* Adjust size as needed */
+	height: 120px;
+	border-radius: 50%;
+	border: 4px solid #e2e2e2; /* Light border */
+  }
+  
+  .profile-details {
+	flex: 1;
+  }
+  
+  .profile-details h2 {
+	margin: 0;
+	font-size: 24px;
+	color: #333;
+	font-family: 'Poppins', sans-serif; /* Playful font */
+  }
+  
+  .profile-details p {
+	margin: 5px 0;
+	color: #555;
+	font-family: 'Poppins', sans-serif;
+  }
+  
+  .contact-info p {
+	margin: 3px 0;
+	color: #777;
+  }
+  
+  .edit-button,
+  .logout {
+	margin-top: 10px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 20px;
+	background-color: #ffcccc; /* Soft pink */
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	font-weight: bold;
+  }
+  
+  .edit-button:hover,
+  .logout:hover {
+	background-color: #ff9999; /* Darker pink on hover */
+  }
+  
+  .modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .modal form {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 300px;
+  }
+  
+  .modal label {
+	display: block;
+	margin-bottom: 10px;
+	color: #333;
+	font-family: 'Poppins', sans-serif;
+  }
+  
+  .modal input {
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+  }
+  
+  .modal button[type="submit"],
+  .modal button[type="button"] {
+	margin-top: 15px;
+	padding: 10px;
+	border: none;
+	border-radius: 20px;
+	background-color: #ffcccc;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+  .modal button[type="submit"]:hover,
+  .modal button[type="button"]:hover {
+	background-color: #ff9999;
+  }

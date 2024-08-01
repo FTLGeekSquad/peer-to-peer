@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -19,14 +19,16 @@ import Callback from "./components/GoogleOAuthStuff/Callback";
 import { SavedListingsProvider } from "./contexts/SavedListingsContext"; // Import the context provider
 
 function App() {
+	const [userInfo, setUserInfo] = useState(null)
+
 	return (
-		<SavedListingsProvider>
+		<SavedListingsProvider >
 			<Router>
 				{/* <To be displayed on every page*/}
 
 				<Routes>
 					<Route path="/" element={<HomePage />} />
-					<Route path="/home" element={<HomePage />} />
+					<Route path="/home" element={<HomePage setUserInfo={setUserInfo} />} />
 					<Route path="/equipment" element={<EquipmentGrid />} />
 					<Route path="/spaces" element={<SpacesGrid />} />
 					<Route path="/services" element={<ServicesGrid />} />
@@ -53,7 +55,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 				</Routes>
 			</Router>
-		</SavedListingsProvider>
+		 </SavedListingsProvider>
 	);
 }
 export default App;

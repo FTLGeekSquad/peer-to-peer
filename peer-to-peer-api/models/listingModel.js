@@ -15,6 +15,7 @@ const getListingById = async (listingId) => {
 		const listing = await prisma.listing.findUnique({
 			where: {
 				listingId: parseInt(listingId),
+				include: { user: true },
 			},
 		});
 		return listing;
@@ -79,6 +80,7 @@ const getListingsByCategory = async (category, subCategory) => {
 
 		const listings = await prisma.listing.findMany({
 			where: filter,
+			include: { user: true },
 		});
 		return listings;
 	} catch (error) {
@@ -89,7 +91,9 @@ const getListingsByCategory = async (category, subCategory) => {
 // Fetch all listings by userId
 const getListingsByUserId = async (userId) => {
 	return prisma.listing.findMany({
-	  where: { userId: parseInt(userId) }
+	  where: { userId: parseInt(userId), 
+	  include: { user: true },
+	  }
 	});
   };
   

@@ -6,6 +6,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
 import "./SpacesGrid.css";
 import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
+import Footer from "../Footer/Footer";
 
 function SpacesGrid() {
 	const [spaces, setSpaces] = useState([]);
@@ -14,7 +15,7 @@ function SpacesGrid() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
 
-	const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/spaces";
+	const dataUrl = "http://localhost:3000/listings/filter/spaces";
 
 	useEffect(() => {
 		const fetchSpaces = async () => {
@@ -56,8 +57,8 @@ function SpacesGrid() {
 		<>
 			<Header handleSubmit={handleSearch} />
 			{/* Toggle buttons with: 
-                - Indoor https://peer-to-peer-59rz.onrender.com/listings/filter/spaces?subCategory=indoor
-                - Outdoor https://peer-to-peer-59rz.onrender.com/listings/filter/spaces?subCategory=outdoor
+                - Indoor http://localhost:3000/listings/filter/spaces?subCategory=indoor
+                - Outdoor http://localhost:3000/listings/filter/spaces?subCategory=outdoor
             */}
 			<div className="allComponents">
 				<div className="bottom">
@@ -101,6 +102,7 @@ function SpacesGrid() {
 					<p>{selectedSpace.description}</p>
 				</Modal>
 			)}
+			<Footer/>
 		</>
 	);
 }

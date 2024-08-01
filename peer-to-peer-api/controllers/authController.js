@@ -1,6 +1,6 @@
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-const redirectUrl = "https://localhost:5173//auth/google/callback";
+const redirectUrl = "http://localhost:3000/auth/google/callback";
 require("dotenv").config(); // Load environment variables
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
@@ -55,7 +55,7 @@ const callback = async (req, res) => {
 		}
 		// res.json(user)
 
-		res.redirect(`https://localhost:5173//callback?token=${tokens.id_token}`);
+		res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
 		//post to the database
 
 		// //check if the are already in the database

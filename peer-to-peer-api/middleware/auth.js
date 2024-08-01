@@ -1,7 +1,7 @@
 const { OAuth2Client } = require("google-auth-library");
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-const redirectUrl = "https://localhost:5173//auth/google/callback";
+const redirectUrl = "http://localhost:3000/auth/google/callback";
 
 const oauth2Client = new OAuth2Client(clientId, clientSecret, redirectUrl);
 

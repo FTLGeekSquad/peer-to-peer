@@ -3,9 +3,10 @@ import { useState } from "react";
 import "./Equipment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-
+import { useSavedListings } from "../../contexts/SavedListingsContext";
 function Equipment({ onClick, listing, onSave }) {
-	
+	// const { listingId, title, priceHourly, location } = listing;
+	const { saveListing } = useSavedListings(); // Get saveListing from context
 
 	const {
 		//instead of listing every param
@@ -46,12 +47,11 @@ function Equipment({ onClick, listing, onSave }) {
 					</button>
 				</div>
 				<div className="paragraph">
-					<p className="price">${priceHourly} per hour</p>
+					<p className="price">${priceHourly} / hr</p>
 					<p className="location">{location}</p>
 					{/* <button onClick={() => onSave(listing)}>Save</button> */}
 				</div>
 			</div>
-			
 		</div>
 	);
 }

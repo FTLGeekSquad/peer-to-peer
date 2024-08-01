@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_HOSTED_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -22,7 +22,8 @@ model User {
   allListings   Listing[] // Relation to listings created by the user
   location      String?
   reviews       Review[] // Relation to reviews created by the user
-  savedListings Json?
+  savedListings  Listing[] @relation("savedUserListings")
+  
 }
 
 model Listing {
@@ -30,6 +31,7 @@ model Listing {
   title        String
   userId       Int
   user         User     @relation(fields: [userId], references: [userId])
+  savedUsers   User[]   @relation("savedUserListings")
   description  String
   category     String
   subCategory  String

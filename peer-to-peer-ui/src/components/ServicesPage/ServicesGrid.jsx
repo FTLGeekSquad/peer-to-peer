@@ -9,6 +9,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSavedListings } from "../../contexts/SavedListingsContext"; // Import the context
 import "./ServicesGrid.css";
 import Modal from "../GeneralModal/GeneralModal"; // Import the Modal component
+import Footer from "../Footer/Footer";
 
 function ServicesGrid() {
 	const [services, setServices] = useState([]);
@@ -17,7 +18,7 @@ function ServicesGrid() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { saveListing } = useSavedListings(); // Use the context
 
-	const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/services";
+	const dataUrl = "http://localhost:3000/listings/filter/services";
 
 	useEffect(() => {
 		const fetchServices = async () => {
@@ -59,8 +60,8 @@ function ServicesGrid() {
 		<>
 			<Header handleSubmit={handleSearch} />
 			{/* Toggle buttons with: 
-                - Photography https://peer-to-peer-59rz.onrender.com/listings/filter/services?category=photography
-                - Videography https://peer-to-peer-59rz.onrender.com/listings/filter/services?category=videography
+                - Photography http://localhost:3000/listings/filter/services?category=photography
+                - Videography http://localhost:3000/listings/filter/services?category=videography
             */}
 			<div className="allComponents">
 				<div className="bottom">
@@ -104,6 +105,7 @@ function ServicesGrid() {
 					<p>{selectedService.description}</p>
 				</Modal>
 			)}
+			<Footer/>
 		</>
 	);
 }

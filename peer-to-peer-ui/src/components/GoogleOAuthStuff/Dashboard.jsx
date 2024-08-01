@@ -14,7 +14,7 @@ const Dashboard = () => {
   };
 
   const getResource = async () => {
-    const resp = await axios.get("https://peer-to-peer-59rz.onrender.com/protected_route", {
+    const resp = await axios.get("http://localhost:3000/protected_route", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -29,7 +29,7 @@ const Dashboard = () => {
       <h2>Dashboard</h2>
       <button onClick={getResource}>Get Resource</button> 
       <div>User name: {userInfo}</div>    
-      <button onClick={handleLogout}>Log out</button>
+      <button className='logout' onClick={handleLogout}>Log out</button>
     </div>
   );
 };

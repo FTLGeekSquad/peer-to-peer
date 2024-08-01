@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./Spaces.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../Footer/Footer";
 
 function Spaces({ onClick, listing, onSave }) {
 	const [isSaved, setIsSaved] = useState(false); // State to track if the item is saved
@@ -45,12 +46,13 @@ function Spaces({ onClick, listing, onSave }) {
 				</button>
 				</div>
 				<div className="paragraph">
-					<p className="price">${priceHourly} per hour</p>
+					<p className="price">${priceHourly} / hr</p>
 					<p className="location">{location}</p>
 				</div>
 			</div>
 			
 		</div>
+
 	);
 }
 

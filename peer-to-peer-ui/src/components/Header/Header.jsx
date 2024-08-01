@@ -20,14 +20,15 @@ const Header = ({ handleSubmit }) => {
 	}, []);
 
 	const handleLogin = () => {
-		window.location.href = "https://peer-to-peer-59rz.onrender.com/auth/login";
+		window.location.href = "http://localhost:3000/auth/login";
 	};
 
 	return (
 		<div>
 			{/* <h1 className="bigTitle">Peer2Peer</h1> */}
-			<img className='header-logo' src={headerLogo} />
 			<header className="header">
+			<img className='header-logo' src={headerLogo} />
+
 				<Link to="/home">
 					<img src={logo} alt="Logo" className="logo" />
 				</Link>

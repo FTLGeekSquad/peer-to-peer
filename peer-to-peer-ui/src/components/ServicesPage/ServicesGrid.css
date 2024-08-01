@@ -1,12 +1,23 @@
-.servicesGrid {
+.allComponents {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the footer sticks at the bottom */
+  }
+  
+  .bottom {
+    flex: 1; /* Allows the bottom content to take up available space */
+  }
+  
+  /* Your existing styles */
+  .servicesGrid {
     display: flex;
     flex-wrap: wrap;
     gap: 16px; /* Adjust the gap between cards as needed */
     padding: 16px;
-}
-
-.services-item {
-    background-color: #C3CBC6; /* Card background color */
+  }
+  
+  .services-item {
+    background-color: #c3cbc6; /* Card background color */
     border: 1px solid #b4c1b9; /* Card border */
     border-radius: 8px; /* Rounded corners */
     width: auto;
@@ -18,13 +29,21 @@
     flex-direction: column;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.services-item:hover {
+  }
+  
+  .services-item:hover {
     transform: translateY(-5px); /* Lift the card on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-}
-
-.modal-img {
-	width: 200px;
-}
+  }
+  
+  .modal-img {
+    width: 200px;
+  }
+  
+  .footer {
+    background-color: #FBF7EE;
+    padding: 10px;
+    text-align: center;
+    margin-top: auto; /* Pushes the footer to the bottom */
+  }
+  
