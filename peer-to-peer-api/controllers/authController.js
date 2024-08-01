@@ -1,6 +1,6 @@
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-const redirectUrl = "https://peer-to-peer-59rz.onrender.com/auth/google/callback";
+const redirectUrl = "https://localhost:5173//auth/google/callback";
 require("dotenv").config(); // Load environment variables
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
@@ -44,19 +44,18 @@ const callback = async (req, res) => {
 		// check against the DB
 		console.log(googleUser.data.name, googleUser.data.email);
 
-    //create a user only if the user is not already added
-const user  = await userModel.getUserByEmail(googleUser.data.email);
-console.log("User from the DB is:", user);
+		//create a user only if the user is not already added
+		const user = await userModel.getUserByEmail(googleUser.data.email);
+		console.log("User from the DB is:", user);
 
-//res json data <- refer controller files
+		//res json data <- refer controller files
 
-if (!user) {
-  await userModel.createUser(googleUser.data.name, googleUser.data.email)
-  
-}
-// res.json(user)
+		if (!user) {
+			await userModel.createUser(googleUser.data.name, googleUser.data.email);
+		}
+		// res.json(user)
 
-		res.redirect(`https://peer-to-peer-ui.onrender.com/callback?token=${tokens.id_token}`);
+		res.redirect(`https://localhost:5173//callback?token=${tokens.id_token}`);
 		//post to the database
 
 		// //check if the are already in the database
