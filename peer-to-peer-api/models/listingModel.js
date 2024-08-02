@@ -5,7 +5,8 @@ const getAllListings = async () => {
 	try {
 		const listings = await prisma.listing.findMany({
 			include: {
-				savedUsers: true
+				savedUsers: true,
+				reviews: true
 			}
 		});
 		return listings;
@@ -19,7 +20,7 @@ const getListingById = async (listingId) => {
 		const listing = await prisma.listing.findUnique({
 			where: {
 				listingId: parseInt(listingId),
-				include: { user: true },
+				include: { user: true, reviews: true },
 			},
 		});
 		return listing;
@@ -40,6 +41,7 @@ const createListing = async (listingData) => {
 		photo: listingData.photo,
 		location: listingData.location,
 		availability: listingData.availability,
+		avgRating: listingData.avgRating
 		// reviews will be added separately after creation
 	  },
 	});
@@ -49,6 +51,8 @@ const createListing = async (listingData) => {
 	return prisma.listing.update({
 	  where: { listingId: parseInt(listingId) },
 	  data: listingData,
+
+	  // here, add the logic for calculating the new average based on the rati
 	});
   };
   
@@ -84,7 +88,7 @@ const getListingsByCategory = async (category, subCategory) => {
 
 		const listings = await prisma.listing.findMany({
 			where: filter,
-			include: { user: true },
+			include: { user: true, reviews: true },
 		});
 		return listings;
 	} catch (error) {
@@ -96,7 +100,7 @@ const getListingsByCategory = async (category, subCategory) => {
 const getListingsByUserId = async (userId) => {
 	return prisma.listing.findMany({
 	  where: { userId: parseInt(userId), 
-	  include: { user: true },
+	  include: { user: true, reviews: true },
 	  }
 	});
   };

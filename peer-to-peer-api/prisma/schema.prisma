@@ -41,15 +41,20 @@ model Listing {
   reviews      Review[] // Relation to reviews associated with this listing
   createdAt    DateTime @default(now()) @db.Timestamptz()
   availability Json
+  avgRating    Float?
 }
 
 model Review {
   reviewId  Int      @id @default(autoincrement())
   userId    Int
   user      User     @relation(fields: [userId], references: [userId])
-  message   String
+  message   String?
   rating    Int
   listingId Int
   listing   Listing  @relation(fields: [listingId], references: [listingId])
   createdAt DateTime @default(now()) @db.Timestamptz()
 }
+
+// do i need to add to the listing model a place for the average rating instead
+// of just having the entire review in the relation?
+// add math to the put only
