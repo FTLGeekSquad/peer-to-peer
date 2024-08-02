@@ -21,6 +21,8 @@ function ServicesGrid() {
 	const { saveListing } = useSavedListings(); // Use the context
 	const [showModal, setShowModal] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [userRating, setUserRating] = useState(null);
+	const [currentRating, setCurrentRating] = useState(0);
 
 	const dataUrl = "http://localhost:3000/listings/filter/services";
 
@@ -78,21 +80,73 @@ function ServicesGrid() {
 	const renderStars = (rating) => {
 		const fullStars = Math.floor(rating); // Number of full stars
 		const halfStar = rating % 1 >= 0.5;  // Whether to show a half star
-
+	
 		return (
-			<div className="star-rating">
-				{[...Array(5)].map((_, index) => {
-					if (index < fullStars) {
-						return <FontAwesomeIcon key={index} icon={faStar} className="star filled" />;
-					} else if (index === fullStars && halfStar) {
-						return <FontAwesomeIcon key={index} icon={faStar} className="star half" />;
-					} else {
-						return <FontAwesomeIcon key={index} icon={faStar} className="star empty" />;
-					}
-				})}
-			</div>
+		  <div className="star-rating">
+			{[...Array(5)].map((_, index) => {
+			  if (index < fullStars) {
+				return <FontAwesomeIcon key={index} icon={faStar} className="star filled" />;
+			  } else if (index === fullStars && halfStar) {
+				return <FontAwesomeIcon key={index} icon={faStar} className="star half" />;
+			  } else {
+				return <FontAwesomeIcon key={index} icon={faStar} className="star empty" />;
+			  }
+			})}
+		  </div>
 		);
-	};
+	  };
+
+	  useEffect(() => {
+		if (selectedEquipment && userData.userId) {
+		  // Fetch the user's existing rating if available
+		  axios
+			.get(
+			  `http://localhost:3000/reviews/${selectedEquipment.listingId}/rating/${userData.userId}`
+			)
+			.then((response) => {
+			  setUserRating(response.data.rating);
+			  setCurrentRating(response.data.rating);
+			})
+			.catch((error) => console.error("Error fetching user rating:", error));
+		}
+	  }, [selectedEquipment, userData.userId]);
+	
+	  const handleRatingChange = (event) => {
+		setCurrentRating(Number(event.target.value));
+	  };
+	
+	  const handleRatingSubmit = async () => {
+		if (!isLoggedIn) {
+		  alert("Please log in to rate this listing.");
+		  return;
+		}
+	
+		if (currentRating < 0 || currentRating > 5) {
+		  alert("Rating must be between 0 and 5 stars.");
+		  return;
+		}
+	
+		try {
+		  if (userRating !== null) {
+			// User has already rated; update the rating
+			await axios.put(
+			  `http://localhost:3000/reviews/${selectedEquipment.listingId}/rating/${userData.userId}`,
+			  { rating: currentRating }
+			);
+		  } else {
+			// User has not rated; create a new rating
+			await axios.post("http://localhost:3000/reviews", {
+			  userId: userData.userId,
+			  listingId: selectedEquipment.listingId,
+			  rating: currentRating,
+			});
+		  }
+	
+		  setUserRating(currentRating);
+		} catch (error) {
+		  console.error("Error setting rating:", error);
+		}
+	  };
 
 	return (
 		<>
