@@ -30,9 +30,21 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 	const [isEditingListing, setIsEditingListing] = useState(false);
 
     const navigate = useNavigate(); // get the navigate function from useNavigate
+	console.log("ListConent")
+
+	const fetchListings = async() => {
+		try {
+			const response = await axios.get(`http://localhost:3000/listings/all-listings/${userData.userId}`)
+			console.log("fetchinglisting", response)
+			setListings(response.data)
+		} catch(error){
+			console.error("Error fetching listings", error)
+		}
+
+	}
 	
 	useEffect(() => {
-			setListings(userData.allListings);
+			fetchListings()
 	}, []);
 
 	const handleLogout = () => {
@@ -54,7 +66,27 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
         }
     };
 
-console.log("Listings:", userData.listings)
+	//delete listing function
+const deleteListing = async (listingId) => {
+	try {
+		const response = await axios.delete(
+			`http://localhost:3000/listings/${listingId}`
+		);
+		console.log(response)
+		// setListings(listings?.filter((listing)=>listing.listingId !== listingId));
+		// handleCloseModal()
+		setSelectedEquipment(null);
+		await fetchListings()
+		//sets it to listings that do not have the removed listingId
+		//setUserData(userData); //maybe
+	} catch (error) {
+		console.error("Error removing listing:", error);
+	}
+};
+
+
+
+console.log("Listings:", listings)
 
 	const handleOpenModal = () => {
 		setShowCreateListing(true);
@@ -102,6 +134,7 @@ console.log("Listings:", userData.listings)
 			);
 			console.log("Listing created:", response.data);
 			handleCloseModal();
+			fetchListings()
 		} catch (error) {
 			console.error(
 				"Error creating listing:",
@@ -378,8 +411,8 @@ const handleListingChange = (event) => {
         <button className="tab active">All</button>
       </div>
       <div className="listings-grid">
-        {userData.listings.length > 0 ? (
-          userData.listings.map((listing) => (
+        {listings?.length > 0 ? (
+          listings?.map((listing) => (
             <div 
               key={listing.listingId} 
               className="listing-card" 
@@ -427,11 +460,18 @@ const handleListingChange = (event) => {
               
 			  {/* the user name and contact info aren't posting in the modal */}
             </div>
-			<button onClick={() => {
+			<div className="accountButtons">
+			<button className="editlisting-button" onClick={() => {
 					setIsEditingListing(true)
 					setCategory(selectedEquipment.category);
 					setSubCategory(selectedEquipment.subCategory);
 				}}>Edit Listing</button> 
+				<button className="editlisting-button" onClick={() => {
+					//setIsEditingListing(true)
+					deleteListing(selectedEquipment.listingId);
+
+				}}>Delete Listing</button> 
+				</div>
           </div>
         </Modal>
       )}
