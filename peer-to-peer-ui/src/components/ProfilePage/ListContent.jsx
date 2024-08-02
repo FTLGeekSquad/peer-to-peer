@@ -460,16 +460,18 @@ const handleListingChange = (event) => {
               
 			  {/* the user name and contact info aren't posting in the modal */}
             </div>
-			<button onClick={() => {
+			<div className="accountButtons">
+			<button className="editlisting-button" onClick={() => {
 					setIsEditingListing(true)
 					setCategory(selectedEquipment.category);
 					setSubCategory(selectedEquipment.subCategory);
 				}}>Edit Listing</button> 
-				<button onClick={() => {
+				<button className="editlisting-button" onClick={() => {
 					//setIsEditingListing(true)
 					deleteListing(selectedEquipment.listingId);
 
 				}}>Delete Listing</button> 
+				</div>
           </div>
         </Modal>
       )}
