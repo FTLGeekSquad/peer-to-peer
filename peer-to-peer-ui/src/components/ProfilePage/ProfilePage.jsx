@@ -10,20 +10,19 @@ import Footer from "../Footer/Footer";
 import headerLogo from "/src/assets/header_logo.png";
 
 
+
 const ProfilePage = () => {
 	const [activeTab, setActiveTab] = useState("rent");
 	const [showCreateListing, setShowCreateListing] = useState(false);
 	// const { savedListings, removeListing } = useSavedListings(); // Use the context
-	const [userInfo, setUserInfo] = useState(null);
+	// const [userInfo, setUserInfo] = useState(null);
+	const { userData, setUserData } = useSavedListings();
+	console.log("userData in PROFILE, ", userData)
+	const [error, setError] = useState(null);
 
-	const token = localStorage.getItem("token");
-	// get the user from the token and get the user info from the DB using the backend
-	useEffect(() => {
-		if (token) {
-			// setToken(localStorage.getItem("token"))
-			setUserInfo(jwtDecode(token));
-		}
-	}, []);
+	if(!userData){
+		return <div>Loading ...</div>
+	}
 
 	return (
 		<>
@@ -56,6 +55,8 @@ const ProfilePage = () => {
 				{activeTab === "rent" ? (
 					
 					<RentContent
+					// userData={userData}
+					// setUserData={setUserData}
 						//userInfo={userInfo}
 						// savedListings={savedListings}
 						// removeListing={removeListing}
@@ -63,8 +64,8 @@ const ProfilePage = () => {
 				) : (
 					<ListContent
 						//userInfo={userInfo}
-						//showCreateListing={showCreateListing} may need to uncomment this, unsure right now
-						//setShowCreateListing={setShowCreateListing}
+						showCreateListing={showCreateListing}
+						setShowCreateListing={setShowCreateListing}
 					/>
 				)}
 			</main>

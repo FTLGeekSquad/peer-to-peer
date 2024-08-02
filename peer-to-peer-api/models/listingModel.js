@@ -19,8 +19,8 @@ const getListingById = async (listingId) => {
 		const listing = await prisma.listing.findUnique({
 			where: {
 				listingId: parseInt(listingId),
-				include: { user: true },
-			},
+				
+			},include: { user: true },
 		});
 		return listing;
 	} catch (error) {

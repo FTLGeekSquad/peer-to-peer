@@ -41,6 +41,8 @@ const Header = ({ handleSubmit }) => {
 					<Link to="/profile">
 						<img src={profileImg} style={{ height: "50px" }} />
 					</Link>
+			// add the create listing button...  
+
 				) : (
 					<img
 						className="google-signin-button-icon"

@@ -68,6 +68,7 @@ const [error, setError] = useState(null);
 						savedListings: response.data.savedListings
                     };
                     setUserData(user);
+					// localStorage.setItem("userData", user)
 					console.log("Use Data from fetch:",user)
                     setLoading(false);
                 } catch (error) {

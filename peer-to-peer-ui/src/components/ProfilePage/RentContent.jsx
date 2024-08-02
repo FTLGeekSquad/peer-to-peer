@@ -17,6 +17,7 @@ const RentContent = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedEquipment, setSelectedEquipment] = useState(null);
 
+	console.log("userData, ", userData)
     useEffect(() => {
         setSavedListings(userData.savedListings);
     }, [userData]);
