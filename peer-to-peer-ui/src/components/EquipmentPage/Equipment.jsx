@@ -113,6 +113,8 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal, userData, 
 					<p className="location">{location}</p>
 					<div className="rating">
 						{renderStars(avgRating)}
+						<span className="rating-number">{avgRating.toFixed(1)}</span>
+
 					</div>
 				</div>
 			</div>
