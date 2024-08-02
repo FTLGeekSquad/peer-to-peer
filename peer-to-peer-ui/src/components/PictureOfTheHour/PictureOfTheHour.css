@@ -1,0 +1,53 @@
+/* PictureOfTheHour.css */
+
+.picture-of-the-hour {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 30px; /* Increased padding for larger component */
+  margin: 30px; /* Increased margin for separation */
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 5px solid #fff; /* Increased border thickness */
+  max-width: 1200px; /* Increased max width for larger component */
+  margin: 40px auto;
+}
+
+.picture-container {
+  flex: 1;
+  text-align: center;
+  padding: 20px; /* Added padding for text */
+}
+
+.picture-container h2 {
+  font-size: 2.5rem; /* Increased font size for title */
+  margin-bottom: 20px;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hourly-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 10px solid #fff; /* Increased border thickness for image */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.picture-text {
+  flex: 1;
+  padding-left: 30px; /* Increased padding for more space */
+  max-width: 600px; /* Define max width for text section */
+}
+
+.picture-text h3 {
+  font-size: 2rem; /* Increased font size for location text */
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.picture-text p {
+  font-size: 1.5rem; /* Increased font size for camera text */
+  color: #777;
+}
