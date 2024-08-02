@@ -3,7 +3,11 @@ const prisma = new PrismaClient();
 
 const getAllListings = async () => {
 	try {
-		const listings = await prisma.listing.findMany();
+		const listings = await prisma.listing.findMany({
+			include: {
+				savedUsers: true
+			}
+		});
 		return listings;
 	} catch (error) {
 		throw new Error(`Error fetching listings: ${error.message}`);

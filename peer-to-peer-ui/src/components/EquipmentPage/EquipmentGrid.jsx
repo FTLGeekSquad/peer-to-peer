@@ -1,4 +1,5 @@
-// EquipmentGrid.jsx
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -8,13 +9,15 @@ import { useSavedListings } from "../../contexts/SavedListingsContext";
 import "./EquipmentGrid.css";
 import Modal from "../GeneralModal/GeneralModal";
 import Footer from "../Footer/Footer";
+import googleButton from "/src/assets/web_light_rd_SI.svg";
 
 function EquipmentGrid() {
+  const { userData, setUserData } = useSavedListings();
   const [equipment, setEquipment] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { saveListing } = useSavedListings();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const dataUrl = "http://localhost:3000/listings/filter/equipment";
@@ -58,6 +61,10 @@ function EquipmentGrid() {
     setSelectedEquipment(equip);
   };
 
+  const handleLogin = () => {
+    window.location.href = "http://localhost:3000/auth/login";
+  };
+
   const filteredEquipment = equipment.filter((equip) =>
     equip.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -87,7 +94,10 @@ function EquipmentGrid() {
                 <Equipment
                   onClick={handleItemClick}
                   listing={equip}
-                  onSave={saveListing}
+                  isLoggedIn={isLoggedIn}
+                  setShowLoginModal={setShowLoginModal}
+                  userData={userData}
+                  setUserData={setUserData}
                 />
               </div>
             ))}
@@ -129,10 +139,22 @@ function EquipmentGrid() {
           {!isLoggedIn && <p>Please log in to view contact information.</p>}
         </Modal>
       )}
+
+      <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
+        <div className="modal-content">
+          <h3>Please log in to save listings</h3>
+          <img
+            className="google-signin-button-icon"
+            onClick={handleLogin}
+            src={googleButton}
+            alt="Google icon"
+          />
+        </div>
+      </Modal>
+
       <Footer />
     </>
   );
 }
 
 export default EquipmentGrid;
-
