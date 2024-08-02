@@ -27,6 +27,7 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 	const [uploadSuccess, setUploadSuccess] = useState("");
 	const [isEditing, setIsEditing] = useState(false);
 	const [selectedEquipment, setSelectedEquipment] = useState(null);
+	const [isEditingListing, setIsEditingListing] = useState(false);
 
     const navigate = useNavigate(); // get the navigate function from useNavigate
 	
@@ -84,7 +85,7 @@ console.log("Listings:", userData.listings)
 
 		const listingData = {
 			title,
-			userId,
+			userId: userData.userId,
 			description,
 			category,
 			subCategory,
@@ -110,6 +111,57 @@ console.log("Listings:", userData.listings)
 			setIsPhotoUploaded(false);
 		}
 	};
+//function to edit listing
+
+
+const handleEditListing = async (e) => {
+	e.preventDefault();
+
+	if (isUploading) {
+		setUploadSuccess("The photo is still uploading.");
+		return;
+	}
+
+	const updatedListingData = {
+		title: selectedEquipment.title,
+		description: selectedEquipment.description,
+		category: category,
+		subCategory: subCategory,
+		priceHourly: selectedEquipment.priceHourly,
+		photo: selectedEquipment.photo,
+		location: selectedEquipment.location,
+		availability: selectedEquipment.availability,
+	};
+
+	try {
+		const response = await axios.put(
+			`http://localhost:3000/listings/${selectedEquipment.listingId}`,
+			updatedListingData
+		);
+		console.log("Listing updated:", response.data);
+		setIsEditingListing(false);
+		setSelectedEquipment(null);
+		setListings(listings.filter((listing)=>listing.listingId !== listingId))
+	} catch (error) {
+		console.error(
+			"Error updating listing:",
+			error.response ? error.response.data : error.message
+		);
+	} finally {
+		setIsPhotoUploaded(false);
+	}
+};
+
+const handleListingChange = (event) => {
+	const { name, value } = event.target;
+	setSelectedEquipment((prevEquipment) => ({
+		...prevEquipment,
+		[name]: value,
+	}));
+};
+
+
+
 
 	const handleChange = (event) => {
         const { name, value } = event.target;
@@ -117,7 +169,8 @@ console.log("Listings:", userData.listings)
             ...prevData,
             [name]: value,
         }));
-    };
+    console.log("HC EV", event.target)
+	};
 
 
 	const subcategoryOptions = {
@@ -374,9 +427,118 @@ console.log("Listings:", userData.listings)
               
 			  {/* the user name and contact info aren't posting in the modal */}
             </div>
+			<button onClick={() => {
+					setIsEditingListing(true)
+					setCategory(selectedEquipment.category);
+					setSubCategory(selectedEquipment.subCategory);
+				}}>Edit Listing</button> 
           </div>
         </Modal>
       )}
+	  {isEditingListing && (
+	<div className="modal" onClick={() => setIsEditingListing(false)}>
+		<div
+			className="listing-modal-content"
+			onClick={(e) => e.stopPropagation()}
+		>
+			<div className="listing-modal-header">
+				<h2 className="modalTitle">Edit Listing</h2>
+				<button
+					className="modal-close"
+					onClick={() => setIsEditingListing(false)}
+				>
+					&times;
+				</button>
+			</div>
+			<div className="modal-body">
+				{uploadSuccess && (
+					<p className="upload-success-message">{uploadSuccess}</p>
+				)}
+				<form onSubmit={handleEditListing} className="centered-form">
+					<input
+						type="text"
+						name="title"
+						value={selectedEquipment.title}
+						onChange={handleListingChange}
+						placeholder="Enter a Title"
+						required
+						className="styled-input"
+					/>
+					<input
+						type="text"
+						name="description"
+						value={selectedEquipment.description}
+						onChange={handleListingChange}
+						placeholder="Description"
+						required
+						className="styled-input"
+					/>
+					<select
+						value={category}
+						defaultValue={selectedEquipment.category}
+						onChange={(e) => {
+							setCategory(e.target.value);
+							console.log("Target Value", e.target.value)
+							setSubCategory(e.target.value.subCategory); // Reset subCategory when category changes
+							//{handleListingChange}
+						}}
+						required
+						className="styled-input"
+					>
+						{/* <option value={selectedEquipment.category}/> */}
+						<option value="equipment">Equipment</option>
+						<option value="services">Services</option>
+						<option value="spaces">Spaces</option>
+					
+					</select>
+					<select
+							//value={subCategory} // Use subCategory state here
+							defaultValue={selectedEquipment.subCategory}
+							onChange={(e) => {console.log(e.target.value); setSubCategory(e.target.value)}}
+							required
+							className="styled-input"
+							//disabled={!category} // Disable subCategory if no category is selected
+						>
+							<option value="" disabled>Select Subcategory</option>
+							{category && subcategoryOptions[category] && 
+								subcategoryOptions[category].map((sub) => ( // Filter here if needed
+									<option key={sub} value={sub}>
+										{sub}
+									</option>
+								))
+							}
+					</select>
+					<input
+						type="number"
+						name="priceHourly"
+						value={selectedEquipment.priceHourly}
+						onChange={handleListingChange}
+						placeholder="Price Per Hour"
+						required
+						className="styled-input"
+					/>
+					<FileUpload
+						onFileUploaded={handleFileUploaded}
+						isUploading={handleUploading}
+					/>
+					<input
+						type="text"
+						name="location"
+						value={selectedEquipment.location}
+						onChange={handleListingChange}
+						placeholder="Location"
+						required
+						className="styled-input"
+					/>
+					<button type="submit" className="create-button">
+						Done
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+)}
+
     </section>
 		</>
 	);

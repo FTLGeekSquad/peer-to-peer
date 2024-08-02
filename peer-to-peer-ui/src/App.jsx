@@ -22,10 +22,11 @@ function App() {
 	const [userInfo, setUserInfo] = useState(null)
 
 	return (
-		<SavedListingsProvider >
+		// <SavedListingsProvider >
 			<Router>
 				{/* <To be displayed on every page*/}
 
+		
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/home" element={<HomePage setUserInfo={setUserInfo} />} />
@@ -55,7 +56,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 				</Routes>
 			</Router>
-		 </SavedListingsProvider>
+		//  </SavedListingsProvider>
 	);
 }
 export default App;

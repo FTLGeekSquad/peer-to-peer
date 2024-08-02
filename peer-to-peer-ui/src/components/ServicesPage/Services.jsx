@@ -36,7 +36,7 @@ function Services({ onClick, listing, setShowModal, isLoggedIn }) {
 				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
 			);
 			setSavedListings([...savedListings, response.data]);
-			setUserData(userData);
+			setUserData(userData); //maybe
 		} catch (error) {
 			console.error("Error saving listing:", error);
 		}
