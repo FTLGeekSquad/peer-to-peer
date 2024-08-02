@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -10,6 +8,9 @@ import "./EquipmentGrid.css";
 import Modal from "../GeneralModal/GeneralModal";
 import Footer from "../Footer/Footer";
 import googleButton from "/src/assets/web_light_rd_SI.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+
 
 function EquipmentGrid() {
   const { userData, setUserData } = useSavedListings();
@@ -69,6 +70,26 @@ function EquipmentGrid() {
     equip.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const renderStars = (rating) => {
+		const fullStars = Math.floor(rating); // Number of full stars
+		const halfStar = rating % 1 >= 0.5;  // Whether to show a half star
+
+		return (
+			<div className="star-rating">
+				{[...Array(5)].map((_, index) => {
+					if (index < fullStars) {
+						return <FontAwesomeIcon key={index} icon={faStar} className="star filled" />;
+					} else if (index === fullStars && halfStar) {
+						return <FontAwesomeIcon key={index} icon={faStar} className="star half" />;
+					} else {
+						return <FontAwesomeIcon key={index} icon={faStar} className="star empty" />;
+					}
+				})}
+			</div>
+		);
+	};
+
+
   return (
     <>
       <Header handleSubmit={handleSearch} />
@@ -106,39 +127,42 @@ function EquipmentGrid() {
       </div>
 
       {selectedEquipment && (
-        <Modal
-          show={selectedEquipment !== null}
-          onClose={() => setSelectedEquipment(null)}
-        >
-          <h2 className="modalHeader">{selectedEquipment.title}</h2>
-          <img className="modal-img" src={selectedEquipment.photo} />
-          <div className="modalWords">
-            <div className="upperWords">
-              <h2 className="lowerTitle">{selectedEquipment.title}</h2>
-              <p className="locationText">
-                <strong>Location:</strong> {selectedEquipment.location}
-              </p>
-            </div>
-            <p>{selectedEquipment.description}</p>
-            <div
-              className="userInfo"
-              style={{ filter: isLoggedIn ? "none" : "blur(5px)" }}
-            >
-              {selectedEquipment.user && (
-                <>
-                  <p>
-                    <strong>Posted by:</strong> {selectedEquipment.user.name}
-                  </p>
-                  <p>
-                    <strong>Contact:</strong> {selectedEquipment.user.phoneNumber}
-                  </p>
-                </>
-              )}
-            </div>
-          </div>
-          {!isLoggedIn && <p>Please log in to view contact information.</p>}
-        </Modal>
-      )}
+  <Modal
+    show={selectedEquipment !== null}
+    onClose={() => setSelectedEquipment(null)}
+  >
+    <h2 className="modalHeader">{selectedEquipment.title}</h2>
+    <img className="modal-img" src={selectedEquipment.photo} alt={selectedEquipment.title} />
+    <div className="modalWords">
+      <div className="upperWords">
+        <h2 className="lowerTitle">{selectedEquipment.title}</h2>
+        <p className="locationText">
+          <strong>Location:</strong> {selectedEquipment.location}
+        </p>
+      </div>
+      <p>{selectedEquipment.description}</p>
+      <div
+        className="userInfo"
+        style={{ filter: isLoggedIn ? "none" : "blur(5px)" }}
+      >
+        {selectedEquipment.user && (
+          <>
+            <p>
+              <strong>Posted by:</strong> {selectedEquipment.user.name}
+            </p>
+            <p>
+              <strong>Contact:</strong> {selectedEquipment.user.phoneNumber}
+            </p>
+          </>
+        )}
+      </div>
+      {!isLoggedIn && <p>Please log in to view contact information.</p>}
+    </div>
+    <div className="rating">
+      {renderStars(selectedEquipment.avgRating)}
+    </div>
+  </Modal>
+)}
 
       <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
         <div className="modal-content">

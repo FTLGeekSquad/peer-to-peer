@@ -47,8 +47,7 @@
   }
   
   .modal-img {
-	width: 400px; /* Set a fixed width */
-	height: 250px; /* Set a fixed height */
+	width: 80%; /* Set a fixed width */
 	object-fit: cover; /* Ensure the image covers the area without distortion */
   }
   

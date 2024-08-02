@@ -81,11 +81,11 @@
   }
   
   .star.filled {
-    color: #fdfd96; /* Color for filled stars */
+    color: #D7B0B0; /* Color for filled stars */
   }
   
   .star.empty {
-    color: gray; /* Color for empty stars */
+    color: rgba(0, 0, 0, 0.54); /* Color for empty stars */
   }
   
   .star.half {
