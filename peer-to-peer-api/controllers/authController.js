@@ -44,17 +44,16 @@ const callback = async (req, res) => {
 		// check against the DB
 		console.log(googleUser.data.name, googleUser.data.email);
 
-    //create a user only if the user is not already added
-const user  = await userModel.getUserByEmail(googleUser.data.email);
-console.log("User from the DB is:", user);
+		//create a user only if the user is not already added
+		const user = await userModel.getUserByEmail(googleUser.data.email);
+		console.log("User from the DB is:", user);
 
-//res json data <- refer controller files
+		//res json data <- refer controller files
 
-if (!user) {
-  await userModel.createUser(googleUser.data.name, googleUser.data.email)
-  
-}
-// res.json(user)
+		if (!user) {
+			await userModel.createUser(googleUser.data.name, googleUser.data.email);
+		}
+		// res.json(user)
 
 		res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
 		//post to the database

@@ -55,7 +55,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #333; /* Default color for the icon (gray) */
+    color: rgba(0, 0, 0, 0.54); /* Default color for the icon (gray) */
     font-size: 20px; /* Adjust icon size */
     padding: 5px;
     transition: color 0.3s ease; /* Smooth transition for color change */
@@ -77,11 +77,11 @@
   }
   
   .star {
-    font-size: 1.5rem; /* Adjust size as needed */
+    font-size: 110%; /* Adjust size as needed */
   }
   
   .star.filled {
-    color: yellow; /* Color for filled stars */
+    color: #fdfd96; /* Color for filled stars */
   }
   
   .star.empty {
@@ -89,7 +89,7 @@
   }
   
   .star.half {
-    color: yellow; /* Color for half star */
+    color: #fdfd96; /* Color for half star */
     position: relative;
   }
   

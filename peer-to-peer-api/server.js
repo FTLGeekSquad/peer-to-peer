@@ -4,7 +4,7 @@
 // const morgan = require("morgan");
 // const { OAuth2Client } = require("google-auth-library");
 // const verifyToken = require("./middleware/auth");
-// const { google } = require('googleapis'); 
+// const { google } = require('googleapis');
 
 // const PORT = 3000;
 // app.use(morgan('dev'));
@@ -88,7 +88,6 @@
 // // //if not already in the database store their info
 // // // if info has changed update the database
 
-
 // //     res.redirect(`http://localhost:5173/callback?token=${tokens.id_token}`);
 //   } catch (error) {
 //     console.error(error);
@@ -105,22 +104,24 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const PORT = 3000;
-app.use(morgan('dev'));
-app.use(cors({
-  origin: "http://localhost:5173",
-}));
+app.use(morgan("dev"));
+app.use(
+	cors({
+		origin: "https://localhost:5173",
+	})
+);
 app.use(express.json());
 const listingRoutes = require("./routes/listingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const userRoutes = require("./routes/userRoutes");
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require("./routes/authRoutes");
 app.use("/listings", listingRoutes);
 app.use("/reviews", reviewRoutes);
 app.use("/users", userRoutes);
-app.use('/auth', authRoutes);
+app.use("/auth", authRoutes);
 app.get("/", (req, res) => {
-  res.send("Welcome to my app!");
+	res.send("Welcome to my app!");
 });
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+	console.log(`Server is running on http://localhost:${PORT}`);
 });
