@@ -107,7 +107,7 @@ const PORT = 3000;
 app.use(morgan("dev"));
 app.use(
 	cors({
-		origin: "https://localhost:5173",
+		origin: "http://localhost:5173",
 	})
 );
 app.use(express.json());

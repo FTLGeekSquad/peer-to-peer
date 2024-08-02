@@ -26,6 +26,7 @@ const getUserById = async (userId) => {
 		where: { userId: parseInt(userId) },
 		include: {
 			allListings: true,
+			savedListings: true,
 		},
 	});
 	// may need to add include: {listings: true} later
