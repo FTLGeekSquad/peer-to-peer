@@ -20,6 +20,15 @@ const getReviewById = async (reviewId) => {
 	});
 };
 
+const getReviewByUserListing = async (listingId, userId) => {
+	return prisma.review.findFirst({
+	  where: {
+		listingId: parseInt(listingId),
+		userId: parseInt(userId)
+	  }
+	});
+  };
+
 const createReview = async (reviewData) => {
 	return prisma.review.create({
 		data: {
@@ -46,6 +55,18 @@ const updateReview = async (reviewId, reviewData) => {
 	});
 };
 
+const editReviewByUserListing = async (listingId, userId, newRating) => {
+	return prisma.review.updateMany({
+	  where: {
+		listingId: parseInt(listingId),
+		userId: parseInt(userId),
+	  },
+	  data: {
+		rating: newRating,
+	  },
+	});
+  };
+
 // Function to delete a review
 const deleteReview = async (reviewId) => {
 	return prisma.review.delete({
@@ -59,4 +80,6 @@ module.exports = {
 	createReview,
 	updateReview,
 	deleteReview,
+	getReviewByUserListing, 
+	editReviewByUserListing
 };

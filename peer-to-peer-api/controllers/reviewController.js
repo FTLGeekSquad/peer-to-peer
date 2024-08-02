@@ -59,6 +59,21 @@ const getReviewById = async (req, res) => {
 	}
 };
 
+const getReviewByUserListing = async (req, res) => {
+	const { listingId, userId } = req.params;
+  
+	try {
+	  const review = await reviewModel.getReviewByUserListing(listingId, userId);
+	  if (review) {
+		res.status(200).json(review);
+	  } else {
+		res.status(404).json({ error: "Review not found" });
+	  }
+	} catch (error) {
+	  res.status(400).json({ error: error.message });
+	}
+  };
+
 const createReview = async (req, res) => {
 	const reviewData = req.body;
 
@@ -90,6 +105,33 @@ const updateReview = async (req, res) => {
 	}
 };
 
+const editReviewByUserListing = async (req, res) => {
+	const { listingId, userId } = req.params;
+	const { rating } = req.body;
+  
+	try {
+	  // Validate rating
+	  if (typeof rating !== 'number' || rating < 0 || rating > 5) {
+		return res.status(400).json({ error: 'Rating must be a number between 0 and 5' });
+	  }
+  
+	  // Update the review
+	  const updatedReview = await reviewModel.editReviewByUserListing(listingId, userId, rating);
+  
+	  if (updatedReview.count === 0) {
+		return res.status(404).json({ error: 'Review not found' });
+	  }
+  
+	  // Optionally update the average rating for the listing
+	  await updateAvgRating(parseInt(listingId));
+  
+	  res.status(200).json({ message: 'Review updated successfully' });
+	} catch (error) {
+	  console.error('Error updating review:', error);
+	  res.status(500).json({ error: 'Internal server error' });
+	}
+  };
+
 const deleteReview = async (req, res) => {
 	try {
 		const deletedReview = await reviewModel.deleteReview(req.params.reviewId);
@@ -113,5 +155,7 @@ module.exports = {
 	createReview,
 	updateReview,
 	deleteReview,
+	getReviewByUserListing, 
+	editReviewByUserListing
 };
 
