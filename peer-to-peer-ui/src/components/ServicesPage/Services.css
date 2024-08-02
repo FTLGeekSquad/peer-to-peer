@@ -71,3 +71,32 @@
 }
 
 
+.star-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .star {
+    font-size: 1.5rem; /* Adjust size as needed */
+  }
+  
+  .star.filled {
+    color: yellow; /* Color for filled stars */
+  }
+  
+  .star.empty {
+    color: gray; /* Color for empty stars */
+  }
+  
+  .star.half {
+    color: yellow; /* Color for half star */
+    position: relative;
+  }
+  
+  .star.half:before {
+    content: '\f005'; /* FontAwesome star icon */
+    position: absolute;
+    color: gray; /* Color for the half star part */
+    width: 50%;
+    overflow: hidden;
+  }
