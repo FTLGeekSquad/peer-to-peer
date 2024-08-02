@@ -3,11 +3,13 @@ import "./Equipment.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useSavedListings } from "../../contexts/SavedListingsContext";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal, userData, setUserData }) {
+function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal}) {
 	const [isSaved, setIsSaved] = useState(false);
 	const [savedListings, setSavedListings] = useState([]);
+	const { userData, setUserData } = useSavedListings();
 	const {
 		listingId,
 		title,
@@ -27,10 +29,12 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal, userData, 
 			);
 			setIsSaved(isListingSaved);
 		}
+
 	}, [userData, listingId]);
 
 	const saveListing = async (listingId) => {
 		try {
+			// userData is undefined
 			const response = await axios.post(
 				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
 			);
@@ -113,7 +117,7 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal, userData, 
 					<p className="location">{location}</p>
 					<div className="rating">
 						{renderStars(avgRating)}
-						<span className="rating-number">{avgRating.toFixed(1)}</span>
+						{/* <span className="rating-number">{avgRating.toFixed(1)}</span> */}
 
 					</div>
 				</div>
@@ -123,3 +127,4 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal, userData, 
 }
 
 export default Equipment;
+
