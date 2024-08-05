@@ -13,16 +13,35 @@ import Modal from "../GeneralModal/GeneralModal";
 import CreateListing from "../CreateListingModal/CreateListing";
 
 const ListContent = () => {
-	const { userData, setUserData } = useSavedListings();
-    const [listings, setListings] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
-    const [selectedEquipment, setSelectedEquipment] = useState(null);
-    const [isEditingListing, setIsEditingListing] = useState(false);
+	// const { userData, setUserData } = useSavedListings();
+    //const [listings, setListings] = useState(null);
+    //const [isEditing, setIsEditing] = useState(false);
+    //const [selectedEquipment, setSelectedEquipment] = useState(null);
+    //const [isEditingListing, setIsEditingListing] = useState(false);
     const [showCreateListing, setShowCreateListing] = useState(false);
-
-    
+	//const [uploadSuccess, setUploadSuccess] = useState("");
+	// //delete confirmation code
+	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+	const [listingToDelete, setListingToDelete] = useState(null);
+    const { userData, setUserData } = useSavedListings();
+	console.log(userData)
+	const [listings, setListings] = useState(null);
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+	const [category, setCategory] = useState("");
+	const [subCategory, setSubCategory] = useState("");
+	const [priceHourly, setPriceHourly] = useState("");
+	const [photo, setPhoto] = useState("");
+	const [location, setLocation] = useState("");
+	const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
+	const [isUploading, setIsUploading] = useState(false);
+	const [uploadSuccess, setUploadSuccess] = useState("");
+	const [isEditing, setIsEditing] = useState(false);
+	const [selectedEquipment, setSelectedEquipment] = useState(null);
+	const [isEditingListing, setIsEditingListing] = useState(false);
     const navigate = useNavigate(); // get the navigate function from useNavigate
-	console.log("ListConent")
+	const [showUserDeleteConfirmation, setShowUserDeleteConfirmation] = useState(false);
+	console.log("ListContent")
 
 	const fetchListings = async() => {
 		try {
@@ -38,6 +57,24 @@ const ListContent = () => {
 	useEffect(() => {
 			fetchListings()
 	}, []);
+
+    
+    
+	
+
+    const handleCloseModal = () => {
+        setShowCreateListing(false);
+        setTitle('');
+        setDescription('');
+        setCategory('');
+        setSubCategory('');
+        setPriceHourly('');
+        setLocation('');
+        setPhoto('');
+        setIsUploading(false);
+        setUploadSuccess('');
+    };
+
 
 	const handleLogout = () => {
 		console.log("Logging out");
@@ -70,8 +107,6 @@ const deleteListing = async (listingId) => {
 			`http://localhost:3000/listings/${listingId}`
 		);
 		console.log(response)
-		// setListings(listings?.filter((listing)=>listing.listingId !== listingId));
-		// handleCloseModal()
 		setSelectedEquipment(null);
 		await fetchListings()
 		//sets it to listings that do not have the removed listingId
@@ -81,27 +116,41 @@ const deleteListing = async (listingId) => {
 	}
 };
 
+const handleDeleteClick = (listingId) => {
+    setListingToDelete(listingId);
+    setShowDeleteConfirmation(true);
+};
+const handleConfirmedDelete = async () => {
+    if (listingToDelete) {
+        try {
+            await deleteListing(listingToDelete);
+            setShowDeleteConfirmation(false);
+            setListingToDelete(null);
+            await fetchListings();
+        } catch (error) {
+            console.error("Error deleting listing:", error);
+        }
+    }
+};
 
 
 console.log("Listings:", listings)
 	
 //function to edit listing
-
-
 const handleEditListing = async (e) => {
 	e.preventDefault();
-
 	if (isUploading) {
 		setUploadSuccess("The photo is still uploading.");
 		return;
 	}
-
+	
 	const updatedListingData = {
 		title: selectedEquipment.title,
 		description: selectedEquipment.description,
 		category: category,
 		subCategory: subCategory,
 		priceHourly: selectedEquipment.priceHourly,
+		//priceHourly:parsedPriceHourly,
 		photo: selectedEquipment.photo,
 		location: selectedEquipment.location,
 		availability: selectedEquipment.availability,
@@ -115,7 +164,8 @@ const handleEditListing = async (e) => {
 		console.log("Listing updated:", response.data);
 		setIsEditingListing(false);
 		setSelectedEquipment(null);
-		setListings(listings.filter((listing)=>listing.listingId !== listingId))
+		//setListings(listings.filter((listing)=>listing.listingId !== listingId))
+		await fetchListings();
 	} catch (error) {
 		console.error(
 			"Error updating listing:",
@@ -308,15 +358,28 @@ const handleListingChange = (event) => {
 					setCategory(selectedEquipment.category);
 					setSubCategory(selectedEquipment.subCategory);
 				}}>Edit Listing</button> 
-				<button className="editlisting-button" onClick={() => {
-					//setIsEditingListing(true)
-					deleteListing(selectedEquipment.listingId);
-
-				}}>Delete Listing</button> 
+				<button className="editlisting-button" onClick={() => handleDeleteClick(selectedEquipment.listingId)}>
+    				Delete Listing
+				</button>
 				</div>
           </div>
         </Modal>
       )}
+
+	{showDeleteConfirmation && (
+                <div className="delete-modal">
+                    <div className="modal-content">
+                        <h2>Confirm Deletion</h2>
+                        <p>Are you sure you want to delete this listing?</p>
+                        <div className="modal-buttons">
+                            <button onClick={handleConfirmedDelete}>Yes, Delete</button>
+                            <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
 	  {isEditingListing && (
 	<div className="modal" onClick={() => setIsEditingListing(false)}>
 		<div

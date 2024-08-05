@@ -8,7 +8,7 @@ import googleButton from "/src/assets/web_light_rd_SI.svg";
 import headerLogo from "/src/assets/header_logo.png";
 import CreateListing from "../CreateListingModal/CreateListing";
 import Modal from "../GeneralModal/GeneralModal";
-
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Header = ({ handleSubmit }) => {
@@ -21,6 +21,7 @@ const Header = ({ handleSubmit }) => {
 			setIsLoggedIn(true);
 		}
 	}, []);
+
 
 	const handleLogin = () => {
 		window.location.href = "http://localhost:3000/auth/login";
@@ -56,6 +57,8 @@ const Header = ({ handleSubmit }) => {
                 <CreateListing
                     showCreateListing={showCreateListing}
                     setShowCreateListing={setShowCreateListing}
+					//fetchListings={fetchListings}
+
                 />
 				{isLoggedIn ? (
 					<Link to="/profile">
@@ -74,7 +77,7 @@ const Header = ({ handleSubmit }) => {
 			</header>
 			<Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
                 <div className="modal-content">
-                    <h3>Please log in to create a listing</h3>
+                    <h3>Please log in to create a listing, bro</h3>
                     <img
                         src={googleButton}
                         alt="Google Sign-In"

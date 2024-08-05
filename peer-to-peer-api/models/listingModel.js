@@ -46,8 +46,10 @@ const createListing = async (listingData) => {
   };
 
   const updateListing = async (listingId, listingData) => {
+	console.log("updateListingData",listingData)
+	listingData.priceHourly = parseFloat(listingData.priceHourly)
 	return prisma.listing.update({
-	  where: { listingId: parseInt(listingId) },
+	  where: { listingId: parseInt(listingId)},
 	  data: listingData,
 	});
   };

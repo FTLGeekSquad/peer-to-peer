@@ -18,6 +18,7 @@ const CreateListing = ({ showCreateListing, setShowCreateListing, fetchListings 
     
     
 	
+    
     const subcategoryOptions = {
         equipment: ['Cameras', 'Lenses', 'Tripods', 'Flashes'],
         services: ['Photographer', 'Videographer'],

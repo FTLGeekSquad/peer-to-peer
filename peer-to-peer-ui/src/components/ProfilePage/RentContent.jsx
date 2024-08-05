@@ -16,6 +16,8 @@ const RentContent = () => {
     const navigate = useNavigate(); 
     const [isEditing, setIsEditing] = useState(false);
     const [selectedEquipment, setSelectedEquipment] = useState(null);
+    const [showUserDeleteConfirmation, setShowUserDeleteConfirmation] = useState(false);
+
 
 	console.log("userData, ", userData)
     useEffect(() => {
@@ -72,6 +74,28 @@ const RentContent = () => {
 		}
 	};
 
+
+    //delete account button 
+    const deleteUser = async (userId) => {
+		try {
+			const response = await axios.delete(
+				`http://localhost:3000/users/${userData.userId}`
+			);
+            handleLogout();
+		} catch (error) {
+			console.error("Error deleting user:", error);
+		}
+	};
+
+    const handleDeleteAccountClick = () => {
+        setShowUserDeleteConfirmation(true);
+    };
+
+    const handleUserConfirmedDelete = async () => {
+        await deleteUser();
+        setShowUserDeleteConfirmation(false);
+    };
+
     return (
         <>
             <section className="profile-info">
@@ -116,9 +140,11 @@ const RentContent = () => {
                                 value={userData.location || ""}
                                 onChange={handleChange}
                             />
+                           {/* // <button type="submit">Delete Account</button> */}
+                            <button type="submit" onClick={handleDeleteAccountClick}>Delete Account</button>
                         </label>
-                        <button type="submit">Save</button>
-                        <button type="button" onClick={() => setIsEditing(false)}>
+                        <button class="save" type="submit">Save</button>
+                        <button class="cancel" type="button" onClick={() => setIsEditing(false)}>
                             Cancel
                         </button>
                     </form>
@@ -175,6 +201,13 @@ const RentContent = () => {
                                 )}
                             </div>
                         </div>
+                    </Modal>
+                )}
+                {showUserDeleteConfirmation && (
+                    <Modal show={showUserDeleteConfirmation} onClose={() => setShowUserDeleteConfirmation(false)}>
+                        <h2>Are you sure you want to delete your account?</h2>
+                        <button className="confirmDeleteButton" onClick={handleUserConfirmedDelete}>Yes, Delete</button>
+                        <button className="cancelDeleteButton" onClick={() => setShowUserDeleteConfirmation(false)}>Cancel</button>
                     </Modal>
                 )}
             </section>
