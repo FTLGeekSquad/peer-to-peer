@@ -59,18 +59,32 @@ const RentContent = () => {
         return date.toLocaleDateString(undefined, options);
     };
 	
-	const removeListing = async (listingId) => {
-		try {
-			const response = await axios.delete(
-				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
-			);
-			setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
-			//sets it to listings that do not have the removed listingId
-			setUserData(userData); //maybe
-		} catch (error) {
-			console.error("Error removing listing:", error);
-		}
-	};
+	// const removeListing = async (listingId) => {
+	// 	try {
+	// 		const response = await axios.delete(
+	// 			`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+	// 		);
+	// 		setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
+	// 		//sets it to listings that do not have the removed listingId
+	// 		setUserData(userData); //maybe
+	// 	} catch (error) {
+	// 		console.error("Error removing listing:", error);
+	// 	}
+	// };
+
+    const removeListing = async (event, listingId) => {
+        event.stopPropagation(); // Prevent the event from propagating to the listing card
+        try {
+            const response = await axios.delete(
+                `http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+            );
+            setSavedListings(savedListings.filter((listing) => listing.listingId !== listingId));
+            setUserData(userData); // maybe update userData if needed
+        } catch (error) {
+            console.error("Error removing listing:", error);
+        }
+    };
+    
 
     return (
         <>
@@ -143,7 +157,7 @@ const RentContent = () => {
                                 </div>
                                 <button
                                     className="contact-button"
-                                    onClick={() => removeListing(listing.listingId)}
+                                    onClick={(event) => removeListing(event, listing.listingId)}
                                 >
                                     Remove
                                 </button>
