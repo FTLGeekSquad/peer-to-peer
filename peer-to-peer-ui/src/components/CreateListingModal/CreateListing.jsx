@@ -3,7 +3,7 @@ import axios from "axios";
 import FileUpload from "../FileUpload/FileUpload";
 import { useSavedListings } from "../../contexts/SavedListingsContext";
 
-const CreateListing = ({ showCreateListing, setShowCreateListing }) => {
+const CreateListing = ({ showCreateListing, setShowCreateListing, fetchListings }) => {
     const { userData } = useSavedListings();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -20,8 +20,8 @@ const CreateListing = ({ showCreateListing, setShowCreateListing }) => {
 	
     const subcategoryOptions = {
         equipment: ['Cameras', 'Lenses', 'Tripods', 'Flashes'],
-        services: ['Photographer', 'Videographer', 'Editing', 'Consulting'],
-        spaces: ['Studios', 'Outdoor', 'Indoor', 'Events'],
+        services: ['Photographer', 'Videographer'],
+        spaces: ['Outdoor', 'Indoor'],
     };
 
     const handleCloseModal = () => {
@@ -36,6 +36,19 @@ const CreateListing = ({ showCreateListing, setShowCreateListing }) => {
         setIsUploading(false);
         setUploadSuccess('');
     };
+
+    const handleUploading = (status) => {
+		setIsUploading(status);
+		if (status) {
+			setUploadSuccess("");
+		}
+	};
+
+    const handleFileUploaded = (url) => {
+		setPhoto(url);
+		setIsPhotoUploaded(true);
+		setUploadSuccess("File uploaded successfully.");
+	};
 
     const handleCreateListing = async (e) => {
         e.preventDefault();
@@ -64,7 +77,7 @@ const CreateListing = ({ showCreateListing, setShowCreateListing }) => {
             );
             console.log("Listing created:", response.data);
             handleCloseModal();
-            //fetchListings(); comment out for now
+            await fetchListings(); 
         } catch (error) {
             console.error(
                 "Error creating listing:",
@@ -155,9 +168,14 @@ const CreateListing = ({ showCreateListing, setShowCreateListing }) => {
                                     className="styled-input"
                                 />
                                 <FileUpload
-                                    onFileUploaded={setPhoto}
-                                    isUploading={setIsUploading}
-                                    className="fileUpload"
+                                    // onFileUploaded={setPhoto}
+                                    // isUploading={setIsUploading}
+                                    // className="fileUpload"
+                                    // handleUploading={handleUploading}
+                                    onFileUploaded={handleFileUploaded}
+											setIsPhotoUploaded={setIsPhotoUploaded}
+											handleUploading={handleUploading}
+											className="fileUpload"
                                 />
                                 <button
                                     type="submit"
