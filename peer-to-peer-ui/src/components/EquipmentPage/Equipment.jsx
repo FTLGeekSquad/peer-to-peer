@@ -80,23 +80,28 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal}) {
 	};
 
 	const renderStars = (rating) => {
-		const fullStars = Math.floor(rating); // Number of full stars
-		const halfStar = rating % 1 >= 0.5;  // Whether to show a half star
-
+		const fullStars = Math.floor(rating);
+		const halfStar = rating % 1 >= 0.5;
+	  
 		return (
-			<div className="star-rating">
-				{[...Array(5)].map((_, index) => {
-					if (index < fullStars) {
-						return <FontAwesomeIcon key={index} icon={faStar} className="star filled" />;
-					} else if (index === fullStars && halfStar) {
-						return <FontAwesomeIcon key={index} icon={faStar} className="star half" />;
-					} else {
-						return <FontAwesomeIcon key={index} icon={faStar} className="star empty" />;
-					}
-				})}
-			</div>
+		  <div className="star-rating">
+			{[...Array(5)].map((_, index) => {
+			  if (index < fullStars) {
+				return <FontAwesomeIcon key={index} icon={faStar} className="star filled" />;
+			  } else if (index === fullStars && halfStar) {
+				return (
+				  <span key={index} className="half-star">
+					<FontAwesomeIcon icon={faStar} className="star half full" />
+					<FontAwesomeIcon icon={faStar} className="star half empty" />
+				  </span>
+				);
+			  } else {
+				return <FontAwesomeIcon key={index} icon={faStar} className="star empty" />;
+			  }
+			})}
+		  </div>
 		);
-	};
+	  };
 
 	return (
 		<div className="equipmentCard">

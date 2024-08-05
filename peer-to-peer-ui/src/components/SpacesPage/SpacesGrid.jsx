@@ -124,14 +124,19 @@ function SpacesGrid() {
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 >= 0.5;
-
+  
     return (
       <div className="star-rating">
         {[...Array(5)].map((_, index) => {
           if (index < fullStars) {
             return <FontAwesomeIcon key={index} icon={faStar} className="star filled" />;
           } else if (index === fullStars && halfStar) {
-            return <FontAwesomeIcon key={index} icon={faStar} className="star half" />;
+            return (
+              <span key={index} className="half-star">
+                <FontAwesomeIcon icon={faStar} className="star half full" />
+                <FontAwesomeIcon icon={faStar} className="star half empty" />
+              </span>
+            );
           } else {
             return <FontAwesomeIcon key={index} icon={faStar} className="star empty" />;
           }
@@ -231,7 +236,7 @@ function SpacesGrid() {
                 value={currentRating}
                 min="0"
                 max="5"
-                step="0.5"
+                step="1.0"
                 onChange={handleRatingChange}
               />
               <button onClick={handleRatingSubmit}>Submit Rating</button>

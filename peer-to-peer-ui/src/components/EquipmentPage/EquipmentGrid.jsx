@@ -236,7 +236,7 @@ function EquipmentGrid() {
                 value={currentRating}
                 min="0"
                 max="5"
-                step="0.5"
+                step="1.0"
                 onChange={handleRatingChange}
               />
               <button onClick={handleRatingSubmit}>Submit Rating</button>
