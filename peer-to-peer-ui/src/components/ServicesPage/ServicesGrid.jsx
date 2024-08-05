@@ -53,7 +53,7 @@ function ServicesGrid() {
   }, [selectedCategories]);
 
   useEffect(() => {
-    if (selectedService && userData.userId) {
+    if (selectedService && userData?.userId) {
       axios
         .get(
           `http://localhost:3000/reviews/${selectedService.listingId}/rating/${userData.userId}`
@@ -64,7 +64,7 @@ function ServicesGrid() {
         })
         .catch((error) => console.error("Error fetching user rating:", error));
     }
-  }, [selectedService, userData.userId]);
+  }, [selectedService, userData?.userId]);
 
   const handleToggleChange = (event, newCategories) => {
     setSelectedCategories(newCategories);
