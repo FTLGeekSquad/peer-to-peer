@@ -113,7 +113,7 @@ const HomePage = () => {
 						Break Into the Scene without Breaking the Bank
 					</div>
 					<div className="subtext">
-						Peer to Peer Photography Rental Services
+						Peer to Peer Photography Rental Services - Create an Account to Start!
 					</div>
 				</div>
 
@@ -125,7 +125,7 @@ const HomePage = () => {
 						and specialized services. Whether you’re an amateur or a
 						professional, find everything you need to elevate your photography
 						experience. Join our community and access affordable resources while
-						contributing to a collaborative network of creatives.
+						contributing to a collaborative network of creatives. 
 					</p>
 				</div>
 			</div>

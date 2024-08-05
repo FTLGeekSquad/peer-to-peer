@@ -204,6 +204,25 @@
 	transition: background-color 0.3s ease;
 }
 
+.editlisting-button {
+	background-color: #e0e0e0;
+	border: 1px solid #ccc;
+	padding: 5px;
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	margin: 10px
+}
+
+.accountButtons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+
+
 .contact-button:hover {
 	background-color: #ccc;
 }
