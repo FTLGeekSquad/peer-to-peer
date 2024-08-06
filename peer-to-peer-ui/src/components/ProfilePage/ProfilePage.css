@@ -19,6 +19,28 @@
 	text-align: center;
 	margin-top: auto; /* Pushes the footer to the bottom */
   }
+
+  .cancelDeleteButton, 
+  .confirmDeleteButton {
+	background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin: 0px 3px 0px 3px;
+  }
+
+
+
+  .confirmDeleteButton:hover, 
+  .cancelDeleteButton:hover {
+	background-color: #ff9999;
+  }
+
+
   
 
 
