@@ -140,11 +140,10 @@ const RentContent = () => {
                                 value={userData.location || ""}
                                 onChange={handleChange}
                             />
-                           {/* // <button type="submit">Delete Account</button> */}
-                            <button type="submit" onClick={handleDeleteAccountClick}>Delete Account</button>
+                            <button type="submit" className="delete-button" onClick={handleDeleteAccountClick}>Delete Account</button>
                         </label>
-                        <button class="save" type="submit">Save</button>
-                        <button class="cancel" type="button" onClick={() => setIsEditing(false)}>
+                        <button type="submit">Save</button>
+						<button type="button" onClick={() => setIsEditing(false)}>
                             Cancel
                         </button>
                     </form>

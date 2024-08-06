@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../GeneralModal/GeneralModal";
 import CreateListing from "../CreateListingModal/CreateListing";
-
+import "./ProfilePage.css";
 const ListContent = () => {
 	// const { userData, setUserData } = useSavedListings();
     //const [listings, setListings] = useState(null);
@@ -81,6 +81,27 @@ const ListContent = () => {
 		localStorage.removeItem("token");
 		navigate("/home");
 	};
+
+ //delete account button 
+ const deleteUser = async (userId) => {
+	try {
+		const response = await axios.delete(
+			`http://localhost:3000/users/${userData.userId}`
+		);
+		handleLogout();
+	} catch (error) {
+		console.error("Error deleting user:", error);
+	}
+};
+
+const handleDeleteAccountClick = () => {
+	setShowUserDeleteConfirmation(true);
+};
+
+const handleUserConfirmedDelete = async () => {
+	await deleteUser();
+	setShowUserDeleteConfirmation(false);
+};
 
 
     const handleOpenModal = () => {
@@ -272,6 +293,7 @@ const handleListingChange = (event) => {
 								value={userData.location || ""} // Default to empty string if undefined
 								onChange={handleChange}
 							/>
+							 <button type="submit"  className="delete-button" onClick={handleDeleteAccountClick}>Delete Account</button>
 						</label>
 						<button type="submit">Save</button>
 						<button type="button" onClick={() => setIsEditing(false)}>
@@ -367,18 +389,27 @@ const handleListingChange = (event) => {
       )}
 
 	{showDeleteConfirmation && (
-                <div className="delete-modal">
-                    <div className="modal-content">
-                        <h2>Confirm Deletion</h2>
-                        <p>Are you sure you want to delete this listing?</p>
-                        <div className="modal-buttons">
-                            <button onClick={handleConfirmedDelete}>Yes, Delete</button>
-                            <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
+            
+				<Modal show={showDeleteConfirmation} onClose={() => setShowDeleteConfirmation(false)}>
+					<h2>Are you sure you want to delete your account?</h2>
+					<button className="confirmDeleteButton" onClick={handleConfirmedDelete}>Yes, Delete</button>
+					<button className="cancelDeleteButton" onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+				</Modal>
+			//)}    
+				
+				
+				// <div className="modal">
+                //     <div className="modal-content">
+                //         <h2>Are you sure you want to delete this listing?</h2>
+                //         <div className="modal-buttons">
+                //             <button onClick={handleConfirmedDelete}>Yes, Delete</button>
+                //             <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+                //         </div>
+                //     </div>
+                // </div>
             )}
 
+		
 
 	  {isEditingListing && (
 	<div className="modal" onClick={() => setIsEditingListing(false)}>
@@ -483,7 +514,13 @@ const handleListingChange = (event) => {
 		</div>
 	</div>
 )}
-
+ {showUserDeleteConfirmation && (
+                    <Modal show={showUserDeleteConfirmation} onClose={() => setShowUserDeleteConfirmation(false)}>
+                        <h2>Are you sure you want to delete your account?</h2>
+                        <button className="confirmDeleteButton" onClick={handleUserConfirmedDelete}>Yes, Delete</button>
+                        <button className="cancelDeleteButton" onClick={() => setShowUserDeleteConfirmation(false)}>Cancel</button>
+                    </Modal>
+                )}
     </section>
 		</>
 	);

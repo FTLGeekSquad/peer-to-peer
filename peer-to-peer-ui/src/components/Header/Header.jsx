@@ -77,7 +77,7 @@ const Header = ({ handleSubmit }) => {
 			</header>
 			<Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
                 <div className="modal-content">
-                    <h3>Please log in to create a listing, bro</h3>
+                    <h3>Please log in to create a listing</h3>
                     <img
                         src={googleButton}
                         alt="Google Sign-In"
