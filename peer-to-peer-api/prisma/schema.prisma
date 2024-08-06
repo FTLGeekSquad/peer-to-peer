@@ -30,7 +30,7 @@ model Listing {
   listingId    Int      @id @default(autoincrement())
   title        String
   userId       Int
-  user         User     @relation(fields: [userId], references: [userId])
+  user         User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
   savedUsers   User[]   @relation("savedUserListings")
   description  String
   category     String
@@ -51,7 +51,7 @@ model Review {
   message   String?
   rating    Int
   listingId Int
-  listing   Listing  @relation(fields: [listingId], references: [listingId])
+  listing   Listing  @relation(fields: [listingId], references: [listingId], onDelete: Cascade)
   createdAt DateTime @default(now()) @db.Timestamptz()
 }
 
