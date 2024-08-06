@@ -10,9 +10,20 @@ import { useSavedListings } from "../../contexts/SavedListingsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../GeneralModal/GeneralModal";
-
-const ListContent = ({ showCreateListing, setShowCreateListing }) => {
-	const { userData, setUserData } = useSavedListings();
+import CreateListing from "../CreateListingModal/CreateListing";
+import "./ProfilePage.css";
+const ListContent = () => {
+	// const { userData, setUserData } = useSavedListings();
+    //const [listings, setListings] = useState(null);
+    //const [isEditing, setIsEditing] = useState(false);
+    //const [selectedEquipment, setSelectedEquipment] = useState(null);
+    //const [isEditingListing, setIsEditingListing] = useState(false);
+    const [showCreateListing, setShowCreateListing] = useState(false);
+	//const [uploadSuccess, setUploadSuccess] = useState("");
+	// //delete confirmation code
+	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+	const [listingToDelete, setListingToDelete] = useState(null);
+    const { userData, setUserData } = useSavedListings();
 	console.log(userData)
 	const [listings, setListings] = useState(null);
 	const [title, setTitle] = useState("");
@@ -28,9 +39,9 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [selectedEquipment, setSelectedEquipment] = useState(null);
 	const [isEditingListing, setIsEditingListing] = useState(false);
-
     const navigate = useNavigate(); // get the navigate function from useNavigate
-	console.log("ListConent")
+	const [showUserDeleteConfirmation, setShowUserDeleteConfirmation] = useState(false);
+	console.log("ListContent")
 
 	const fetchListings = async() => {
 		try {
@@ -47,11 +58,55 @@ const ListContent = ({ showCreateListing, setShowCreateListing }) => {
 			fetchListings()
 	}, []);
 
+    
+    
+	
+
+    const handleCloseModal = () => {
+        setShowCreateListing(false);
+        setTitle('');
+        setDescription('');
+        setCategory('');
+        setSubCategory('');
+        setPriceHourly('');
+        setLocation('');
+        setPhoto('');
+        setIsUploading(false);
+        setUploadSuccess('');
+    };
+
+
 	const handleLogout = () => {
 		console.log("Logging out");
 		localStorage.removeItem("token");
 		navigate("/home");
 	};
+
+ //delete account button 
+ const deleteUser = async (userId) => {
+	try {
+		const response = await axios.delete(
+			`http://localhost:3000/users/${userData.userId}`
+		);
+		handleLogout();
+	} catch (error) {
+		console.error("Error deleting user:", error);
+	}
+};
+
+const handleDeleteAccountClick = () => {
+	setShowUserDeleteConfirmation(true);
+};
+
+const handleUserConfirmedDelete = async () => {
+	await deleteUser();
+	setShowUserDeleteConfirmation(false);
+};
+
+
+    const handleOpenModal = () => {
+        setShowCreateListing(true);
+    };
 
 	const handleEdit = async (event) => {
         event.preventDefault();
@@ -73,8 +128,6 @@ const deleteListing = async (listingId) => {
 			`http://localhost:3000/listings/${listingId}`
 		);
 		console.log(response)
-		// setListings(listings?.filter((listing)=>listing.listingId !== listingId));
-		// handleCloseModal()
 		setSelectedEquipment(null);
 		await fetchListings()
 		//sets it to listings that do not have the removed listingId
@@ -84,83 +137,41 @@ const deleteListing = async (listingId) => {
 	}
 };
 
+const handleDeleteClick = (listingId) => {
+    setListingToDelete(listingId);
+    setShowDeleteConfirmation(true);
+};
+const handleConfirmedDelete = async () => {
+    if (listingToDelete) {
+        try {
+            await deleteListing(listingToDelete);
+            setShowDeleteConfirmation(false);
+            setListingToDelete(null);
+            await fetchListings();
+        } catch (error) {
+            console.error("Error deleting listing:", error);
+        }
+    }
+};
 
 
 console.log("Listings:", listings)
-
-	const handleOpenModal = () => {
-		setShowCreateListing(true);
-	};
-
-	const handleCloseModal = () => {
-		setShowCreateListing(false);
-		setTitle("");
-		setDescription("");
-		setCategory("");
-		setSubCategory("");
-		setPriceHourly("");
-		setPhoto("");
-		setLocation("");
-		setIsPhotoUploaded(false);
-		setUploadSuccess("");
-	};
-
-
-
-	const handleCreateListing = async (e) => {
-		e.preventDefault();
-
-		if (isUploading) {
-			setUploadSuccess("The photo is still uploading.");
-			return;
-		}
-
-		const listingData = {
-			title,
-			userId: userData.userId,
-			description,
-			category,
-			subCategory,
-			priceHourly,
-			photo,
-			location,
-			availability: {}, // Add a default value or modify as needed
-		};
-
-		try {
-			const response = await axios.post(
-				"http://localhost:3000/listings",
-				listingData
-			);
-			console.log("Listing created:", response.data);
-			handleCloseModal();
-			fetchListings()
-		} catch (error) {
-			console.error(
-				"Error creating listing:",
-				error.response ? error.response.data : error.message
-			);
-		} finally {
-			setIsPhotoUploaded(false);
-		}
-	};
+	
 //function to edit listing
-
-
 const handleEditListing = async (e) => {
 	e.preventDefault();
-
 	if (isUploading) {
 		setUploadSuccess("The photo is still uploading.");
 		return;
 	}
-
+	
 	const updatedListingData = {
 		title: selectedEquipment.title,
 		description: selectedEquipment.description,
 		category: category,
 		subCategory: subCategory,
 		priceHourly: selectedEquipment.priceHourly,
+		//priceHourly:parsedPriceHourly,
 		photo: selectedEquipment.photo,
 		location: selectedEquipment.location,
 		availability: selectedEquipment.availability,
@@ -174,7 +185,8 @@ const handleEditListing = async (e) => {
 		console.log("Listing updated:", response.data);
 		setIsEditingListing(false);
 		setSelectedEquipment(null);
-		setListings(listings.filter((listing)=>listing.listingId !== listingId))
+		//setListings(listings.filter((listing)=>listing.listingId !== listingId))
+		await fetchListings();
 	} catch (error) {
 		console.error(
 			"Error updating listing:",
@@ -281,6 +293,7 @@ const handleListingChange = (event) => {
 								value={userData.location || ""} // Default to empty string if undefined
 								onChange={handleChange}
 							/>
+							 <button type="submit"  className="delete-button" onClick={handleDeleteAccountClick}>Delete Account</button>
 						</label>
 						<button type="submit">Save</button>
 						<button type="button" onClick={() => setIsEditing(false)}>
@@ -298,111 +311,12 @@ const handleListingChange = (event) => {
 							Create Listing
 						</button>
 					</div>
-					{showCreateListing && (
-						<div className="modal" onClick={handleCloseModal}>
-							<div
-								className="listing-modal-content"
-								onClick={(e) => e.stopPropagation()}
-							>
-								<div className="listing-modal-header">
-									<h2 className="modalTitle">Create a Listing</h2>
-									<button className="modal-close" onClick={handleCloseModal}>
-										&times;
-									</button>
-								</div>
-								<div className="modal-body">
-									{uploadSuccess && (
-										<p className="upload-success-message">{uploadSuccess}</p>
-									)}
-									<form
-										onSubmit={handleCreateListing}
-										className="centered-form"
-									>
-										<input
-											type="text"
-											value={title}
-											onChange={(e) => setTitle(e.target.value)}
-											placeholder="Enter a Title"
-											required
-											className="styled-input"
-										/>
-										<input
-											type="text"
-											value={description}
-											onChange={(e) => setDescription(e.target.value)}
-											placeholder="Description"
-											required
-											className="styled-input"
-										/>
-										<select
-											value={category}
-											onChange={(e) => {
-												setCategory(e.target.value);
-												setSubCategory(""); // Reset subCategory when category changes
-											}}
-											required
-											className="styled-input"
-										>
-											<option value="" disabled>
-												Select a category
-											</option>
-											<option value="equipment">Equipment</option>
-											<option value="services">Services</option>
-											<option value="spaces">Spaces</option>
-										</select>
-										<select
-											value={subCategory}
-											onChange={(e) => setSubCategory(e.target.value)}
-											required
-											className="styled-input"
-											disabled={!category} // Disable subCategory if no category is selected
-										>
-											<option value="" disabled>
-												Select a subcategory
-											</option>
-											{category &&
-												subcategoryOptions[category]?.map((sub) => (
-													<option key={sub} value={sub}>
-														{sub}
-													</option>
-												))}
-										</select>
-										<input
-											type="number"
-											value={priceHourly}
-											onChange={(e) =>
-												setPriceHourly(parseFloat(e.target.value))
-											}
-											placeholder="Price Hourly"
-											required
-											className="styled-input"
-										/>
-										<input
-											type="text"
-											value={location}
-											onChange={(e) => setLocation(e.target.value)}
-											placeholder="Location"
-											required
-											className="styled-input"
-										/>
-										<FileUpload
-											onFileUploaded={handleFileUploaded}
-											setIsPhotoUploaded={setIsPhotoUploaded}
-											handleUploading={handleUploading}
-											className="fileUpload"
-										/>
-										<button
-											type="submit"
-											className="create-listing-button"
-											disabled={isUploading}
-										>
-											Create Listing
-										</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					)}
+					<CreateListing 
+    					showCreateListing={showCreateListing} 
+    					setShowCreateListing={setShowCreateListing} 
+						fetchListings={fetchListings}
+						/>
+
 				</div>
 			</section>
 
@@ -466,15 +380,37 @@ const handleListingChange = (event) => {
 					setCategory(selectedEquipment.category);
 					setSubCategory(selectedEquipment.subCategory);
 				}}>Edit Listing</button> 
-				<button className="editlisting-button" onClick={() => {
-					//setIsEditingListing(true)
-					deleteListing(selectedEquipment.listingId);
-
-				}}>Delete Listing</button> 
+				<button className="editlisting-button" onClick={() => handleDeleteClick(selectedEquipment.listingId)}>
+    				Delete Listing
+				</button>
 				</div>
           </div>
         </Modal>
       )}
+
+	{showDeleteConfirmation && (
+            
+				<Modal show={showDeleteConfirmation} onClose={() => setShowDeleteConfirmation(false)}>
+					<h2>Are you sure you want to delete your account?</h2>
+					<button className="confirmDeleteButton" onClick={handleConfirmedDelete}>Yes, Delete</button>
+					<button className="cancelDeleteButton" onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+				</Modal>
+			//)}    
+				
+				
+				// <div className="modal">
+                //     <div className="modal-content">
+                //         <h2>Are you sure you want to delete this listing?</h2>
+                //         <div className="modal-buttons">
+                //             <button onClick={handleConfirmedDelete}>Yes, Delete</button>
+                //             <button onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+                //         </div>
+                //     </div>
+                // </div>
+            )}
+
+		
+
 	  {isEditingListing && (
 	<div className="modal" onClick={() => setIsEditingListing(false)}>
 		<div
@@ -578,7 +514,13 @@ const handleListingChange = (event) => {
 		</div>
 	</div>
 )}
-
+ {showUserDeleteConfirmation && (
+                    <Modal show={showUserDeleteConfirmation} onClose={() => setShowUserDeleteConfirmation(false)}>
+                        <h2>Are you sure you want to delete your account?</h2>
+                        <button className="confirmDeleteButton" onClick={handleUserConfirmedDelete}>Yes, Delete</button>
+                        <button className="cancelDeleteButton" onClick={() => setShowUserDeleteConfirmation(false)}>Cancel</button>
+                    </Modal>
+                )}
     </section>
 		</>
 	);
