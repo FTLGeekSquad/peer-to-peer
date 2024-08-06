@@ -31,22 +31,18 @@ const HomePage = () => {
 
 	// Fetch user data from the server
 	useEffect(() => {
-		console.log(token);
 		if (token) {
 			setUserInfo(jwtDecode(token));
 		}
 	}, []);
 
 	useEffect(() => {
-		console.log(userInfo);
 		if (userInfo) {
 			const fetchUserData = async () => {
-				console.log("Fetching user data...");
 				try {
 					const response = await axios.get(
 						`http://localhost:3000/users/email/${userInfo.email}`
 					);
-					console.log("Response data:", response.data);
 					const user = {
 						name: response.data.name || "",
 						email: response.data.email || "",
@@ -58,7 +54,6 @@ const HomePage = () => {
 						savedListings: response.data.savedListings,
 					};
 					setUserData(user);
-					console.log("Use Data from fetch:", user);
 					setLoading(false);
 				} catch (error) {
 					setError(error);

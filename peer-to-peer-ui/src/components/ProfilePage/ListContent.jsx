@@ -17,7 +17,6 @@ const ListContent = () => {
 	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 	const [listingToDelete, setListingToDelete] = useState(null);
     const { userData, setUserData } = useSavedListings();
-	console.log(userData)
 	const [listings, setListings] = useState(null);
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -34,12 +33,10 @@ const ListContent = () => {
 	const [isEditingListing, setIsEditingListing] = useState(false);
     const navigate = useNavigate(); // get the navigate function from useNavigate
 	const [showUserDeleteConfirmation, setShowUserDeleteConfirmation] = useState(false);
-	console.log("ListContent")
 
 	const fetchListings = async() => {
 		try {
 			const response = await axios.get(`http://localhost:3000/listings/all-listings/${userData.userId}`)
-			console.log("fetchinglisting", response)
 			setListings(response.data)
 		} catch(error){
 			console.error("Error fetching listings", error)
@@ -70,7 +67,6 @@ const ListContent = () => {
 
 
 	const handleLogout = () => {
-		console.log("Logging out");
 		localStorage.removeItem("token");
 		navigate("/home");
 	};
@@ -117,10 +113,10 @@ const handleUserConfirmedDelete = async () => {
 	//delete listing function
 const deleteListing = async (listingId) => {
 	try {
+
 		const response = await axios.delete(
 			`http://localhost:3000/listings/${listingId}`
 		);
-		console.log(response)
 		setSelectedEquipment(null);
 		await fetchListings()
 		//sets it to listings that do not have the removed listingId
@@ -148,7 +144,6 @@ const handleConfirmedDelete = async () => {
 };
 
 
-console.log("Listings:", listings)
 	
 //function to edit listing
 const handleEditListing = async (e) => {
@@ -175,7 +170,6 @@ const handleEditListing = async (e) => {
 			`http://localhost:3000/listings/${selectedEquipment.listingId}`,
 			updatedListingData
 		);
-		console.log("Listing updated:", response.data);
 		setIsEditingListing(false);
 		setSelectedEquipment(null);
 		//setListings(listings.filter((listing)=>listing.listingId !== listingId))
@@ -207,7 +201,6 @@ const handleListingChange = (event) => {
             ...prevData,
             [name]: value,
         }));
-    console.log("HC EV", event.target)
 	};
 
 
@@ -447,7 +440,6 @@ const handleListingChange = (event) => {
 						defaultValue={selectedEquipment.category}
 						onChange={(e) => {
 							setCategory(e.target.value);
-							console.log("Target Value", e.target.value)
 							setSubCategory(e.target.value.subCategory); // Reset subCategory when category changes
 							//{handleListingChange}
 						}}

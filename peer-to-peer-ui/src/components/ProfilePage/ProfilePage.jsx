@@ -17,7 +17,6 @@ const ProfilePage = () => {
 	// const { savedListings, removeListing } = useSavedListings(); // Use the context
 	// const [userInfo, setUserInfo] = useState(null);
 	const { userData, setUserData } = useSavedListings();
-	console.log("userData in PROFILE, ", userData)
 	const [error, setError] = useState(null);
 
 	if(!userData){

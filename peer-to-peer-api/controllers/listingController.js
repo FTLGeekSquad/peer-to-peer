@@ -79,7 +79,6 @@ const getListingsByCategory = async (req, res) => {
 		spaces: ['Indoor', 'Outdoor'],
 		services: ['Photography', 'Videography']
 	};
-	console.log("subCategory", subCategory);
 
 	if (subCategory) {
 		if (Array.isArray(subCategory)) {
@@ -108,7 +107,6 @@ const getListingsByCategory = async (req, res) => {
 // Fetch listings by userId
 const getListingsByUserId = async (req, res) => {
     const { userId } = req.params;
-    console.log(`Fetching listings for userId: ${userId}`); // Log userId for debugging
 
     try {
         const user = await prisma.user.findUnique({

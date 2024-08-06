@@ -19,7 +19,6 @@ const RentContent = () => {
     const [showUserDeleteConfirmation, setShowUserDeleteConfirmation] = useState(false);
 
 
-	console.log("userData, ", userData)
     useEffect(() => {
         setSavedListings(userData.savedListings);
     }, [userData]);
@@ -27,7 +26,6 @@ const RentContent = () => {
 
 	
     const handleLogout = () => {
-        console.log("Logging out");
         localStorage.removeItem("token");
         navigate("/home");
     };

@@ -10,7 +10,6 @@ const PrivateRoute = ({ children }) => {
 
     try {
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
       
       // Check name field for validity
       if (!decodedToken.name) {
@@ -22,7 +21,6 @@ const PrivateRoute = ({ children }) => {
       const now = Math.floor(Date.now() / 1000); // Current time in seconds
 
       if (expirationTime < now) {
-        console.log("invalid token!");
         return false;
       }
       return true;
