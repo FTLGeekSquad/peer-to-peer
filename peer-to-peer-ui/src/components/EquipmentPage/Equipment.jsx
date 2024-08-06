@@ -36,7 +36,7 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal}) {
 		try {
 			// userData is undefined
 			const response = await axios.post(
-				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+				`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
 			);
 			setSavedListings([...savedListings, response.data]);
 			setUserData({
@@ -51,7 +51,7 @@ function Equipment({ onClick, listing, isLoggedIn, setShowLoginModal}) {
 	const removeListing = async (listingId) => {
 		try {
 			await axios.delete(
-				`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+				`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
 			);
 			setSavedListings(savedListings.filter((listing) => listing.listingId !== listingId));
 			setUserData({

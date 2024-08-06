@@ -73,7 +73,7 @@ const CreateListing = ({ showCreateListing, setShowCreateListing, fetchListings 
 
         try {
             const response = await axios.post(
-                "http://localhost:3000/listings",
+                "http://peer-to-peer-59rz.onrender.com/listings",
                 listingData
             );
             handleCloseModal();

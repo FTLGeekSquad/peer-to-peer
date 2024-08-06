@@ -36,7 +36,7 @@ const ListContent = () => {
 
 	const fetchListings = async() => {
 		try {
-			const response = await axios.get(`http://localhost:3000/listings/all-listings/${userData.userId}`)
+			const response = await axios.get(`http://peer-to-peer-59rz.onrender.com/listings/all-listings/${userData.userId}`)
 			setListings(response.data)
 		} catch(error){
 			console.error("Error fetching listings", error)
@@ -75,7 +75,7 @@ const ListContent = () => {
  const deleteUser = async (userId) => {
 	try {
 		const response = await axios.delete(
-			`http://localhost:3000/users/${userData.userId}`
+			`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}`
 		);
 		handleLogout();
 	} catch (error) {
@@ -100,7 +100,7 @@ const handleUserConfirmedDelete = async () => {
 	const handleEdit = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(`http://localhost:3000/users/${userData.userId}`, {
+            await axios.put(`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}`, {
                 phoneNumber: userData.phoneNumber,
                 location: userData.location,
             });
@@ -115,7 +115,7 @@ const deleteListing = async (listingId) => {
 	try {
 
 		const response = await axios.delete(
-			`http://localhost:3000/listings/${listingId}`
+			`http://peer-to-peer-59rz.onrender.com/listings/${listingId}`
 		);
 		setSelectedEquipment(null);
 		await fetchListings()
@@ -167,7 +167,7 @@ const handleEditListing = async (e) => {
 
 	try {
 		const response = await axios.put(
-			`http://localhost:3000/listings/${selectedEquipment.listingId}`,
+			`http://peer-to-peer-59rz.onrender.com/listings/${selectedEquipment.listingId}`,
 			updatedListingData
 		);
 		setIsEditingListing(false);

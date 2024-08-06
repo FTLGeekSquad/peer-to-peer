@@ -31,7 +31,7 @@ export const SavedListingsProvider = ({ children }) => {
             const fetchUserData = async () => {
                 try {
                     const response = await axios.get(
-                        `http://localhost:3000/users/email/${userInfo.email}`
+                        `http://peer-to-peer-59rz.onrender.com/users/email/${userInfo.email}`
                     );
                     const user = {
                         name: response.data.name || "",

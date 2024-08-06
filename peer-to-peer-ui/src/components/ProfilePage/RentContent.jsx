@@ -33,7 +33,7 @@ const RentContent = () => {
     const handleEdit = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(`http://localhost:3000/users/${userData.userId}`, {
+            await axios.put(`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}`, {
                 phoneNumber: userData.phoneNumber,
                 location: userData.location,
             });
@@ -62,7 +62,7 @@ const RentContent = () => {
 	// const removeListing = async (listingId) => {
 	// 	try {
 	// 		const response = await axios.delete(
-	// 			`http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+	// 			`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
 	// 		);
 	// 		setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
 	// 		//sets it to listings that do not have the removed listingId
@@ -76,7 +76,7 @@ const RentContent = () => {
         event.stopPropagation(); // Prevent the event from propagating to the listing card
         try {
             const response = await axios.delete(
-                `http://localhost:3000/users/${userData.userId}/saved-listings/${listingId}`
+                `http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
             );
             setSavedListings(savedListings.filter((listing) => listing.listingId !== listingId));
             setUserData(userData); // maybe update userData if needed
@@ -91,7 +91,7 @@ const RentContent = () => {
     const deleteUser = async (userId) => {
 		try {
 			const response = await axios.delete(
-				`http://localhost:3000/users/${userData.userId}`
+				`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}`
 			);
             handleLogout();
 		} catch (error) {
