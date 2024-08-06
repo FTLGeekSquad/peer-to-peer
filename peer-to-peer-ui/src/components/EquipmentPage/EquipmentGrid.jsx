@@ -23,7 +23,7 @@ function EquipmentGrid() {
   const [currentRating, setCurrentRating] = useState(0);
   const { saveListing } = useSavedListings(); // Use the context
 
-  const dataUrl = "http://peer-to-peer-59rz.onrender.com/listings/filter/equipment";
+  const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/equipment";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
