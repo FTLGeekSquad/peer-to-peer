@@ -15,6 +15,11 @@
 	margin-top: 20px;
 	left: 0; /* Align the logo to the left */
 }
+.create-listing-button{
+	margin: 20px;
+	padding:10px;
+	
+}
 
 .headerBottom {
 	display: flex;
