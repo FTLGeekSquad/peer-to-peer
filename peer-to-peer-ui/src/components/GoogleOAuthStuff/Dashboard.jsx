@@ -8,7 +8,6 @@ const Dashboard = () => {
   const [userInfo, setUserInfo] = useState("");
 
   const handleLogout = () => {
-    console.log("Logging out");
     localStorage.removeItem("token");
     navigate("/home");
   };

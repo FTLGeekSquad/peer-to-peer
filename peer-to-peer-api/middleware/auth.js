@@ -18,7 +18,6 @@ async function verifyToken(req, res, next) {
       audience: clientId,
     });
     const payload = ticket.getPayload();
-    console.log(payload);
     req.user = payload; // Attach user information to the request
     next(); // Proceed to the next middleware or route handler
   } catch (e) {

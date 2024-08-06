@@ -9,15 +9,13 @@ const updateAvgRating = async (listingId) => {
 		where: { listingId: listingId },
 		select: { rating: true },
 	  });
-	  console.log(reviews)
   
 	  // Calculate the average rating
 	  if (reviews.length > 0) {
 		const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
 		const avgRating = totalRating / reviews.length;
 
-		console.log(totalRating);
-		console.log(avgRating)
+		
   
 		// Update the avgRating in the Listing model
 		await prisma.listing.update({

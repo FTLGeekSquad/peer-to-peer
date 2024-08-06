@@ -76,7 +76,6 @@ const CreateListing = ({ showCreateListing, setShowCreateListing, fetchListings 
                 "http://localhost:3000/listings",
                 listingData
             );
-            console.log("Listing created:", response.data);
             handleCloseModal();
             await fetchListings(); 
         } catch (error) {

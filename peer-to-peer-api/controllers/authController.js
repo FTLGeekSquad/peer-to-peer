@@ -13,7 +13,6 @@ const getProtected = async (req, res) => {
 };
 
 const login = async (req, res) => {
-	// console.log('login');
 	const authorizationUrl = oauth2Client.generateAuthUrl({
 		access_type: "offline",
 		scope: [
@@ -27,12 +26,10 @@ const login = async (req, res) => {
 
 const callback = async (req, res) => {
 	const code = req.query.code;
-	console.log(code);
 	try {
 		const { tokens } = await oauth2Client.getToken(code);
 		oauth2Client.setCredentials(tokens);
-		// console.log(tokens)
-		// tokens.access_token
+		
 
 		const oauth2 = google.oauth2({
 			auth: oauth2Client,
@@ -40,13 +37,10 @@ const callback = async (req, res) => {
 		});
 
 		const googleUser = await oauth2.userinfo.get();
-		// console.log(googleUser.data);
 		// check against the DB
-		console.log(googleUser.data.name, googleUser.data.email);
 
 		//create a user only if the user is not already added
 		const user = await userModel.getUserByEmail(googleUser.data.email);
-		console.log("User from the DB is:", user);
 
 		//res json data <- refer controller files
 
