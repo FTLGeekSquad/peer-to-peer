@@ -13,14 +13,7 @@ import Modal from "../GeneralModal/GeneralModal";
 import CreateListing from "../CreateListingModal/CreateListing";
 import "./ProfilePage.css";
 const ListContent = () => {
-	// const { userData, setUserData } = useSavedListings();
-    //const [listings, setListings] = useState(null);
-    //const [isEditing, setIsEditing] = useState(false);
-    //const [selectedEquipment, setSelectedEquipment] = useState(null);
-    //const [isEditingListing, setIsEditingListing] = useState(false);
     const [showCreateListing, setShowCreateListing] = useState(false);
-	//const [uploadSuccess, setUploadSuccess] = useState("");
-	// //delete confirmation code
 	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 	const [listingToDelete, setListingToDelete] = useState(null);
     const { userData, setUserData } = useSavedListings();
