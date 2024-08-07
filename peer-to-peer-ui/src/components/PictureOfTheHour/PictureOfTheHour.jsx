@@ -49,7 +49,7 @@ const PictureOfTheHour = () => {
 			camera: "Nikon D750",
 		},
 		{
-			src: "/src/assets/brazil,jpg",
+			src: "/src/assets/brazil.jpg",
 			text: "Rio de Janeiro, Brazil",
 			camera: "Sony Alpha 7 II",
 		},
