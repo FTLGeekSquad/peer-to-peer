@@ -2,7 +2,7 @@
 useEffect(() => {
     const fetchSavedListings = async () => {
         try {
-            const response = await axios.get(`http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings`);
+            const response = await axios.get(`https://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings`);
             setSavedListings(response.data);
         } catch (error) {
             console.error("Error fetching saved listings:", error);
@@ -14,7 +14,7 @@ useEffect(() => {
 const saveListing = async (listing) => {
     try {
         const response = await axios.post(
-            `http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings`,
+            `https://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings`,
             { listing }
         );
         setSavedListings([...savedListings, response.data]);
@@ -27,7 +27,7 @@ const saveListing = async (listing) => {
 const removeListing = async (listingId) => {
     try {
         const response = await axios.delete(
-            `http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
+            `https://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
         );
         setSavedListings(savedListings.filter((listing)=>listing.listingId !== listingId));
         //sets it to listings that do not have the removed listingId

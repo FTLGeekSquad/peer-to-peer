@@ -5,7 +5,7 @@ const listingController = require("../controllers/listingController");
 // Define more specific routes first
 router.get("/filter/:category", listingController.getListingsByCategory);
 router.get('/all-listings/:userId', listingController.getListingsByUserId);
-//http://peer-to-peer-59rz.onrender.com/listings/all-listings/2 fyi
+//https://peer-to-peer-59rz.onrender.com/listings/all-listings/2 fyi
 
 // Define other routes
 router.get("/", listingController.getAllListings);

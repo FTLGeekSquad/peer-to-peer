@@ -23,7 +23,7 @@ function ServicesGrid() {
   const [currentRating, setCurrentRating] = useState(0);
   const { saveListing } = useSavedListings(); // Use the context
 
-  const dataUrl = "http://peer-to-peer-59rz.onrender.com/listings/filter/services";
+  const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/services";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -56,7 +56,7 @@ function ServicesGrid() {
     if (selectedService && userData?.userId) {
       axios
         .get(
-          `http://peer-to-peer-59rz.onrender.com/reviews/${selectedService.listingId}/rating/${userData.userId}`
+          `https://peer-to-peer-59rz.onrender.com/reviews/${selectedService.listingId}/rating/${userData.userId}`
         )
         .then((response) => {
           setUserRating(response.data.rating);
@@ -79,7 +79,7 @@ function ServicesGrid() {
   };
 
   const handleLogin = () => {
-    window.location.href = "http://peer-to-peer-59rz.onrender.com/auth/login";
+    window.location.href = "https://peer-to-peer-59rz.onrender.com/auth/login";
   };
 
   const handleRatingChange = (event) => {
@@ -100,11 +100,11 @@ function ServicesGrid() {
     try {
       if (userRating !== null) {
         await axios.put(
-          `http://peer-to-peer-59rz.onrender.com/reviews/${selectedService.listingId}/rating/${userData.userId}`,
+          `https://peer-to-peer-59rz.onrender.com/reviews/${selectedService.listingId}/rating/${userData.userId}`,
           { rating: currentRating }
         );
       } else {
-        await axios.post("http://peer-to-peer-59rz.onrender.com/reviews", {
+        await axios.post("https://peer-to-peer-59rz.onrender.com/reviews", {
           userId: userData.userId,
           listingId: selectedService.listingId,
           rating: currentRating,

@@ -56,7 +56,7 @@ function EquipmentGrid() {
     if (selectedEquipment && userData?.userId) {
       axios
         .get(
-          `http://peer-to-peer-59rz.onrender.com/reviews/${selectedEquipment.listingId}/rating/${userData.userId}`
+          `https://peer-to-peer-59rz.onrender.com/reviews/${selectedEquipment.listingId}/rating/${userData.userId}`
         )
         .then((response) => {
           setUserRating(response.data.rating);
@@ -79,7 +79,7 @@ function EquipmentGrid() {
   };
 
   const handleLogin = () => {
-    window.location.href = "http://peer-to-peer-59rz.onrender.com/auth/login";
+    window.location.href = "https://peer-to-peer-59rz.onrender.com/auth/login";
   };
 
   const handleRatingChange = (event) => {
@@ -100,11 +100,11 @@ function EquipmentGrid() {
     try {
       if (userRating !== null) {
         await axios.put(
-          `http://peer-to-peer-59rz.onrender.com/reviews/${selectedEquipment.listingId}/rating/${userData.userId}`,
+          `https://peer-to-peer-59rz.onrender.com/reviews/${selectedEquipment.listingId}/rating/${userData.userId}`,
           { rating: currentRating }
         );
       } else {
-        await axios.post("http://peer-to-peer-59rz.onrender.com/reviews", {
+        await axios.post("https://peer-to-peer-59rz.onrender.com/reviews", {
           userId: userData.userId,
           listingId: selectedEquipment.listingId,
           rating: currentRating,

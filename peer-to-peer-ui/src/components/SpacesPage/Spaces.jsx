@@ -34,7 +34,7 @@ function Spaces({ onClick, listing, setShowModal, isLoggedIn }) {
   const saveListing = async (listingId) => {
     try {
       const response = await axios.post(
-        `http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
+        `https://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
       );
       setUserData({
         ...userData,
@@ -49,7 +49,7 @@ function Spaces({ onClick, listing, setShowModal, isLoggedIn }) {
   const removeListing = async (listingId) => {
     try {
       await axios.delete(
-        `http://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
+        `https://peer-to-peer-59rz.onrender.com/users/${userData.userId}/saved-listings/${listingId}`
       );
       setUserData({
         ...userData,

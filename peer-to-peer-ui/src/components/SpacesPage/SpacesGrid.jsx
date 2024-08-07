@@ -22,7 +22,7 @@ function SpacesGrid() {
   const [userRating, setUserRating] = useState(null);
   const [currentRating, setCurrentRating] = useState(0);
 
-  const dataUrl = "http://peer-to-peer-59rz.onrender.com/listings/filter/spaces";
+  const dataUrl = "https://peer-to-peer-59rz.onrender.com/listings/filter/spaces";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -55,7 +55,7 @@ function SpacesGrid() {
     if (selectedSpace && userData?.userId) {
       axios
         .get(
-          `http://peer-to-peer-59rz.onrender.com/reviews/${selectedSpace.listingId}/rating/${userData.userId}`
+          `https://peer-to-peer-59rz.onrender.com/reviews/${selectedSpace.listingId}/rating/${userData.userId}`
         )
         .then((response) => {
           setUserRating(response.data.rating);
@@ -78,7 +78,7 @@ function SpacesGrid() {
   };
 
   const handleLogin = () => {
-    window.location.href = "http://peer-to-peer-59rz.onrender.com/auth/login";
+    window.location.href = "https://peer-to-peer-59rz.onrender.com/auth/login";
   };
 
   const handleRatingChange = (event) => {
@@ -99,11 +99,11 @@ function SpacesGrid() {
     try {
       if (userRating !== null) {
         await axios.put(
-          `http://peer-to-peer-59rz.onrender.com/reviews/${selectedSpace.listingId}/rating/${userData.userId}`,
+          `https://peer-to-peer-59rz.onrender.com/reviews/${selectedSpace.listingId}/rating/${userData.userId}`,
           { rating: currentRating }
         );
       } else {
-        await axios.post("http://peer-to-peer-59rz.onrender.com/reviews", {
+        await axios.post("https://peer-to-peer-59rz.onrender.com/reviews", {
           userId: userData.userId,
           listingId: selectedSpace.listingId,
           rating: currentRating,

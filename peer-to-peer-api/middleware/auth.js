@@ -1,7 +1,7 @@
 const { OAuth2Client } = require("google-auth-library");
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-const redirectUrl = "http://peer-to-peer-59rz.onrender.com/auth/google/callback";
+const redirectUrl = "https://peer-to-peer-59rz.onrender.com/auth/google/callback";
 
 const oauth2Client = new OAuth2Client(clientId, clientSecret, redirectUrl);
 
