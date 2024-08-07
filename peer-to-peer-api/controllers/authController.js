@@ -49,7 +49,7 @@ const callback = async (req, res) => {
 		}
 		// res.json(user)
 
-		res.redirect(`https://peer-to-peer-59rz.onrender.com/auth/google/callback?token=${tokens.id_token}`);
+		res.redirect(`https://peer-to-peer-ui.onrender.com/callback?token=${tokens.id_token}`);
 		//post to the database
 
 		// //check if the are already in the database
