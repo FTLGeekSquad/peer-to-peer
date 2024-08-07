@@ -20,7 +20,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center; /* Center the SearchBar and NavBar horizontally */
-	width: 100%; /* Ensure headerBottom takes the full width */
+	/* width: 100%; Ensure headerBottom takes the full width */
 	margin-right: auto;
 	margin-left: auto;
 	background-color: #fbf7ee;
@@ -136,4 +136,23 @@
 .header-logo {
 	width: 300px;
 	padding: 20px 0 0 0;
+}
+
+@media screen and (max-width: 460px) {
+	.header {
+		flex-direction: column;
+		gap: 10px;
+	}
+	.navbar {
+		font-size: 0.8rem;
+	}
+	.nav-links li {
+		margin: 5px;
+	}
+	.picture-of-the-hour {
+		flex-direction: column;
+	}
+	.banner {
+		flex-direction: column;
+	}
 }

@@ -15,17 +15,16 @@
 	margin-top: 20px;
 	left: 0; /* Align the logo to the left */
 }
-.create-listing-button{
+.create-listing-button {
 	margin: 20px;
-	padding:10px;
-	
+	padding: 10px;
 }
 
 .headerBottom {
 	display: flex;
 	flex-direction: column;
 	align-items: center; /* Center the SearchBar and NavBar horizontally */
-	width: 100%; /* Ensure headerBottom takes the full width */
+	/* width: 100%; Ensure headerBottom takes the full width */
 	margin-right: auto;
 	margin-left: auto;
 	background-color: #fbf7ee;
@@ -143,4 +142,18 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+}
+
+@media screen and (max-width: 460px) {
+	.header {
+		flex-direction: column;
+		gap: 10px;
+	}
+	.navbar {
+		font-size: 0.8rem;
+		align-items: center;
+	}
+	.nav-links {
+		margin: 1px;
+	}
 }
