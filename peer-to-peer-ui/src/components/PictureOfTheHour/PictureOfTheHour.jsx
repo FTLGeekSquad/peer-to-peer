@@ -1,125 +1,150 @@
 import React, { useState, useEffect } from "react";
 import "./PictureOfTheHour.css";
 
+import antelope from "../../assets/antelope.jpg";
+import canyan from "../../assets/canyan.jpg";
+import kyoto from "../../assets/kyoto.jpg";
+import machu from "../../assets/machu.jpg";
+import moraine from "../../assets/moraine.jpg";
+import yosemite from "../../assets/yosemite.jpg";
+import santorini from "../../assets/santorini.jpg";
+import petra from "../../assets/petra.jpg";
+import venice from "../../assets/venice.jpg";
+import taj from "../../assets/taj.jpg";
+import iceland from "../../assets/iceland.jpg";
+import brazil from "../../assets/brazil.jpg";
+import canada from "../../assets/canada.jpg";
+import borabora from "../../assets/borabora.jpg";
+import uluru from "../../assets/uluru.jpg";
+import capetown from "../../assets/capetown.jpg";
+import patagonia from "../../assets/patagonia.jpg";
+import italy from "../../assets/italy.jpg";
+import bolivia from "../../assets/bolivia.jpg";
+import amalfi from "../../assets/amalfi.jpg";
+import kruger from "../../assets/kruger.jpg";
+import croatia from "../../assets/croatia.jpg";
+import zion from "../../assets/zion.jpg";
+import grandcanyon from "../../assets/grandcanyon.jpg";
+
 const PictureOfTheHour = () => {
 	const images = [
 		{
-			src: "/src/assets/kyoto.jpg",
+			src: kyoto,
 			text: "Kyoto, Japan",
 			camera: "Fujifilm X-T4",
 		},
 		{
-			src: "/src/assets/machu.jpg",
+			src: machu,
 			text: "Machu Picchu, Peru",
 			camera: "Sony Alpha 7R IV",
 		},
 		{
-			src: "/src/assets/moraine.jpg",
+			src: moraine,
 			text: "Moraine Lake, Canada",
 			camera: "Nikon D850",
 		},
 		{
-			src: "/src/assets/yosemite.JPG",
+			src: yosemite,
 			text: "Yosemite, California",
 			camera: "NIKON COOLPIX W150",
 		},
 		{
-			src: "/src/assets/santorini.jpg",
+			src: santorini,
 			text: "Santorini, Greece",
 			camera: "Canon EOS 5D Mark IV",
 		},
 		{
-			src: "/src/assets/petra.jpg",
+			src: petra,
 			text: "Petra, Jordan",
 			camera: "Canon EOS R5",
 		},
 		{
-			src: "/src/assets/venice.jpg",
+			src: venice,
 			text: "Venice, Italy",
 			camera: "Nikon Z6",
 		},
 		{
-			src: "/src/assets/taj.jpg",
+			src: taj,
 			text: "Taj Mahal, India",
 			camera: "Canon EOS 6D Mark II",
 		},
 		{
-			src: "/src/assets/iceland.jpg",
+			src: iceland,
 			text: "Iceland",
 			camera: "Nikon D750",
 		},
 		{
-			src: "/src/assets/brazil.jpg",
+			src: brazil,
 			text: "Rio de Janeiro, Brazil",
 			camera: "Sony Alpha 7 II",
 		},
 		{
-			src: "/src/assets/canyan.jpg",
+			src: canyan,
 			text: "Grand Canyon, USA",
 			camera: "Canon EOS 90D",
 		},
 		{
-			src: "/src/assets/canada.jpg",
+			src: canada,
 			text: "Banff National Park, Canada",
 			camera: "Nikon D7200",
 		},
 		{
-			src: "/src/assets/borabora.jpg",
+			src: borabora,
 			text: "Bora Bora, French Polynesia",
 			camera: "Fujifilm X-T3",
 		},
 		{
-			src: "/src/assets/uluru.jpg",
+			src: uluru,
 			text: "Uluru, Australia",
 			camera: "Sony Alpha 7R III",
 		},
 		{
-			src: "/src/assets/capetown.jpg",
+			src: capetown,
 			text: "Cape Town, South Africa",
 			camera: "Canon EOS 5DS R",
 		},
 		{
-			src: "/src/assets/antelope.jpg",
+			src: antelope,
 			text: "Antelope Canyon, USA",
 			camera: "Nikon Z7",
 		},
 		{
-			src: "/src/assets/patagonia.jpg",
+			src: patagonia,
 			text: "Patagonia, Argentina",
 			camera: "Sony Alpha 7S II",
 		},
 		{
-			src: "/src/assets/italy.jpg",
+			src: italy,
 			text: "Cinque Terre, Italy",
 			camera: "Canon EOS 80D",
 		},
 		{
-			src: "/src/assets/bolivia.jpg",
+			src: bolivia,
 			text: "Salar de Uyuni, Bolivia",
 			camera: "Nikon D810",
 		},
 		{
-			src: "/src/assets/amalfi.jpg",
+			src: amalfi,
 			text: "Amalfi Coast, Italy",
 			camera: "Sony Alpha 7R II",
 		},
 		{
-			src: "/src/assets/kruger.jpg",
+			src: kruger,
 			text: "Kruger National Park, South Africa",
 			camera: "Canon EOS 7D Mark II",
 		},
 		{
-			src: "/src/assets/croatia.jpg",
+			src: croatia,
 			text: "Dubrovnik, Croatia",
 			camera: "Nikon D5600",
 		},
 		{
-			src: "/src/assets/zion.jpg",
+			src: zion,
 			text: "Zion National Park, USA",
 			camera: "Fujifilm X-T30",
 		},
 		{
-			src: "/src/assets/grandcanyon.jpg",
+			src: grandcanyon,
 			text: "Grand Canyon, USA",
 			camera: "Canon EOS 90D",
 		},
