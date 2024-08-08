@@ -258,6 +258,19 @@ const handleListingChange = (event) => {
 						Edit Account Details
 					</button>
 					<button className='logout' onClick={handleLogout}>Log out</button>
+					<div className="createListing">
+					<div className="create-listing-button-container">
+						<button className="create-listing-button" onClick={handleOpenModal}>
+							Create Listing
+						</button>
+					</div>
+					<CreateListing 
+    					showCreateListing={showCreateListing} 
+    					setShowCreateListing={setShowCreateListing} 
+						fetchListings={fetchListings}
+						/>
+
+				</div>
 
                     {isEditing && (
 				<div className="modal">
@@ -291,7 +304,7 @@ const handleListingChange = (event) => {
 
 				</div>
 
-				<div className="createListing">
+				{/* <div className="createListing">
 					<div className="create-listing-button-container">
 						<button className="create-listing-button" onClick={handleOpenModal}>
 							Create Listing
@@ -303,7 +316,7 @@ const handleListingChange = (event) => {
 						fetchListings={fetchListings}
 						/>
 
-				</div>
+				</div> */}
 			</section>
 
 			<section className="listings">
