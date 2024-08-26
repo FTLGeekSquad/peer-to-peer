@@ -1,12 +1,10 @@
 
 
-# Final Capstone Project: Peer To Peer!!
+# Final Capstone Project: Peer 2 Peer!!
 
 SITE Course Year: **2024**
 
-Cohort: **Add Company Sponsor Name**
-
-Created By:**Geek Squad: Sydney Brown, Roxana Cruz, Jazlyn Jones**
+Created By: **Geek Squad: Sydney Brown, Roxana Cruz, Jazlyn Jones**
 
 Mentors Names: ** Srijita Mori, Sean Pathmanaban, Ashish Patel**
 
@@ -17,8 +15,8 @@ Project Code Repository Links
 
 ## Project Overview
 
-Add a quick summary of what your project theme and objectives are. 
-
+Peer2Peer is a platform that connects photography enthusiasts through a peer-to-peer rental system. It allows users to rent or list equipment, spaces, and services related to photography.
+ 	
 Deployment Website: **https://peer-to-peer-ui.onrender.com/**
 
 ### Open-source libraries used
